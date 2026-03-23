@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Intelligent Classroom — How Agentic AI Is Transforming Real-Time Education</title>
+
+  <!-- All styles are hand-authored CSS — no Tailwind CDN dependency -->
+
+  <!-- MathJax CDN -->
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== Design Tokens ===== */
+    :root {
+      --ink: #1a1a1a;
+      --ink-light: #4a4a4a;
+      --ink-muted: #767676;
+      --surface: #fafaf9;
+      --surface-warm: #f5f0eb;
+      --accent: #c2410c;
+      --accent-light: #fed7aa;
+      --border-subtle: #e5e2de;
+      --font-serif: "Source Serif 4", Georgia, serif;
+      --font-sans: "DM Sans", system-ui, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+      --max-prose: 680px;
+      --max-wide: 960px;
+    }
+
+    /* ===== Base (Preflight) ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 2rem; -moz-tab-size: 4; tab-size: 4; }
+    body {
+      font-family: var(--font-serif);
+      background: var(--surface);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+    }
+    h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+    ol, ul { list-style: none; }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    strong { font-weight: 500; color: var(--ink); }
+    em { font-style: italic; }
+    button, input, textarea, select { font: inherit; }
+    p, h1, h2, h3 { overflow-wrap: break-word; }
+
+    /* ===== Typography Scale ===== */
+    .text-display { font-size: 3.25rem; line-height: 1.12; letter-spacing: -0.025em; font-weight: 600; }
+    .text-h1 { font-size: 2rem; line-height: 1.25; letter-spacing: -0.02em; font-weight: 600; }
+    .text-h2 { font-size: 1.5rem; line-height: 1.3; letter-spacing: -0.015em; font-weight: 600; }
+    .text-h3 { font-size: 1.2rem; line-height: 1.4; letter-spacing: -0.01em; font-weight: 600; }
+    .text-body { font-size: 1.125rem; line-height: 1.78; }
+    .text-body-sm { font-size: 1rem; line-height: 1.7; }
+    .text-caption { font-size: 0.8125rem; line-height: 1.5; letter-spacing: 0.04em; }
+    .text-sm { font-size: 0.875rem; }
+    .text-xl { font-size: 1.25rem; }
+    .text-2xl { font-size: 1.5rem; }
+    .text-3xl { font-size: 1.875rem; }
+
+    /* ===== Color Utilities ===== */
+    .bg-surface { background-color: var(--surface); }
+    .text-ink { color: var(--ink); }
+    .text-ink-light { color: var(--ink-light); }
+    .text-ink-muted { color: var(--ink-muted); }
+    .text-accent { color: var(--accent); }
+    .bg-accent { background-color: var(--accent); }
+    .border-border-subtle { border-color: var(--border-subtle); }
+    .bg-border-subtle { background-color: var(--border-subtle); }
+
+    /* ===== Font Family ===== */
+    .font-serif { font-family: var(--font-serif); }
+    .font-sans { font-family: var(--font-sans); }
+    .font-mono { font-family: var(--font-mono); }
+
+    /* ===== Font Weight ===== */
+    .font-light { font-weight: 300; }
+    .font-normal { font-weight: 400; }
+    .font-medium { font-weight: 500; }
+    .font-semibold { font-weight: 600; }
+    .font-bold { font-weight: 700; }
+
+    /* ===== Layout ===== */
+    .max-w-prose { max-width: var(--max-prose); }
+    .max-w-wide { max-width: var(--max-wide); }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+    .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+    .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+    .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+    .pt-16 { padding-top: 4rem; }
+    .pb-12 { padding-bottom: 3rem; }
+    .pl-3 { padding-left: 0.75rem; }
+    .pl-5 { padding-left: 1.25rem; }
+    .pl-6 { padding-left: 1.5rem; }
+    .px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .p-8 { padding: 2rem; }
+    .mb-3 { margin-bottom: 0.75rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    .mb-5 { margin-bottom: 1.25rem; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mb-8 { margin-bottom: 2rem; }
+    .mb-10 { margin-bottom: 2.5rem; }
+    .mb-16 { margin-bottom: 4rem; }
+    .mb-20 { margin-bottom: 5rem; }
+    .mt-1 { margin-top: 0.25rem; }
+    .mt-3 { margin-top: 0.75rem; }
+    .mt-4 { margin-top: 1rem; }
+    .mt-12 { margin-top: 3rem; }
+    .mt-14 { margin-top: 3.5rem; }
+    .my-8 { margin-top: 2rem; margin-bottom: 2rem; }
+    .my-10 { margin-top: 2.5rem; margin-bottom: 2.5rem; }
+    .my-12 { margin-top: 3rem; margin-bottom: 3rem; }
+    .mx-2 { margin-left: 0.5rem; margin-right: 0.5rem; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-4 { gap: 1rem; }
+
+    /* ===== Flexbox ===== */
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .flex-wrap { flex-wrap: wrap; }
+    .items-center { align-items: center; }
+    .justify-center { justify-content: center; }
+    .justify-between { justify-content: space-between; }
+
+    /* ===== Display & Position ===== */
+    .hidden { display: none; }
+    .block { display: block; }
+    .inline { display: inline; }
+    .relative { position: relative; }
+    .fixed { position: fixed; }
+    .absolute { position: absolute; }
+    .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+    .top-0 { top: 0; }
+    .left-0 { left: 0; }
+    .z-40 { z-index: 40; }
+    .z-50 { z-index: 50; }
+    .overflow-hidden { overflow: hidden; }
+
+    /* ===== Sizing ===== */
+    .w-full { width: 100%; }
+    .w-5 { width: 1.25rem; }
+    .w-56 { width: 14rem; }
+    .h-px { height: 1px; }
+    .h-64 { height: 16rem; }
+    .h-5 { height: 1.25rem; }
+    .min-w-\[140px\] { min-width: 140px; }
+
+    /* ===== Borders & Radius ===== */
+    .border { border-width: 1px; border-style: solid; }
+    .border-t { border-top-width: 1px; border-top-style: solid; }
+    .border-l-2 { border-left-width: 2px; border-left-style: solid; }
+    .rounded-lg { border-radius: 0.5rem; }
+
+    /* ===== Text ===== */
+    .uppercase { text-transform: uppercase; }
+    .tracking-widest { letter-spacing: 0.1em; }
+    .tracking-wide { letter-spacing: 0.025em; }
+    .tracking-tight { letter-spacing: -0.025em; }
+    .leading-snug { line-height: 1.375; }
+    .leading-relaxed { line-height: 1.625; }
+    .text-center { text-align: center; }
+    .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    /* ===== Backgrounds & Effects ===== */
+    .backdrop-blur { backdrop-filter: blur(8px); }
+    .bg-white\/70 { background-color: rgba(255,255,255,0.7); }
+    .bg-white\/50 { background-color: rgba(255,255,255,0.5); }
+    .opacity-\[0\.035\] { opacity: 0.035; }
+
+    /* ===== Selection ===== */
+    ::selection { background: var(--accent-light); color: var(--ink); }
+
+    /* ===== Responsive MD ===== */
+    @media (min-width: 768px) {
+      .md\:pt-24 { padding-top: 6rem; }
+      .md\:pb-20 { padding-bottom: 5rem; }
+      .md\:py-24 { padding-top: 6rem; padding-bottom: 6rem; }
+      .md\:text-2xl { font-size: 1.5rem; }
+    }
+
+    /* ===== Responsive SM ===== */
+    @media (min-width: 640px) {
+      .sm\:flex-row { flex-direction: row; }
+    }
+
+    /* ===== Responsive XL — TOC visible ===== */
+    @media (min-width: 1280px) {
+      .xl\:block { display: block; }
+    }
+
+    /* ===== Gradient Header ===== */
+    .bg-gradient-header {
+      background: linear-gradient(to bottom, #f5f0eb 0%, var(--surface) 50%, var(--surface) 100%);
+    }
+
+    /* ===== Reading Progress Bar ===== */
+    #progress-bar { transform-origin: left; transform: scaleX(0); }
+
+    /* ===== TOC ===== */
+    .toc-sidebar { top: 50%; transform: translateY(-50%); left: max(1rem, calc((100vw - 960px) / 2 - 280px)); }
+    .toc-link {
+      transition: color 0.2s, border-color 0.2s;
+      border-left-color: transparent;
+      font-size: 0.8rem;
+    }
+    .toc-link:hover { color: var(--accent); }
+    .toc-link.active {
+      color: var(--accent) !important;
+      border-left-color: var(--accent) !important;
+      font-weight: 600;
+    }
+    .toc-sub { font-size: 0.75rem; color: rgba(118,118,118,0.7); }
+
+    /* ===== Pull Quote ===== */
+    .pull-quote { position: relative; border-left: 3px solid var(--accent); }
+
+    /* ===== Stat Cards ===== */
+    .stat-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+
+    /* ===== Scroll Fade-in ===== */
+    .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== Formula Block ===== */
+    .formula-block {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface-warm) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+      overflow-x: auto;
+    }
+
+    /* ===== Chart Placeholder ===== */
+    .chart-placeholder {
+      border: 2px dashed var(--accent);
+      border-radius: 12px;
+      background: repeating-linear-gradient(-45deg, transparent, transparent 8px, rgba(194,65,12,0.02) 8px, rgba(194,65,12,0.02) 16px);
+    }
+
+    /* ===== References section ===== */
+    .ref-list p { margin-bottom: 0.75rem; }
+
+    /* ===== Max-width constraints from class ===== */
+    .max-w-\[720px\] { max-width: 720px; }
+    .max-w-\[600px\] { max-width: 600px; }
+    .max-w-md { max-width: 28rem; }
+    .h-\[3px\] { height: 3px; }
+    .space-y-1 > * + * { margin-top: 0.25rem; }
+    .space-y-3 > * + * { margin-top: 0.75rem; }
+
+    /* ===== Print ===== */
+    @media print { .toc-sidebar, #progress-bar { display: none !important; } }
+  </style>
+</head>
+
+<body class="bg-surface text-ink font-serif antialiased">
+
+  <!-- Reading Progress Bar -->
+  <div id="progress-bar" class="fixed top-0 left-0 w-full h-[3px] bg-accent z-50"></div>
+
+  <!-- ====== FLOATING SIDE TOC (Desktop) ====== -->
+  <nav class="toc-sidebar hidden xl:block fixed left-[max(1rem,calc((100vw-960px)/2-280px))] top-1/2 -translate-y-1/2 w-56 z-40">
+    <div class="text-caption font-sans font-semibold uppercase text-ink-muted mb-4 tracking-widest">Contents</div>
+    <ul class="space-y-1 text-[0.8rem] font-sans leading-snug">
+      <li><a href="#part-1" class="toc-link block py-1 pl-3 border-l-2 text-ink-muted hover:text-accent">Part 1: Education at a Crossroads</a></li>
+      <li><a href="#sec-1-1" class="toc-link block py-1 pl-5 border-l-2 text-ink-muted/70 hover:text-accent text-[0.75rem]">1.1 Global Education Crisis</a></li>
+      <li><a href="#sec-1-2" class="toc-link block py-1 pl-5 border-l-2 text-ink-muted/70 hover:text-accent text-[0.75rem]">1.2 Limits of Traditional EdTech</a></li>
+      <li><a href="#sec-1-3" class="toc-link block py-1 pl-5 border-l-2 text-ink-muted/70 hover:text-accent text-[0.75rem]">1.3 Case for Agentic AI</a></li>
+      <li><a href="#part-2" class="toc-link block py-1 pl-3 border-l-2 text-ink-muted hover:text-accent">Part 2: AI/ML Technologies</a></li>
+      <li><a href="#sec-2-1" class="toc-link block py-1 pl-5 border-l-2 text-ink-muted/70 hover:text-accent text-[0.75rem]">2.1 LLM-Based Agentic Tutoring</a></li>
+      <li><a href="#sec-2-2" class="toc-link block py-1 pl-5 border-l-2 text-ink-muted/70 hover:text-accent text-[0.75rem]">2.2 RAG &amp; Knowledge Grounding</a></li>
+      <li><a href="#sec-2-3" class="toc-link block py-1 pl-5 border-l-2 text-ink-muted/70 hover:text-accent text-[0.75rem]">2.3 Multi-Agent Systems</a></li>
+      <li><a href="#sec-2-4" class="toc-link block py-1 pl-5 border-l-2 text-ink-muted/70 hover:text-accent text-[0.75rem]">2.4 Multimodal AI</a></li>
+      <li><a href="#sec-2-5" class="toc-link block py-1 pl-5 border-l-2 text-ink-muted/70 hover:text-accent text-[0.75rem]">2.5 Integrated Architecture</a></li>
+      <li><a href="#part-3" class="toc-link block py-1 pl-3 border-l-2 text-ink-muted hover:text-accent">Part 3: Ethical Implications</a></li>
+      <li><a href="#sec-3-1" class="toc-link block py-1 pl-5 border-l-2 text-ink-muted/70 hover:text-accent text-[0.75rem]">3.1 Student Data Privacy</a></li>
+      <li><a href="#sec-3-2" class="toc-link block py-1 pl-5 border-l-2 text-ink-muted/70 hover:text-accent text-[0.75rem]">3.2 Over-Reliance &amp; Critical Thinking</a></li>
+      <li><a href="#sec-3-3" class="toc-link block py-1 pl-5 border-l-2 text-ink-muted/70 hover:text-accent text-[0.75rem]">3.3 Digital Divide &amp; Equity</a></li>
+      <li><a href="#sec-3-4" class="toc-link block py-1 pl-5 border-l-2 text-ink-muted/70 hover:text-accent text-[0.75rem]">3.4 Academic Integrity</a></li>
+      <li><a href="#conclusions" class="toc-link block py-1 pl-3 border-l-2 text-ink-muted hover:text-accent">Conclusions</a></li>
+      <li><a href="#references" class="toc-link block py-1 pl-3 border-l-2 text-ink-muted hover:text-accent">References</a></li>
+    </ul>
+  </nav>
+
+  <!-- ====== HEADER / HERO ====== -->
+  <header class="relative overflow-hidden bg-gradient-header">
+    <div class="absolute inset-0 opacity-[0.035]" style="background-image: radial-gradient(circle at 20% 50%, #c2410c 1px, transparent 1px), radial-gradient(circle at 80% 20%, #c2410c 1px, transparent 1px); background-size: 60px 60px;"></div>
+    <div class="relative max-w-wide mx-auto px-6 pt-16 pb-12 md:pt-24 md:pb-20">
+      <div class="font-sans text-caption uppercase tracking-widest text-ink-muted mb-8">
+        <span class="text-accent font-semibold">ELEC0141</span>
+        <span class="mx-2 text-border-subtle">&middot;</span>
+        <span>Natural Language Processing</span>
+        <span class="mx-2 text-border-subtle">&middot;</span>
+        <span>UCL Electronic &amp; Electrical Engineering</span>
+        <span class="mx-2 text-border-subtle">&middot;</span>
+        <span>May 2026</span>
+      </div>
+      <h1 class="text-display max-w-[720px] mb-6">The Intelligent Classroom</h1>
+      <p class="font-sans text-xl md:text-2xl text-ink-light font-light max-w-[600px] leading-relaxed tracking-tight mb-10">How Agentic AI Is Transforming Real-Time Education</p>
+      <div class="flex flex-wrap gap-4 mt-4">
+        <div class="stat-card bg-white/70 backdrop-blur border border-border-subtle rounded-lg px-5 py-4 min-w-[140px]">
+          <div class="font-sans text-3xl font-bold text-accent tracking-tight">44M</div>
+          <div class="font-sans text-caption text-ink-muted mt-1 uppercase">Teachers needed by 2030</div>
+        </div>
+        <div class="stat-card bg-white/70 backdrop-blur border border-border-subtle rounded-lg px-5 py-4 min-w-[140px]">
+          <div class="font-sans text-3xl font-bold text-accent tracking-tight">700K+</div>
+          <div class="font-sans text-caption text-ink-muted mt-1 uppercase">Khanmigo users 2024&ndash;25</div>
+        </div>
+        <div class="stat-card bg-white/70 backdrop-blur border border-border-subtle rounded-lg px-5 py-4 min-w-[140px]">
+          <div class="font-sans text-3xl font-bold text-accent tracking-tight">2&sigma;</div>
+          <div class="font-sans text-caption text-ink-muted mt-1 uppercase">Bloom&rsquo;s tutoring effect</div>
+        </div>
+        <div class="stat-card bg-white/70 backdrop-blur border border-border-subtle rounded-lg px-5 py-4 min-w-[140px]">
+          <div class="font-sans text-3xl font-bold text-accent tracking-tight">2.6B</div>
+          <div class="font-sans text-caption text-ink-muted mt-1 uppercase">People offline globally</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="w-full h-px bg-border-subtle"></div>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="max-w-prose mx-auto px-6 py-16 md:py-24">
+
+    <!-- ===== PART 1 ===== -->
+    <section id="part-1" class="fade-in mb-20">
+      <div class="font-sans text-caption uppercase tracking-widest text-accent font-semibold mb-3">Part 1</div>
+      <h2 class="text-h1 mb-10">Education at a Crossroads</h2>
+
+      <h3 id="sec-1-1" class="text-h2 mb-5 mt-12">1.1&ensp;The Global Education Crisis</h3>
+      <p class="text-body text-ink-light mb-6">Education systems worldwide are confronting a crisis of capacity. According to UNESCO and the Teacher Task Force, the world needs approximately <strong class="text-ink font-medium">44 million additional teachers by 2030</strong> to achieve universal basic education (UNESCO, 2024). The 2024 Teaching and Learning International Survey (TALIS) found that one in five teachers under 30 plans to leave the profession within five years, a figure that rises to nearly half in some countries (Education International, 2025). In the United States alone, the Learning Policy Institute estimates that roughly 411,500 teaching positions were either unfilled or occupied by teachers not fully certified for their assignments in the 2024&ndash;25 school year, representing approximately one in eight positions nationally (Learning Policy Institute, 2025).</p>
+      <p class="text-body text-ink-light mb-6">The consequences extend beyond staffing numbers. Teacher burnout and attrition create a vicious cycle: rising workloads drive experienced educators out of the profession, placing greater strain on those who remain and further diminishing instructional quality. Across OECD countries, unfilled vacancies are consistently higher in secondary education than in primary, reflecting acute subject-specific shortages in science, mathematics, and technology (OECD Education at a Glance, 2025). Rural and economically disadvantaged regions bear the brunt of this crisis, where limited tax bases prevent competitive salaries and physical distance from teacher preparation programmes compounds recruitment challenges. In Sub-Saharan Africa, the student-to-teacher ratio can exceed <strong class="text-ink font-medium">56:1</strong> in some areas (UNESCO, 2024), making personalised instruction a practical impossibility.</p>
+
+      <h3 id="sec-1-2" class="text-h2 mb-5 mt-14">1.2&ensp;The Limits of Traditional Educational Technology</h3>
+      <p class="text-body text-ink-light mb-6">Previous waves of educational technology have promised transformation but delivered incremental improvement at best. Massive Open Online Courses (MOOCs), which emerged in the early 2010s, democratised access to content but suffered from high dropout rates and a fundamentally passive learning model. Adaptive learning platforms such as early iterations of Khan Academy and Carnegie Learning introduced some degree of personalisation through item-response algorithms, but these systems remained constrained by predefined content paths and rule-based decision logic. They could adjust the difficulty of exercises but could not engage in the kind of open-ended, dialogic interaction that characterises effective human tutoring.</p>
+
+      <div class="pull-quote pl-6 py-1 my-10">
+        <p class="text-xl md:text-2xl font-serif font-medium text-ink leading-snug tracking-tight">&ldquo;Students receiving individual tutoring performed two standard deviations above conventionally taught peers &mdash; the so-called &lsquo;two-sigma problem.&rsquo;&rdquo;</p>
+        <p class="font-sans text-caption text-ink-muted mt-3 uppercase">Benjamin Bloom, 1984</p>
+      </div>
+
+      <p class="text-body text-ink-light mb-6">The educational technology landscape has long been defined by a gap between the aspiration of personalised learning and the reality of what technology could deliver. The 1984 finding by Benjamin Bloom that students receiving individual tutoring performed two standard deviations above conventionally taught peers established the gold standard for personalised instruction. Yet replicating this level of individual attention at scale remained economically and logistically infeasible for decades. What was needed was a technology capable of understanding natural language, reasoning about student misconceptions, and adapting its pedagogical strategy in real time. The emergence of large language models (LLMs) and agentic AI architectures has, for the first time, made this vision plausible.</p>
+
+      <h3 id="sec-1-3" class="text-h2 mb-5 mt-14">1.3&ensp;The Case for Agentic AI in Education</h3>
+      <p class="text-body text-ink-light mb-6">The term &ldquo;agentic AI&rdquo; refers to systems that exhibit autonomous, goal-directed behaviour, combining capabilities such as planning, reasoning, tool use, and adaptive interaction within dynamic environments (Schneider, 2025; Acharya et al., 2025). Unlike earlier rule-based tutoring systems, agentic AI tutors can engage in Socratic dialogue, decompose complex problems into scaffolded sub-tasks, retrieve and ground responses in verified curricular content, and adjust their pedagogical approach based on real-time assessment of student understanding.</p>
+      <p class="text-body text-ink-light mb-6">The commercial and empirical landscape already offers compelling evidence of this potential. Khan Academy&rsquo;s Khanmigo, an AI tutoring assistant built on GPT-4, grew from approximately 68,000 users during its 2023&ndash;24 pilot to <strong class="text-ink font-medium">over 700,000</strong> in the 2024&ndash;25 academic year, with projections exceeding one million for 2025&ndash;26 (Khan Academy, 2025; DiCerbo, 2025). A 2025 systematic review of 82 peer-reviewed studies on LLM agents in education found five recurring themes: retrieval-augmented generation (RAG) dramatically reduces hallucination; prompt-engineering guardrails preserve academic integrity; multi-agent debate improves accuracy on complex tasks; affective scaffolding increases student persistence; and hybrid human&ndash;AI workflows consistently outperform fully autonomous tutors (Garcia-Bosque et al., 2025).</p>
+
+      <!-- Chart Placeholder #1 -->
+      <div class="chart-placeholder p-8 my-12 text-center fade-in">
+        <div class="flex items-center justify-center gap-2 mb-3">
+          <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          <span class="font-sans text-sm font-semibold text-accent uppercase tracking-wide">Interactive Chart</span>
+        </div>
+        <p class="font-sans text-body-sm text-ink-muted max-w-md mx-auto">Khanmigo User Growth &amp; Adoption Trajectory (2023&ndash;2026) &mdash; embed a Python-generated Plotly or Matplotlib chart here.</p>
+        <div id="chart-placeholder-1" class="w-full h-64 mt-4 rounded-lg bg-white/50 flex items-center justify-center">
+          <span class="font-mono text-sm text-ink-muted/50">&lt;iframe&gt; or &lt;img&gt; embed target</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PART 2 ===== -->
+    <section id="part-2" class="fade-in mb-20">
+      <div class="font-sans text-caption uppercase tracking-widest text-accent font-semibold mb-3">Part 2</div>
+      <h2 class="text-h1 mb-10">AI/ML Technologies Transforming Real-Time Education</h2>
+
+      <h3 id="sec-2-1" class="text-h2 mb-5 mt-12">2.1&ensp;LLM-Based Agentic Tutoring</h3>
+      <p class="text-body text-ink-light mb-6">At the core of the current revolution in AI-powered education is the large language model, a deep neural network trained on vast text corpora to predict and generate natural language. Models such as GPT-4 (OpenAI, 2023), Gemini (Google DeepMind, 2024), and Claude (Anthropic, 2025) have demonstrated near-human performance on language understanding, instruction following, and multi-step reasoning tasks. When augmented with agentic capabilities &mdash; planning, tool use, memory, and reflection &mdash; these models become capable of sustained, pedagogically meaningful interactions with learners.</p>
+      <p class="text-body text-ink-light mb-6">The Socratic method, in which a tutor guides a student toward understanding through a sequence of probing questions rather than direct instruction, has proven particularly well-suited to LLM-based tutoring. Khanmigo exemplifies this approach: rather than providing direct answers, it prompts students to articulate their reasoning, identify gaps in their understanding, and arrive at conclusions independently. The Writing Coach module, for example, guides students through essay planning, thesis refinement, and draft revision without generating text on their behalf, and flags passages of more than fifteen words pasted from external sources for teacher review (Khan Academy, 2025).</p>
+      <p class="text-body text-ink-light mb-6">Technically, these agentic tutors leverage several key advances in LLM reasoning. <strong class="text-ink font-medium">Chain-of-thought (CoT) prompting</strong> (Wei et al., 2023) enables models to generate intermediate reasoning steps before producing a final answer, significantly improving performance on mathematical and logical tasks. The <strong class="text-ink font-medium">ReAct framework</strong> (Yao et al., 2023) extends this by interleaving reasoning traces with external tool interactions &mdash; searching knowledge bases, executing calculations, or querying databases &mdash; allowing the agent to ground its reasoning in verified information. Chen et al. (2024) demonstrated how chaining multiple LLM calls in a tutoring pipeline &mdash; one for student state diagnosis, another for response generation, a third for quality verification &mdash; can produce tutoring interactions that approach the effectiveness of expert human tutors.</p>
+      <p class="text-body text-ink-light mb-6">A critical and often overlooked challenge for agentic tutoring is <strong class="text-ink font-medium">deployment cost</strong>. State-of-the-art LLMs contain billions of parameters and require substantial GPU memory for inference, making them impractical for the low-cost hardware that dominates educational settings worldwide &mdash; Chromebooks, tablets, and shared classroom computers. On such devices, the binding constraint is frequently not raw computational throughput but the <em>memory wall</em>: the bandwidth bottleneck that arises when transferring billions of model weights from DRAM to on-chip SRAM for each inference pass.</p>
+      <p class="text-body text-ink-light mb-6">Model compression techniques offer a pathway to bridging this gap. <strong class="text-ink font-medium">Quantization</strong> reduces the numerical precision of model weights from 32-bit floating point to 4-bit or 8-bit integers. Formally, each floating-point weight \( W_{\text{fp}} \) is mapped to its quantized representation \( W_q \) via:</p>
+
+      <div class="formula-block my-8 text-center">
+        $$ W_q = \text{round}\!\left(\frac{W_{\text{fp}}}{S}\right) + Z $$
+        <p class="font-sans text-caption text-ink-muted mt-3">where \(S\) is a learned scale factor and \(Z\) is a zero-point offset defining the mapping between the continuous weight distribution and the discrete integer grid.</p>
+      </div>
+
+      <p class="text-body text-ink-light mb-6">By representing each weight in 4 bits rather than 32, quantization reduces the memory footprint by up to 8&times;, directly alleviating the DRAM bandwidth bottleneck that dominates inference cost on low-power hardware. Recent benchmarks on edge devices show that 4-bit quantized models maintain over 91% accuracy while halving memory usage and reducing inference latency from 150ms to 110ms (Agrawal et al., 2025). <strong class="text-ink font-medium">Knowledge distillation</strong> transfers the capabilities of a large &ldquo;teacher&rdquo; model into a smaller &ldquo;student&rdquo; model, achieving 85% of the teacher&rsquo;s performance at a fraction of the computational cost. <strong class="text-ink font-medium">Structured pruning</strong> removes entire neural network layers or attention heads that contribute minimally to output quality, reducing model size by up to 60%.</p>
+
+      <!-- Chart Placeholder #2 -->
+      <div class="chart-placeholder p-8 my-12 text-center fade-in">
+        <div class="flex items-center justify-center gap-2 mb-3">
+          <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+          <span class="font-sans text-sm font-semibold text-accent uppercase tracking-wide">Interactive Chart</span>
+        </div>
+        <p class="font-sans text-body-sm text-ink-muted max-w-md mx-auto">Model Compression Techniques Comparison &mdash; Accuracy vs. Memory Footprint trade-off for Quantization, Distillation, and Pruning.</p>
+        <div id="chart-placeholder-2" class="w-full h-64 mt-4 rounded-lg bg-white/50 flex items-center justify-center">
+          <span class="font-mono text-sm text-ink-muted/50">&lt;iframe&gt; or &lt;img&gt; embed target</span>
+        </div>
+      </div>
+
+      <h3 id="sec-2-2" class="text-h2 mb-5 mt-14">2.2&ensp;Retrieval-Augmented Generation and Knowledge Grounding</h3>
+      <p class="text-body text-ink-light mb-6">One of the most critical challenges facing LLM-based educational systems is <strong class="text-ink font-medium">hallucination</strong>: the generation of plausible but factually incorrect information. In general-purpose applications, a hallucinated response is inconvenient; in education, it can directly implant misconceptions in learners. Retrieval-augmented generation (RAG) addresses this by coupling the LLM&rsquo;s generative capabilities with a retrieval mechanism that fetches relevant passages from a verified knowledge base before generating a response (Lewis et al., 2020).</p>
+      <p class="text-body text-ink-light mb-4">Formally, RAG reformulates the generation objective as a marginalisation over retrieved documents:</p>
+
+      <div class="formula-block my-8 text-center">
+        $$ P(y \mid x) = \sum_{z \in \mathcal{Z}} P(z \mid x)\, P(y \mid z, x) $$
+        <p class="font-sans text-caption text-ink-muted mt-3">where \(x\) is the student&rsquo;s query, \(\mathcal{Z}\) is the set of candidate documents, \(P(z \mid x)\) is the retrieval probability (via dense vector similarity), and \(P(y \mid z, x)\) is the conditional generation probability given query and retrieved context.</p>
+      </div>
+
+      <p class="text-body text-ink-light mb-6">In practice, a RAG-enhanced tutoring system works as follows: when a student poses a question, the system first encodes the query into a dense vector representation and searches a curated corpus &mdash; textbooks, lecture notes, problem sets &mdash; for semantically similar content. The retrieved passages are then provided to the LLM as context, constraining its generation to information grounded in authoritative sources. Verma (2025) describes <strong class="text-ink font-medium">LPITutor</strong>, an LLM-based personalised tutoring system that implements a modular RAG pipeline: a query processing module extracts student intent, a retrieval module fetches relevant course materials, and a response generation module synthesises a pedagogically appropriate answer anchored in the retrieved content.</p>
+      <p class="text-body text-ink-light mb-6">The 2025 systematic review by Garcia-Bosque et al. identifies retrieval grounding as the single most effective technique for reducing hallucination in educational agents, with multiple studies reporting significant improvements in factual accuracy when RAG is employed compared to pure generation baselines. Beyond factual accuracy, RAG enables institutional control over the knowledge base: educators can curate and update the corpus to align with specific curricula, ensuring that the AI tutor teaches what the course intends.</p>
+
+      <h3 id="sec-2-3" class="text-h2 mb-5 mt-14">2.3&ensp;Multi-Agent Systems in Education</h3>
+      <p class="text-body text-ink-light mb-6">While single-agent tutoring systems have demonstrated considerable promise, recent research has explored multi-agent architectures in which several specialised agents collaborate to support learning. Wang et al. (2025b) propose a <strong class="text-ink font-medium">five-agent system</strong> comprising a Gap Identifier (which diagnoses learning deficits), a Learner Profiler (which models student characteristics), a Dynamic Planner (which generates personalised learning paths), a Content Adapter (which tailors materials to the learner&rsquo;s level), and a Feedback Synthesiser (which consolidates assessment data into actionable insights). Each agent operates with a focused mandate, and their coordinated interaction produces a more nuanced and responsive learning experience than any single agent could achieve alone.</p>
+      <p class="text-body text-ink-light mb-6"><strong class="text-ink font-medium">Multi-agent debate</strong>, in which multiple LLM agents independently reason about a problem and then compare and reconcile their outputs, has shown particular promise for improving accuracy on ill-structured tasks such as essay evaluation and open-ended problem-solving (Garcia-Bosque et al., 2025). The <strong class="text-ink font-medium">EduThink4AI</strong> framework (2026) extends this approach by implementing a four-agent pipeline where agents for answer generation, validity checking, critical analysis, and final synthesis collaborate using chain-of-thought reasoning, explicitly targeting the development of critical thinking in students.</p>
+      <p class="text-body text-ink-light mb-6"><strong class="text-ink font-medium">Knowledge tracing</strong> &mdash; the task of modelling what a student knows and how their knowledge evolves over time &mdash; is another domain where multi-agent approaches have shown advantages. Xu et al. (2024) propose simulating students as different personas, allowing agents to adaptively track knowledge progression. Scarlatos et al. (2025) employ dialogue-driven interactions to probe students&rsquo; conceptual boundaries, using conversational exchanges to dynamically refine knowledge estimation.</p>
+
+      <!-- Chart Placeholder #3 -->
+      <div class="chart-placeholder p-8 my-12 text-center fade-in">
+        <div class="flex items-center justify-center gap-2 mb-3">
+          <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span class="font-sans text-sm font-semibold text-accent uppercase tracking-wide">Interactive Chart</span>
+        </div>
+        <p class="font-sans text-body-sm text-ink-muted max-w-md mx-auto">Multi-Agent Architecture Diagram &mdash; Five-agent system interaction flow and knowledge tracing pipeline.</p>
+        <div id="chart-placeholder-3" class="w-full h-64 mt-4 rounded-lg bg-white/50 flex items-center justify-center">
+          <span class="font-mono text-sm text-ink-muted/50">&lt;iframe&gt; or &lt;img&gt; embed target</span>
+        </div>
+      </div>
+
+      <h3 id="sec-2-4" class="text-h2 mb-5 mt-14">2.4&ensp;Multimodal AI: An Agent That Can See, Hear, and Speak</h3>
+      <p class="text-body text-ink-light mb-6">The most advanced vision for AI in education extends beyond text-based interaction to encompass <strong class="text-ink font-medium">multimodal perception and generation</strong> &mdash; systems that can process and produce text, speech, images, and video simultaneously. Recent foundation models such as GPT-4o (OpenAI, 2024), Gemini 2.5 (Google DeepMind, 2025), and Claude (Anthropic, 2025) natively integrate multiple modalities, enabling new forms of educational interaction.</p>
+      <p class="text-body text-ink-light mb-6"><strong class="text-ink font-medium">Speech recognition and synthesis</strong> are transforming how students interact with AI tutors. Real-time voice interaction enables more natural, conversation-like tutoring sessions, particularly valuable for younger learners and second-language (L2) learners. Researchers at the NSF National AI Institute for Student-AI Teaming (iSAT) have developed a Discrete Multimodal Large Language Model (DMLM) specifically fine-tuned for classroom speech recognition, addressing background noise, children&rsquo;s speech patterns, and accent diversity (Trinh et al., 2025).</p>
+      <p class="text-body text-ink-light mb-6"><strong class="text-ink font-medium">Computer vision</strong> opens another dimension of classroom intelligence. <strong class="text-ink font-medium">ClassMind</strong> (2025), a multimodal AI framework, combines automatic speech recognition (Whisper for transcription, pyannote for speaker diarisation) with video analysis to generate comprehensive instructional feedback at scale. A systematic review of 104 studies on AI in classroom management found growing use of ML and deep learning for tasks including attendance tracking, behaviour monitoring, and engagement assessment, though only 22% of studies addressed ethical concerns and just 13% implemented privacy-preserving measures.</p>
+      <p class="text-body text-ink-light mb-6"><strong class="text-ink font-medium">The integration of vision and language</strong> is particularly powerful for STEM education, where learning often involves diagrams, equations, and spatial reasoning. Wang et al. (2025) propose <strong class="text-ink font-medium">UniEdu</strong>, a unified language and vision assistant that combines visual question answering, diagram interpretation, and textual explanation in a single model.</p>
+
+      <h3 id="sec-2-5" class="text-h2 mb-5 mt-14">2.5&ensp;Toward an Integrated Architecture: The Real-Time Agentic Tutor</h3>
+      <p class="text-body text-ink-light mb-6">The technologies described above &mdash; agentic LLM tutoring, RAG-based knowledge grounding, multi-agent collaboration, and multimodal perception &mdash; are not isolated capabilities but complementary components of an emerging integrated architecture. A fully realised real-time agentic tutor would combine all four: an LLM backbone capable of Socratic dialogue; a RAG pipeline anchoring every response in verified curricular content; a multi-agent layer coordinating diagnosis, content adaptation, and assessment; and multimodal interfaces enabling the system to perceive speech, visual inputs, and contextual cues.</p>
+
+      <div class="pull-quote pl-6 py-1 my-10">
+        <p class="text-xl md:text-2xl font-serif font-medium text-ink leading-snug tracking-tight">The shift from generative AI to agentic AI in education is not merely a technological upgrade; it represents a reconceptualisation of the AI tutor from a question-answering engine to an autonomous pedagogical partner.</p>
+        <p class="font-sans text-caption text-ink-muted mt-3 uppercase">Chu et al., 2025</p>
+      </div>
+
+      <p class="text-body text-ink-light mb-6">The practical implications are already visible. <strong class="text-ink font-medium">Duolingo Max</strong> integrates GPT-4 for contextual conversation practice. <strong class="text-ink font-medium">Squirrel AI</strong> in China has been used by over ten million students, dynamically adjusting content granularity. Research prototypes such as <strong class="text-ink font-medium">CodeAgent</strong> (Zhang et al., 2024b) and <strong class="text-ink font-medium">Iris</strong> (Bassner et al., 2024) demonstrate agentic frameworks for specialised domains like computer science education, integrating web search, documentation retrieval, and code execution into the tutoring loop.</p>
+      <p class="text-body text-ink-light mb-6">Consider a real-time classroom scenario: a student working on a physics problem speaks a question aloud; the agent&rsquo;s speech recognition module transcribes and interprets the query; its vision module analyses the student&rsquo;s handwritten free-body diagram on a tablet; its RAG pipeline retrieves the relevant section from the course textbook; and its language model synthesises a Socratic response that addresses the specific conceptual error visible in the diagram. Each component has matured independently, but their integration into a coherent agentic pipeline is what makes the intelligent classroom possible.</p>
+      <p class="text-body text-ink-light mb-6">The <strong class="text-ink font-medium">latency dimension</strong> deserves particular attention. Real-time classroom interaction is extraordinarily sensitive to response delay &mdash; if a voice-based tutoring agent takes more than two seconds to respond, conversational flow breaks. The end-to-end latency of a cloud-only architecture can be decomposed as:</p>
+
+      <div class="formula-block my-8 text-center">
+        $$ T_{\text{total}} = T_{\text{edge}}^{\text{infer}} + T_{\text{net}}^{\text{tx}} + T_{\text{cloud}}^{\text{infer}} + T_{\text{net}}^{\text{rx}} $$
+        <p class="font-sans text-caption text-ink-muted mt-3">Latency decomposition for edge-cloud co-design in agentic tutoring systems.</p>
+      </div>
+
+      <p class="text-body text-ink-light mb-6">The architectural response is <strong class="text-ink font-medium">edge-cloud co-design</strong>, in which the multimodal pipeline is partitioned across device and cloud tiers. Lightweight, latency-critical components &mdash; speech activity detection, voice-to-text front-end feature extraction, facial engagement classification &mdash; run locally on the student&rsquo;s device, while computationally intensive operations &mdash; full LLM reasoning, RAG retrieval, and response generation &mdash; are offloaded to cloud infrastructure. By performing audio feature extraction on-device, the system transmits compact feature vectors rather than raw audio waveforms, compressing the upstream payload by an order of magnitude. Edge-cloud collaborative frameworks such as <strong class="text-ink font-medium">EdgeShard</strong> (Zhang et al., 2024) demonstrate how LLM inference can be partitioned across heterogeneous devices, and the NeurIPS 2024 Edge-Device LLM Competition has catalysed research into models that can run on hardware as constrained as a Raspberry Pi 4 with 4GB RAM (Liu et al., 2024).</p>
+    </section>
+
+    <!-- ===== PART 3 ===== -->
+    <section id="part-3" class="fade-in mb-20">
+      <div class="font-sans text-caption uppercase tracking-widest text-accent font-semibold mb-3">Part 3</div>
+      <h2 class="text-h1 mb-10">Ethical Implications of AI in Education</h2>
+
+      <h3 id="sec-3-1" class="text-h2 mb-5 mt-12">3.1&ensp;Student Data Privacy</h3>
+      <p class="text-body text-ink-light mb-6">AI tutoring systems necessarily collect substantial quantities of sensitive data about learners: their questions, misconceptions, learning pace, emotional states, and behavioural patterns. When the learners are minors, this data collection raises acute privacy concerns governed by frameworks such as the <strong class="text-ink font-medium">GDPR</strong> in the EU, <strong class="text-ink font-medium">FERPA</strong> in the US, and <strong class="text-ink font-medium">COPPA</strong> for users under 13.</p>
+      <p class="text-body text-ink-light mb-6">The challenge is not merely regulatory compliance but the fundamental tension between personalisation and privacy. Effective adaptive learning requires rich learner models &mdash; detailed profiles of what each student knows, how they learn, and where they struggle. The 2025 systematic review of AI in classroom management found that only 22% of 104 studies reviewed addressed ethical concerns at all. UNESCO&rsquo;s 2025 report underscores that without equitable, affordable, and sustainable safeguards, AI-powered education risks exacerbating rather than alleviating existing inequalities.</p>
+      <p class="text-body text-ink-light mb-6">The European Union&rsquo;s AI Act, which classifies AI systems used in education as &ldquo;high-risk,&rdquo; imposes requirements for transparency, human oversight, and data governance. The development of <strong class="text-ink font-medium">privacy-by-design principles</strong> specific to educational AI &mdash; including data minimisation, purpose limitation, and the right to algorithmic explanation &mdash; is an active area of policy research.</p>
+      <p class="text-body text-ink-light mb-6">Crucially, the edge computing architectures discussed in Part 2 offer not merely a performance optimisation but a direct architectural solution to privacy concerns. When speech recognition, facial engagement detection, and preliminary NLP are performed on-device, the most sensitive biometric data &mdash; a child&rsquo;s voice, facial expressions, and real-time behavioural patterns &mdash; <strong class="text-ink font-medium">never leaves the local hardware</strong>. This approach transforms the privacy calculus fundamentally: rather than relying solely on legal frameworks and corporate data governance promises, on-device processing provides a physical guarantee.</p>
+
+      <h3 id="sec-3-2" class="text-h2 mb-5 mt-14">3.2&ensp;Over-Reliance and the Erosion of Critical Thinking</h3>
+      <p class="text-body text-ink-light mb-6">Perhaps the most philosophically profound concern about AI in education is the risk of <strong class="text-ink font-medium">cognitive atrophy</strong>. Gerlich (2025), in a study of 666 participants, found a significant negative correlation between frequent AI tool usage and critical thinking abilities, mediated by increased cognitive offloading. A separate study in <em>Acta Psychologica</em> found that greater AI dependence among university students was associated with lower critical thinking levels, with cognitive fatigue partially mediating this relationship.</p>
+
+      <div class="pull-quote pl-6 py-1 my-10">
+        <p class="text-xl md:text-2xl font-serif font-medium text-ink leading-snug tracking-tight">Unrestricted ChatGPT access during self-directed study produced a steeper forgetting curve compared to unassisted learning &mdash; reduced effort during encoding leads to weaker memory consolidation.</p>
+        <p class="font-sans text-caption text-ink-muted mt-3 uppercase">&ldquo;ChatGPT as a Cognitive Crutch,&rdquo; 2025</p>
+      </div>
+
+      <p class="text-body text-ink-light mb-6">The design response to this challenge is not to limit AI&rsquo;s capability but to structure its interaction to preserve cognitive engagement. Khanmigo&rsquo;s Socratic design philosophy represents one approach. Lee et al. (2024) propose a <strong class="text-ink font-medium">guidance-based framework</strong> in which the AI provides hints and scaffolding rather than direct answers, preserving the opportunity for higher-order cognition and self-regulated learning. The key insight: the <em>pedagogical design</em> of AI tutors &mdash; not merely their technical capability &mdash; determines whether they enhance or erode critical thinking.</p>
+
+      <h3 id="sec-3-3" class="text-h2 mb-5 mt-14">3.3&ensp;The Digital Divide and Educational Equity</h3>
+      <p class="text-body text-ink-light mb-6">AI-powered education has the potential to be either a great equaliser or a great amplifier of existing inequalities. As of 2024, <strong class="text-ink font-medium">2.6 billion people remained offline globally</strong>, with internet usage reaching 83% in urban areas but only 48% in rural regions (ITU, 2024; ISPI, 2025). The digital divide encompasses AI literacy, linguistic inclusion, and cultural relevance. AI educational technologies are predominantly designed for English, with limited accommodation for multilingual or indigenous contexts (Frontiers in Computer Science, 2026).</p>
+      <p class="text-body text-ink-light mb-6">A 2024 Brookings Institution analysis articulated an emerging &ldquo;new digital divide&rdquo; in which affluent students gain access to both AI tools and human teachers who help them use those tools effectively, while disadvantaged students receive only the technology &mdash; without the human scaffolding needed to make it educationally productive. Addressing this divide requires not only infrastructure investment but also subsidised access to AI tutoring platforms, multilingual model development, culturally responsive content curation, and continued investment in the human teaching workforce.</p>
+
+      <!-- Chart Placeholder #4 -->
+      <div class="chart-placeholder p-8 my-12 text-center fade-in">
+        <div class="flex items-center justify-center gap-2 mb-3">
+          <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span class="font-sans text-sm font-semibold text-accent uppercase tracking-wide">Interactive Chart</span>
+        </div>
+        <p class="font-sans text-body-sm text-ink-muted max-w-md mx-auto">Global Digital Divide &mdash; Internet access rates by region (urban vs. rural), overlaid with AI-readiness indicators.</p>
+        <div id="chart-placeholder-4" class="w-full h-64 mt-4 rounded-lg bg-white/50 flex items-center justify-center">
+          <span class="font-mono text-sm text-ink-muted/50">&lt;iframe&gt; or &lt;img&gt; embed target</span>
+        </div>
+      </div>
+
+      <h3 id="sec-3-4" class="text-h2 mb-5 mt-14">3.4&ensp;Academic Integrity</h3>
+      <p class="text-body text-ink-light mb-6">The deployment of LLMs in educational contexts inevitably raises concerns about academic dishonesty. Technical responses include AI-generated text detection tools, which attempt to identify statistical signatures of machine-generated content. However, these tools remain unreliable: they produce both false positives and false negatives, and their accuracy degrades as LLMs become more sophisticated. Khanmigo&rsquo;s approach &mdash; structurally preventing the generation of complete written work and flagging externally pasted content &mdash; represents a more robust design philosophy, shifting from post-hoc detection to <strong class="text-ink font-medium">architectural prevention</strong>.</p>
+      <p class="text-body text-ink-light mb-6">Institutional responses are equally important. Universities are increasingly developing AI-use policies that distinguish between prohibited, permitted, and encouraged uses of AI tools. The most productive frameworks treat <strong class="text-ink font-medium">AI literacy as a learning objective</strong> in its own right, teaching students how to use AI tools critically and transparently. Assessment redesign &mdash; oral examinations, process-based evaluation, in-class supervised tasks &mdash; complements technological measures by creating evaluation contexts in which AI assistance is either unnecessary or transparently integrated.</p>
+    </section>
+
+    <!-- ===== CONCLUSIONS ===== -->
+    <section id="conclusions" class="fade-in mb-20">
+      <div class="font-sans text-caption uppercase tracking-widest text-accent font-semibold mb-3">Conclusions</div>
+      <h2 class="text-h1 mb-10">Toward the Intelligent Classroom</h2>
+      <p class="text-body text-ink-light mb-6">The convergence of large language models, agentic architectures, retrieval-augmented generation, multi-agent systems, and multimodal AI is creating educational tools of unprecedented capability. For the first time, the technology exists to provide every student with a responsive, knowledgeable, adaptive learning companion available around the clock &mdash; a prospect that Benjamin Bloom could scarcely have imagined when he articulated the two-sigma problem four decades ago.</p>
+      <p class="text-body text-ink-light mb-6">Yet the evidence reviewed consistently points to a critical qualification: <strong class="text-ink font-medium">hybrid human&ndash;AI workflows</strong>, in which teachers curate, moderate, and complement AI-generated instruction, outperform fully autonomous tutoring systems. The ethical challenges of privacy, cognitive offloading, digital inequity, and academic integrity are real and serious, but they are not inherent to the technology; they are consequences of specific design and deployment choices.</p>
+
+      <div class="pull-quote pl-6 py-1 my-10">
+        <p class="text-xl md:text-2xl font-serif font-medium text-ink leading-snug tracking-tight">Teachers do not merely transmit information; they inspire curiosity, model intellectual integrity, navigate the emotional complexities of learning, and socialise young people into communities of practice. These functions are not replicable by current AI systems, however sophisticated.</p>
+      </div>
+
+      <p class="text-body text-ink-light mb-6">Looking ahead, several research directions demand attention. First, <strong class="text-ink font-medium">cross-lingual equity</strong>: the development and rigorous auditing of AI tutors in underrepresented languages. Second, <strong class="text-ink font-medium">longitudinal efficacy studies</strong>: most existing evaluations span fewer than eight weeks; sustained, large-scale studies are needed. Third, <strong class="text-ink font-medium">regulatory frameworks</strong>: the rapid pace of AI deployment in education is outstripping the capacity of regulatory institutions.</p>
+      <p class="text-body text-ink-light mb-6">The intelligent classroom is no longer a speculative vision. It is an emerging reality, with millions of students already interacting with AI tutors daily. The task now is to ensure that this transformation is guided not by technological determinism or commercial imperatives alone, but by the educational values of equity, agency, and genuine understanding.</p>
+      <p class="text-body text-ink-light mb-6">Ultimately, the promise of agentic AI in education is not that it will make teachers obsolete, but that it will make the best practices of teaching &mdash; individualised attention, Socratic dialogue, formative assessment, adaptive scaffolding &mdash; available at a scale that was previously impossible. The two-sigma problem that Bloom articulated in 1984 may finally have a technological pathway to resolution &mdash; but only if we are willing to invest the institutional, ethical, and human capital necessary to walk that path responsibly.</p>
+    </section>
+
+    <!-- ===== REFERENCES ===== -->
+    <section id="references" class="fade-in mb-16">
+      <h2 class="text-h1 mb-8">References</h2>
+      <div class="space-y-3 text-body-sm text-ink-light font-sans leading-relaxed">
+        <p>Acharya, D.B., Kuppan, K. and Divya, B. (2025) &lsquo;Agentic AI: Autonomous Intelligence for Complex Goals &mdash; A Comprehensive Survey&rsquo;, <em>IEEE Access</em>, 13, pp.&nbsp;18912&ndash;18936.</p>
+        <p>Agrawal, R., Kumar, H. and Lnu, S.R. (2025) &lsquo;Efficient LLMs for Edge Devices: Pruning, Quantization, and Distillation Techniques&rsquo;, <em>Proceedings of ICMLAS 2025</em>, pp.&nbsp;1413&ndash;1418.</p>
+        <p>Bassner, P., Frankford, E. and Krusche, S. (2024) &lsquo;Iris: An AI-Driven Virtual Tutor for Computer Science Education&rsquo;, <em>Proceedings of ITiCSE 2024</em>, pp.&nbsp;394&ndash;400.</p>
+        <p>Bloom, B.S. (1984) &lsquo;The 2 Sigma Problem: The Search for Methods of Group Instruction as Effective as One-to-One Tutoring&rsquo;, <em>Educational Researcher</em>, 13(6), pp.&nbsp;4&ndash;16.</p>
+        <p>Brookings Institution (2024) &lsquo;AI and the Next Digital Divide in Education&rsquo;.</p>
+        <p>Cai, G., Tian, R., Yang, L. et al. (2026) &lsquo;Efficient Inference for Edge Large Language Models: A Survey&rsquo;, <em>Tsinghua Science and Technology</em>, 31(3), pp.&nbsp;1365&ndash;1380.</p>
+        <p>Chen, Y., Ding, N., Zheng, H., Liu, Z., Sun, M. and Zhou, B. (2024) &lsquo;Empowering Private Tutoring by Chaining Large Language Models&rsquo;, <em>Proceedings of CIKM 2024</em>.</p>
+        <p>Chu, Z. et al. (2025) &lsquo;LLM Agents for Education: Advances and Applications&rsquo;, <em>Findings of EMNLP 2025</em>.</p>
+        <p>ClassMind (2025) &lsquo;Scaling Classroom Observation and Instructional Feedback with Multimodal AI&rsquo;, arXiv:2509.18020.</p>
+        <p>DiCerbo, K. (2025) Interview in <em>Education Week</em>, July 2025.</p>
+        <p>Education International (2025) &lsquo;New TALIS Data: Report Confirms Need to Act on Global Teacher Shortage and Working Conditions&rsquo;.</p>
+        <p>EduThink4AI (2026) &lsquo;Bridging Educational Critical Thinking and Multi-Agent LLM Systems&rsquo;, arXiv:2507.15015.</p>
+        <p>Garcia-Bosque, M. et al. (2025) &lsquo;AI-Powered Educational Agents: Opportunities, Innovations, and Ethical Challenges&rsquo;, <em>Information</em>, 16(6), 469.</p>
+        <p>Gerlich, M. (2025) &lsquo;AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking&rsquo;, <em>Societies</em>, 15(1), 6.</p>
+        <p>Guo, K. et al. (2024) &lsquo;Multi-Agent Frameworks for Automated Educational Scoring&rsquo;, <em>Proceedings of AIED 2024</em>.</p>
+        <p>International Telecommunication Union (2024) <em>Facts and Figures 2024</em>.</p>
+        <p>ISPI (2025) &lsquo;The Digital Divide: A Barrier to Social, Economic and Political Equity&rsquo;.</p>
+        <p>Jose, J. et al. (2025) &lsquo;The Cognitive Paradox of AI in Education&rsquo;, <em>Frontiers in Psychology</em>, 16, 1550621.</p>
+        <p>Khan Academy (2025) &lsquo;Khanmigo: AI-Powered Teaching Assistant and Tutor&rsquo;.</p>
+        <p>Learning Policy Institute (2025) &lsquo;An Overview of Teacher Shortages: 2025&rsquo;.</p>
+        <p>Lee, H. et al. (2024) &lsquo;Guidance-Based ChatGPT Approach for Preserving Higher-Order Cognition&rsquo;, <em>Proceedings of AIED 2024</em>.</p>
+        <p>Lewis, P., Perez, E., Piktus, A. et al. (2020) &lsquo;Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks&rsquo;, <em>NeurIPS</em>, 33, pp.&nbsp;9459&ndash;9474.</p>
+        <p>Liu, S. et al. (2024) &lsquo;NeurIPS 2024 Challenge: Edge-Device Large Language Model Competition&rsquo;, <em>NeurIPS 2024 Competition Track</em>.</p>
+        <p>Mokoena, T. and Seeletse, S. (2025) &lsquo;AI and the Digital Divide in Education&rsquo;, <em>Frontiers in Computer Science</em>, January 2026.</p>
+        <p>OECD (2025) <em>Education at a Glance 2025</em>. Paris: OECD Publishing.</p>
+        <p>Scarlatos, A. et al. (2025) &lsquo;Dialogue-Driven Knowledge Tracing&rsquo;, <em>Proceedings of AIED 2025</em>.</p>
+        <p>Schneider, J. (2025) &lsquo;Generative to Agentic AI: Survey, Conceptualization, and Challenges&rsquo;, arXiv:2504.18875.</p>
+        <p>ScienceDirect (2025) &lsquo;ChatGPT as a Cognitive Crutch: Evidence from a Randomized Controlled Trial on Knowledge Retention&rsquo;, <em>Thinking Skills and Creativity</em>.</p>
+        <p>ScienceDirect (2025) &lsquo;Artificial Intelligence in Classroom Management: A Systematic Review&rsquo;, <em>Computers and Education: Artificial Intelligence</em>.</p>
+        <p>ScienceDirect (2025) &lsquo;Learners&rsquo; AI Dependence and Critical Thinking&rsquo;, <em>Acta Psychologica</em>, October 2025.</p>
+        <p>Trinh, V.A. et al. (2025) &lsquo;Fine-Tuning a Strong Language Model to Enable Classroom Speech Recognition&rsquo;, <em>NSF iSAT, University of Colorado Boulder</em>.</p>
+        <p>UNESCO (2024) <em>Global Report on Teachers: Addressing Teacher Shortages and Transforming the Profession</em>. Paris: UNESCO.</p>
+        <p>UNESCO (2025) &lsquo;AI and Education: Protecting the Rights of Learners&rsquo;, <em>Digital Learning Week 2025</em>.</p>
+        <p>Verma, P.K. (2025) &lsquo;LPITutor: An LLM-Based Personalized Intelligent Tutoring System Using RAG and Prompt Engineering&rsquo;, <em>PeerJ Computer Science</em>.</p>
+        <p>Wang, S. et al. (2024) &lsquo;Large Language Models for Education: A Survey and Outlook&rsquo;, arXiv:2403.18105.</p>
+        <p>Wang, S. et al. (2025b) &lsquo;Five-Agent Adaptive Learning System&rsquo;, <em>Proceedings of AIED 2025</em>.</p>
+        <p>Wei, J. et al. (2023) &lsquo;Chain-of-Thought Prompting Elicits Reasoning in Large Language Models&rsquo;, <em>Advances in Neural Information Processing Systems</em>, 35.</p>
+        <p>Xu, T. et al. (2024) &lsquo;Student Persona Simulation for Adaptive Knowledge Tracing&rsquo;, <em>Proceedings of AIED 2024</em>.</p>
+        <p>Yao, S. et al. (2023) &lsquo;ReAct: Synergizing Reasoning and Acting in Language Models&rsquo;, <em>ICLR 2023</em>.</p>
+        <p>Zhai, C., Wibowo, S. and Li, L.D. (2024) &lsquo;The Effects of Over-Reliance on AI Dialogue Systems on Students&rsquo; Cognitive Abilities: A Systematic Review&rsquo;, <em>Smart Learning Environments</em>, 11(28).</p>
+        <p>Zhang, M., Shen, X., Cao, J. et al. (2024) &lsquo;EdgeShard: Efficient LLM Inference via Collaborative Edge Computing&rsquo;, <em>IEEE Internet of Things Journal</em>.</p>
+        <p>Zhang, Q. et al. (2024b) &lsquo;CodeAgent: An LLM Agent Framework for Repo-Level Code Generation&rsquo;, <em>Proceedings of ACL 2024</em>.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="border-t border-border-subtle py-10">
+    <div class="max-w-wide mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-caption text-ink-muted">
+      <span>ELEC0141 Natural Language Processing &middot; UCL Electronic &amp; Electrical Engineering &middot; May 2026</span>
+      <span>~5,000 words</span>
+    </div>
+  </footer>
+
+  <!-- ====== SCRIPTS ====== -->
+  <script>
+    // 1. Reading Progress Bar
+    const progressBar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (progressBar && scrollHeight > 0) progressBar.style.transform = 'scaleX(' + (scrollTop / scrollHeight) + ')';
+    });
+
+    // 2. Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // 3. TOC active highlight — proper scrollspy
+    (function() {
+      const tocLinks = document.querySelectorAll('.toc-link');
+      // Build ordered list of {id, offsetTop} from the actual anchored elements
+      const anchors = Array.from(tocLinks).map(link => {
+        const id = link.getAttribute('href').substring(1);
+        return { id: id, el: document.getElementById(id) };
+      }).filter(a => a.el);
+
+      function updateTOC() {
+        const scrollPos = window.scrollY + 180;
+        let activeId = anchors[0] ? anchors[0].id : '';
+
+        for (let i = anchors.length - 1; i >= 0; i--) {
+          if (scrollPos >= anchors[i].el.offsetTop) {
+            activeId = anchors[i].id;
+            break;
+          }
+        }
+
+        tocLinks.forEach(link => {
+          const linkId = link.getAttribute('href').substring(1);
+          if (linkId === activeId) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateTOC, { passive: true });
+      updateTOC();
+    })();
+  </script>
+</body>
+</html>
