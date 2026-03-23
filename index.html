@@ -391,7 +391,7 @@
 
       <div class="formula-block my-8 text-center">
         $$ W_q = \text{round}\!\left(\frac{W_{\text{fp}}}{S}\right) + Z $$
-        <p class="font-sans text-caption text-ink-muted mt-3">where \(S\) is a learned scale factor and \(Z\) is a zero-point offset defining the mapping between the continuous weight distribution and the discrete integer grid.</p>
+        <p class="font-sans text-caption text-ink-muted mt-3" style="text-align:left;">where <em>S</em> is a learned scale factor and <em>Z</em> is a zero-point offset defining the mapping between the continuous weight distribution and the discrete integer grid.</p>
       </div>
 
       <p class="text-body text-ink-light mb-6">By representing each weight in 4 bits rather than 32, quantization reduces the memory footprint by up to 8&times;, directly alleviating the DRAM bandwidth bottleneck that dominates inference cost on low-power hardware. Recent benchmarks on edge devices show that 4-bit quantized models maintain over 91% accuracy while halving memory usage and reducing inference latency from 150ms to 110ms (Agrawal et al., 2025). <strong class="text-ink font-medium">Knowledge distillation</strong> transfers the capabilities of a large &ldquo;teacher&rdquo; model into a smaller &ldquo;student&rdquo; model, achieving 85% of the teacher&rsquo;s performance at a fraction of the computational cost. <strong class="text-ink font-medium">Structured pruning</strong> removes entire neural network layers or attention heads that contribute minimally to output quality, reducing model size by up to 60%.</p>
@@ -414,7 +414,7 @@
 
       <div class="formula-block my-8 text-center">
         $$ P(y \mid x) = \sum_{z \in \mathcal{Z}} P(z \mid x)\, P(y \mid z, x) $$
-        <p class="font-sans text-caption text-ink-muted mt-3">where \(x\) is the student&rsquo;s query, \(\mathcal{Z}\) is the set of candidate documents, \(P(z \mid x)\) is the retrieval probability (via dense vector similarity), and \(P(y \mid z, x)\) is the conditional generation probability given query and retrieved context.</p>
+        <p class="font-sans text-caption text-ink-muted mt-3" style="text-align:left;">where <em>x</em> is the student&rsquo;s query, <em>Z</em> is the set of candidate documents, <em>P</em>(<em>z</em> | <em>x</em>) is the retrieval probability (via dense vector similarity), and <em>P</em>(<em>y</em> | <em>z</em>, <em>x</em>) is the conditional generation probability given query and retrieved context.</p>
       </div>
 
       <p class="text-body text-ink-light mb-6">In practice, a RAG-enhanced tutoring system works as follows: when a student poses a question, the system first encodes the query into a dense vector representation and searches a curated corpus &mdash; textbooks, lecture notes, problem sets &mdash; for semantically similar content. The retrieved passages are then provided to the LLM as context, constraining its generation to information grounded in authoritative sources. Verma (2025) describes <strong class="text-ink font-medium">LPITutor</strong>, an LLM-based personalised tutoring system that implements a modular RAG pipeline: a query processing module extracts student intent, a retrieval module fetches relevant course materials, and a response generation module synthesises a pedagogically appropriate answer anchored in the retrieved content.</p>
@@ -457,7 +457,7 @@
 
       <div class="formula-block my-8 text-center">
         $$ T_{\text{total}} = T_{\text{edge}}^{\text{infer}} + T_{\text{net}}^{\text{tx}} + T_{\text{cloud}}^{\text{infer}} + T_{\text{net}}^{\text{rx}} $$
-        <p class="font-sans text-caption text-ink-muted mt-3">Latency decomposition for edge-cloud co-design in agentic tutoring systems.</p>
+        <p class="font-sans text-caption text-ink-muted mt-3" style="text-align:left;">Latency decomposition for edge-cloud co-design in agentic tutoring systems.</p>
       </div>
 
       <p class="text-body text-ink-light mb-6">The architectural response is <strong class="text-ink font-medium">edge-cloud co-design</strong>, in which the multimodal pipeline is partitioned across device and cloud tiers. Lightweight, latency-critical components &mdash; speech activity detection, voice-to-text front-end feature extraction, facial engagement classification &mdash; run locally on the student&rsquo;s device, while computationally intensive operations &mdash; full LLM reasoning, RAG retrieval, and response generation &mdash; are offloaded to cloud infrastructure. By performing audio feature extraction on-device, the system transmits compact feature vectors rather than raw audio waveforms, compressing the upstream payload by an order of magnitude. Edge-cloud collaborative frameworks such as <strong class="text-ink font-medium">EdgeShard</strong> (Zhang et al., 2024) demonstrate how LLM inference can be partitioned across heterogeneous devices, and the NeurIPS 2024 Edge-Device LLM Competition has catalysed research into models that can run on hardware as constrained as a Raspberry Pi 4 with 4GB RAM (Liu et al., 2024).</p>
