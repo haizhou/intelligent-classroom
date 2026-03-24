@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Intelligent Classroom — How Agentic AI Is Transforming Real-Time Education</title>
 
-  <!-- All styles are hand-authored CSS — no Tailwind CDN dependency -->
-
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 
@@ -25,7 +23,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
-    /* ===== Design Tokens ===== */
+    /* ============================================================
+       DESIGN TOKENS
+       ============================================================ */
     :root {
       --ink: #1a1a1a;
       --ink-light: #4a4a4a;
@@ -42,7 +42,9 @@
       --max-wide: 960px;
     }
 
-    /* ===== Base (Preflight) ===== */
+    /* ============================================================
+       BASE / PREFLIGHT
+       ============================================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; scroll-padding-top: 2rem; -moz-tab-size: 4; tab-size: 4; }
     body {
@@ -61,8 +63,11 @@
     em { font-style: italic; }
     button, input, textarea, select { font: inherit; }
     p, h1, h2, h3 { overflow-wrap: break-word; }
+    ::selection { background: var(--accent-light); color: var(--ink); }
 
-    /* ===== Typography Scale ===== */
+    /* ============================================================
+       TYPOGRAPHY SCALE
+       ============================================================ */
     .text-display { font-size: 3.25rem; line-height: 1.12; letter-spacing: -0.025em; font-weight: 600; }
     .text-h1 { font-size: 2rem; line-height: 1.25; letter-spacing: -0.02em; font-weight: 600; }
     .text-h2 { font-size: 1.5rem; line-height: 1.3; letter-spacing: -0.015em; font-weight: 600; }
@@ -75,7 +80,10 @@
     .text-2xl { font-size: 1.5rem; }
     .text-3xl { font-size: 1.875rem; }
 
-    /* ===== Color Utilities ===== */
+    /* ============================================================
+       UTILITY CLASSES
+       ============================================================ */
+    /* --- Color --- */
     .bg-surface { background-color: var(--surface); }
     .text-ink { color: var(--ink); }
     .text-ink-light { color: var(--ink-light); }
@@ -85,19 +93,17 @@
     .border-border-subtle { border-color: var(--border-subtle); }
     .bg-border-subtle { background-color: var(--border-subtle); }
 
-    /* ===== Font Family ===== */
+    /* --- Font --- */
     .font-serif { font-family: var(--font-serif); }
     .font-sans { font-family: var(--font-sans); }
     .font-mono { font-family: var(--font-mono); }
-
-    /* ===== Font Weight ===== */
     .font-light { font-weight: 300; }
     .font-normal { font-weight: 400; }
     .font-medium { font-weight: 500; }
     .font-semibold { font-weight: 600; }
     .font-bold { font-weight: 700; }
 
-    /* ===== Layout ===== */
+    /* --- Layout --- */
     .max-w-prose { max-width: var(--max-prose); }
     .max-w-wide { max-width: var(--max-wide); }
     .mx-auto { margin-left: auto; margin-right: auto; }
@@ -133,7 +139,7 @@
     .gap-2 { gap: 0.5rem; }
     .gap-4 { gap: 1rem; }
 
-    /* ===== Flexbox ===== */
+    /* --- Flexbox --- */
     .flex { display: flex; }
     .flex-col { flex-direction: column; }
     .flex-wrap { flex-wrap: wrap; }
@@ -141,7 +147,7 @@
     .justify-center { justify-content: center; }
     .justify-between { justify-content: space-between; }
 
-    /* ===== Display & Position ===== */
+    /* --- Display & Position --- */
     .hidden { display: none; }
     .block { display: block; }
     .inline { display: inline; }
@@ -155,7 +161,7 @@
     .z-50 { z-index: 50; }
     .overflow-hidden { overflow: hidden; }
 
-    /* ===== Sizing ===== */
+    /* --- Sizing --- */
     .w-full { width: 100%; }
     .w-5 { width: 1.25rem; }
     .w-56 { width: 14rem; }
@@ -163,14 +169,18 @@
     .h-64 { height: 16rem; }
     .h-5 { height: 1.25rem; }
     .min-w-\[140px\] { min-width: 140px; }
+    .max-w-\[720px\] { max-width: 720px; }
+    .max-w-\[600px\] { max-width: 600px; }
+    .max-w-md { max-width: 28rem; }
+    .h-\[3px\] { height: 3px; }
 
-    /* ===== Borders & Radius ===== */
+    /* --- Borders & Radius --- */
     .border { border-width: 1px; border-style: solid; }
     .border-t { border-top-width: 1px; border-top-style: solid; }
     .border-l-2 { border-left-width: 2px; border-left-style: solid; }
     .rounded-lg { border-radius: 0.5rem; }
 
-    /* ===== Text ===== */
+    /* --- Text --- */
     .uppercase { text-transform: uppercase; }
     .tracking-widest { letter-spacing: 0.1em; }
     .tracking-wide { letter-spacing: 0.025em; }
@@ -180,42 +190,40 @@
     .text-center { text-align: center; }
     .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
-    /* ===== Backgrounds & Effects ===== */
+    /* --- Backgrounds & Effects --- */
     .backdrop-blur { backdrop-filter: blur(8px); }
     .bg-white\/70 { background-color: rgba(255,255,255,0.7); }
     .bg-white\/50 { background-color: rgba(255,255,255,0.5); }
     .opacity-\[0\.035\] { opacity: 0.035; }
 
-    /* ===== Selection ===== */
-    ::selection { background: var(--accent-light); color: var(--ink); }
+    /* --- Spacing Helpers --- */
+    .space-y-1 > * + * { margin-top: 0.25rem; }
+    .space-y-3 > * + * { margin-top: 0.75rem; }
 
-    /* ===== Responsive MD ===== */
+    /* ============================================================
+       RESPONSIVE BREAKPOINTS
+       ============================================================ */
+    @media (min-width: 640px) {
+      .sm\:flex-row { flex-direction: row; }
+    }
     @media (min-width: 768px) {
       .md\:pt-24 { padding-top: 6rem; }
       .md\:pb-20 { padding-bottom: 5rem; }
       .md\:py-24 { padding-top: 6rem; padding-bottom: 6rem; }
       .md\:text-2xl { font-size: 1.5rem; }
     }
-
-    /* ===== Responsive SM ===== */
-    @media (min-width: 640px) {
-      .sm\:flex-row { flex-direction: row; }
-    }
-
-    /* ===== Responsive XL — TOC visible ===== */
     @media (min-width: 1280px) {
       .xl\:block { display: block; }
     }
 
-    /* ===== Gradient Header ===== */
-    .bg-gradient-header {
-      background: linear-gradient(to bottom, #f5f0eb 0%, var(--surface) 50%, var(--surface) 100%);
-    }
-
-    /* ===== Reading Progress Bar ===== */
+    /* ============================================================
+       READING PROGRESS BAR
+       ============================================================ */
     #progress-bar { transform-origin: left; transform: scaleX(0); }
 
-    /* ===== TOC ===== */
+    /* ============================================================
+       TABLE OF CONTENTS (Sidebar)
+       ============================================================ */
     .toc-sidebar { top: 50%; transform: translateY(-50%); left: max(1rem, calc((100vw - 960px) / 2 - 280px)); }
     .toc-link {
       transition: color 0.2s, border-color 0.2s;
@@ -230,18 +238,26 @@
     }
     .toc-sub { font-size: 0.75rem; color: rgba(118,118,118,0.7); }
 
-    /* ===== Pull Quote ===== */
+    /* ============================================================
+       PULL QUOTE
+       ============================================================ */
     .pull-quote { position: relative; border-left: 3px solid var(--accent); }
 
-    /* ===== Stat Cards ===== */
+    /* ============================================================
+       STAT CARDS
+       ============================================================ */
     .stat-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
     .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
 
-    /* ===== Scroll Fade-in ===== */
+    /* ============================================================
+       SCROLL FADE-IN
+       ============================================================ */
     .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-    /* ===== Formula Block ===== */
+    /* ============================================================
+       FORMULA BLOCK
+       ============================================================ */
     .formula-block {
       background: linear-gradient(135deg, var(--surface) 0%, var(--surface-warm) 100%);
       border: 1px solid var(--border-subtle);
@@ -251,14 +267,9 @@
       overflow-x: auto;
     }
 
-    /* ===== Chart Placeholder ===== */
-    .chart-placeholder {
-      border: 2px dashed var(--accent);
-      border-radius: 12px;
-      background: repeating-linear-gradient(-45deg, transparent, transparent 8px, rgba(194,65,12,0.02) 8px, rgba(194,65,12,0.02) 16px);
-    }
-
-    /* ===== Comparison Cards (Part 1) ===== */
+    /* ============================================================
+       COMPARISON CARDS (Part 1 — Traditional / Chatbot / Agentic)
+       ============================================================ */
     .comparison-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -266,9 +277,7 @@
       margin: 3rem 0;
     }
     @media (min-width: 768px) {
-      .comparison-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
+      .comparison-grid { grid-template-columns: repeat(3, 1fr); }
     }
     .comp-card {
       background: #fff;
@@ -285,7 +294,7 @@
     }
     .comp-card.highlight {
       background: linear-gradient(135deg, var(--surface) 0%, var(--surface-warm) 100%);
-      border-color: rgba(194, 65, 12, 0.3); /* Subtle accent border */
+      border-color: rgba(194, 65, 12, 0.3);
       position: relative;
     }
     .comp-card.highlight::before {
@@ -302,45 +311,15 @@
       padding: 0.2rem 0.6rem;
       border-radius: 100px;
     }
-    .comp-title {
-      font-family: var(--font-sans);
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 0.5rem;
-    }
-    .comp-desc {
-      font-family: var(--font-serif);
-      font-size: 0.95rem;
-      color: var(--ink-muted);
-      margin-bottom: 1.5rem;
-      line-height: 1.5;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-    .comp-features {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      font-family: var(--font-sans);
-      font-size: 0.85rem;
-      color: var(--ink-light);
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-    }
-    .comp-features li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      line-height: 1.4;
-    }
-    .comp-features li svg {
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
+    .comp-title { font-family: var(--font-sans); font-size: 1.15rem; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; }
+    .comp-desc { font-family: var(--font-serif); font-size: 0.95rem; color: var(--ink-muted); margin-bottom: 1.5rem; line-height: 1.5; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-subtle); }
+    .comp-features { list-style: none; padding: 0; margin: 0; font-family: var(--font-sans); font-size: 0.85rem; color: var(--ink-light); display: flex; flex-direction: column; gap: 0.85rem; }
+    .comp-features li { display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.4; }
+    .comp-features li svg { flex-shrink: 0; margin-top: 0.1rem; }
 
-    /* ===== Socratic Chat UI Demo ===== */
+    /* ============================================================
+       SOCRATIC CHAT UI DEMO
+       ============================================================ */
     .chat-demo-wrapper {
       background: #fff;
       border: 1px solid var(--border-subtle);
@@ -357,38 +336,17 @@
       justify-content: space-between;
       align-items: center;
     }
-    .chat-title {
-      font-family: var(--font-sans);
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--ink-light);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-    .chat-status {
-      font-family: var(--font-sans);
-      font-size: 0.75rem;
-      color: #16a34a; /* Green */
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-weight: 500;
-    }
+    .chat-title { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.08em; }
+    .chat-status { font-family: var(--font-sans); font-size: 0.75rem; color: #16a34a; display: flex; align-items: center; gap: 0.4rem; font-weight: 500; }
     .chat-status::before {
       content: '';
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       background: #16a34a;
       border-radius: 50%;
       display: inline-block;
       animation: pulse-green 2s infinite;
     }
-    .chat-window {
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
+    .chat-window { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
     .chat-msg {
       display: flex;
       width: 100%;
@@ -396,13 +354,9 @@
       transform: translateY(10px);
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
-    .chat-msg.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .chat-msg.visible { opacity: 1; transform: translateY(0); }
     .chat-msg.student { justify-content: flex-end; }
     .chat-msg.tutor { justify-content: flex-start; }
-    
     .chat-bubble {
       max-width: 85%;
       padding: 0.85rem 1.25rem;
@@ -411,21 +365,14 @@
       font-size: 0.95rem;
       line-height: 1.5;
     }
-    .chat-msg.student .chat-bubble {
-      background: var(--surface-warm);
-      color: var(--ink);
-      border-bottom-right-radius: 2px;
-    }
-    .chat-msg.tutor .chat-bubble {
-      background: #fff7ed; /* Light orange */
-      border: 1px solid rgba(194,65,12,0.15);
-      color: #9a3412;
-      border-bottom-left-radius: 2px;
-    }
+    .chat-msg.student .chat-bubble { background: var(--surface-warm); color: var(--ink); border-bottom-right-radius: 2px; }
+    .chat-msg.tutor .chat-bubble { background: #fff7ed; border: 1px solid rgba(194,65,12,0.15); color: #9a3412; border-bottom-left-radius: 2px; }
 
-    /* ===== RAG Console Live Demo ===== */
+    /* ============================================================
+       RAG CONSOLE LIVE DEMO
+       ============================================================ */
     .rag-console-wrapper {
-      background: #1a1b26; /* Deep dark theme */
+      background: #1a1b26;
       border-radius: 12px;
       overflow: hidden;
       font-family: var(--font-mono);
@@ -446,38 +393,21 @@
       color: #7aa2f7;
       font-weight: 600;
     }
-    .rag-console-body {
-      padding: 1.5rem;
-      font-size: 0.85rem;
-      line-height: 1.7;
-      min-height: 280px;
-    }
+    .rag-console-body { padding: 1.5rem; font-size: 0.85rem; line-height: 1.7; min-height: 280px; }
     .rag-log {
       margin-bottom: 0.85rem;
       opacity: 0;
       transform: translateY(5px);
       transition: opacity 0.3s ease, transform 0.3s ease;
-      display: none; /* Controlled by JS */
+      display: none;
     }
-    .rag-log.visible {
-      opacity: 1;
-      transform: translateY(0);
-      display: block;
-    }
-    .rag-tag {
-      display: inline-block;
-      padding: 0.1rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.7rem;
-      margin-right: 0.6rem;
-      font-weight: 700;
-      color: #1a1b26;
-    }
-    .tag-query { background: #7dcfff; } /* Cyan */
-    .tag-encode { background: #bb9af7; } /* Purple */
-    .tag-retrieve { background: #e0af68; } /* Orange */
-    .tag-llm { background: #9ece6a; } /* Green */
-    .tag-graph { background: #f7768e; } /* Pink/Red for Knowledge Graph */
+    .rag-log.visible { opacity: 1; transform: translateY(0); display: block; }
+    .rag-tag { display: inline-block; padding: 0.1rem 0.5rem; border-radius: 4px; font-size: 0.7rem; margin-right: 0.6rem; font-weight: 700; color: #1a1b26; }
+    .tag-query { background: #7dcfff; }
+    .tag-encode { background: #bb9af7; }
+    .tag-retrieve { background: #e0af68; }
+    .tag-llm { background: #9ece6a; }
+    .tag-graph { background: #f7768e; }
     .rag-graph-box {
       font-family: var(--font-mono);
       font-size: 0.75rem;
@@ -487,41 +417,40 @@
       padding: 0.75rem 1rem;
       margin-top: 0.5rem;
       border-radius: 0 4px 4px 0;
-      white-space: pre; /* Preserves ASCII art formatting */
+      white-space: pre;
       line-height: 1.3;
       overflow-x: auto;
     }
-    
     .rag-text-highlight { color: #c0caf5; font-weight: 500; }
     .rag-vector-text { color: #565f89; word-break: break-all; font-size: 0.75rem; font-family: var(--font-mono); margin-top: 0.3rem; line-height: 1.4; }
-    .rag-doc-box { 
-      border-left: 2px solid #e0af68; 
-      padding-left: 0.8rem; 
-      margin-top: 0.5rem; 
+    .rag-doc-box {
+      border-left: 2px solid #e0af68;
+      padding: 0.5rem 0.8rem;
+      margin-top: 0.5rem;
       color: #9aa5ce;
       background: rgba(224, 175, 104, 0.05);
-      padding: 0.5rem 0.8rem;
       border-radius: 0 4px 4px 0;
     }
     .rag-answer-box {
       margin-top: 0.75rem;
       color: #9ece6a;
-      font-family: var(--font-sans); /* Output is readable sans-serif */
+      font-family: var(--font-sans);
       font-size: 1rem;
       border-top: 1px dashed #292e42;
       padding-top: 0.75rem;
     }
     .rag-cursor {
       display: inline-block;
-      width: 6px;
-      height: 14px;
+      width: 6px; height: 14px;
       background: #9ece6a;
       animation: blink 1s step-end infinite;
       vertical-align: middle;
       margin-left: 4px;
     }
 
-    /* ===== Multi-Agent Dashboard Animation ===== */
+    /* ============================================================
+       MULTI-AGENT DASHBOARD ANIMATION
+       ============================================================ */
     .mas-wrapper {
       background: var(--surface);
       border: 1px solid var(--border-subtle);
@@ -531,28 +460,14 @@
       box-shadow: 0 8px 30px rgba(0,0,0,0.04);
       font-family: var(--font-sans);
     }
-    .mas-header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .mas-title {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--ink-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-    .mas-grid {
-      display: grid;
-      gap: 1rem;
-      position: relative;
-    }
+    .mas-header { text-align: center; margin-bottom: 2rem; }
+    .mas-title { font-size: 0.75rem; font-weight: 700; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .mas-grid { display: grid; gap: 1rem; position: relative; }
     @media (min-width: 768px) {
       .mas-grid { grid-template-columns: repeat(3, 1fr); }
       .mas-full { grid-column: 1 / 4; display: flex; flex-direction: column; align-items: center; }
       .mas-center { grid-column: 2 / 3; display: flex; flex-direction: column; align-items: center; }
     }
-    
     .mas-node {
       background: #fff;
       border: 2px solid var(--border-subtle);
@@ -564,7 +479,6 @@
     }
     .mas-node-title { font-weight: 600; font-size: 0.95rem; color: var(--ink); margin-bottom: 0.25rem; }
     .mas-node-desc { font-size: 0.75rem; color: var(--ink-muted); }
-    
     .mas-status {
       position: absolute;
       top: -10px; right: -10px;
@@ -575,336 +489,27 @@
       color: var(--ink-muted);
       transition: all 0.3s;
     }
-    
-    /* 节点状态：处理中 (Active) */
     .mas-node.state-active {
       border-color: var(--accent);
       background: #fff7ed;
       transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(194,65,12,0.1);
     }
-    .mas-node.state-active .mas-status {
-      background: var(--accent);
-      color: #fff;
-      animation: mas-pulse 1.5s infinite;
-    }
+    .mas-node.state-active .mas-status { background: var(--accent); color: #fff; animation: mas-pulse 1.5s infinite; }
     .mas-node.state-active .mas-node-title { color: #9a3412; }
-    
-    /* 节点状态：完成 (Done) */
-    .mas-node.state-done {
-      border-color: #16a34a;
-      background: #f0fdf4;
-    }
-    .mas-node.state-done .mas-status {
-      background: #16a34a;
-      color: #fff;
-    }
+    .mas-node.state-done { border-color: #16a34a; background: #f0fdf4; }
+    .mas-node.state-done .mas-status { background: #16a34a; color: #fff; }
     .mas-node.state-done .mas-node-title { color: #15803d; }
-    
-    /* 数据流箭头 */
-    .mas-arrow-down {
-      text-align: center;
-      color: var(--border-subtle);
-      margin: 0.25rem 0;
-      transition: color 0.3s;
-      height: 24px;
-    }
+    .mas-arrow-down { text-align: center; color: var(--border-subtle); margin: 0.25rem 0; transition: color 0.3s; height: 24px; }
     .mas-arrow-down svg { width: 24px; height: 24px; }
     .mas-arrow-down.active { color: var(--accent); animation: mas-slide-down 1s infinite ease-in-out; }
-    
+
     @keyframes mas-pulse { 0% { box-shadow: 0 0 0 0 rgba(194,65,12,0.4); } 70% { box-shadow: 0 0 0 6px rgba(194,65,12,0); } 100% { box-shadow: 0 0 0 0 rgba(194,65,12,0); } }
     @keyframes mas-slide-down { 0%, 100% { transform: translateY(-3px); opacity: 0.5; } 50% { transform: translateY(3px); opacity: 1; } }
 
-/* ===== Multimodal Lens Demo ===== */
-    .mm-lens-wrapper {
-      background: #fff;
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.05);
-      margin: 3rem 0;
-      position: relative;
-      font-family: var(--font-sans);
-    }
-    .mm-lens-header {
-      background: var(--surface);
-      padding: 0.75rem 1.25rem;
-      border-bottom: 1px solid var(--border-subtle);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .mm-lens-title {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--ink-light);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-    .mm-lens-status {
-      font-size: 0.75rem;
-      color: var(--accent);
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .mm-lens-status::before {
-      content: '';
-      width: 8px; height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: mm-pulse 2s infinite;
-    }
-    
-    .mm-lens-viewfinder {
-      position: relative;
-      padding: 2rem;
-      background: #fafaf9; /* Lighter notebook-like bg */
-      min-height: 320px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    /* Viewfinder Corners */
-    .viewfinder-corner {
-      position: absolute;
-      width: 20px; height: 20px;
-      border-color: rgba(194,65,12,0.4);
-      border-style: solid;
-      pointer-events: none;
-    }
-    .corner-tl { top: 20px; left: 20px; border-width: 3px 0 0 3px; }
-    .corner-tr { top: 20px; right: 20px; border-width: 3px 3px 0 0; }
-    .corner-bl { bottom: 20px; left: 20px; border-width: 0 0 3px 3px; }
-    .corner-br { bottom: 20px; right: 20px; border-width: 0 3px 3px 0; }
-
-    /* The SVG Circuit Diagram */
-    #mm-circuit-svg {
-      width: 100%;
-      max-width: 400px;
-      height: auto;
-      opacity: 0.6; /* Sketch-like */
-      transition: opacity 0.5s;
-    }
-    .fade-in.visible #mm-circuit-svg { opacity: 1; }
-
-    /* Animated Scan Line */
-    .mm-scan-line {
-      position: absolute;
-      left: 20px;
-      right: 20px;
-      top: 20px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      box-shadow: 0 0 12px var(--accent);
-      opacity: 0;
-      z-index: 10;
-    }
-    
-    /* AI Hint Popover */
-    .mm-ai-hint {
-      position: absolute;
-      left: max(1.5rem, calc(50% + 50px)); /* Position near component R1 */
-      top: 30%;
-      width: min(280px, 80%);
-      background: rgba(255,255,255,0.96);
-      border-left: 3px solid var(--accent);
-      border-radius: 4px 8px 8px 4px;
-      padding: 1rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(194,65,12,0.1);
-      border-left-width: 3px;
-      opacity: 0;
-      transform: translateY(10px) scale(0.95);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      z-index: 20;
-    }
-    .mm-ai-hint.visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    .mm-ai-hint-title {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: #9a3412;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.4rem;
-    }
-    .mm-ai-hint-body {
-      font-family: var(--font-sans);
-      font-size: 0.9rem;
-      color: var(--ink);
-      line-height: 1.5;
-    }
-
-    /* Standard Chart Caption matching your style */
-    .mm-lens-caption {
-      font-family: var(--font-sans);
-      font-size: 0.8125rem;
-      color: var(--ink-muted);
-      padding: 1rem 1.25rem;
-      background: #fff;
-      border-top: 1px solid var(--border-subtle);
-    }
-
-    @keyframes mm-pulse { 0% { box-shadow: 0 0 0 0 rgba(194,65,12,0.5); } 70% { box-shadow: 0 0 0 8px rgba(194,65,12,0); } 100% { box-shadow: 0 0 0 0 rgba(194,65,12,0); } }
-    
-    @keyframes mm-scan {
-      0% { top: 20px; opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { top: calc(100% - 22px); opacity: 0; }
-    }
-
-    /* ===== Multimodal Voice UI Additions ===== */
-    .mm-voice-bar {
-      background: #fff;
-      border-top: 1px solid var(--border-subtle);
-      padding: 1rem 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-      min-height: 80px;
-    }
-    .mm-mic-btn {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      background: #fee2e2; /* light red */
-      color: #ef4444;
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-      flex-shrink: 0;
-      transition: all 0.3s ease;
-    }
-    .mm-mic-btn svg { width: 20px; height: 20px; }
-    .mm-mic-btn.recording {
-      background: #ef4444;
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-    }
-    .mm-mic-btn.recording::after {
-      content: ''; position: absolute; inset: -6px;
-      border: 2px solid #ef4444; border-radius: 50%;
-      animation: mm-pulse-red 1.5s infinite;
-    }
-    
-    .mm-transcript {
-      flex-grow: 1; 
-      font-family: var(--font-sans); 
-      display: flex; flex-direction: column; gap: 0.35rem;
-    }
-    .mm-student-text { 
-      font-size: 0.95rem; color: var(--ink); font-weight: 500; 
-      min-height: 1.4em;
-    }
-    .mm-tutor-response { 
-      display: flex; align-items: center; gap: 0.75rem; 
-      min-height: 1.4em;
-    }
-    .mm-tutor-text { 
-      font-size: 0.9rem; color: var(--accent); font-weight: 500; 
-    }
-    
-    /* Audio Waveform Animation */
-    .mm-waveform {
-      display: flex; align-items: center; gap: 3px; height: 16px; 
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .mm-waveform.playing { opacity: 1; }
-    .mm-waveform span {
-      display: block; width: 3px; background: var(--accent); border-radius: 2px;
-      animation: mm-wave-dance 1s infinite ease-in-out;
-    }
-    .mm-waveform span:nth-child(2) { animation-delay: 0.1s; }
-    .mm-waveform span:nth-child(3) { animation-delay: 0.2s; }
-    .mm-waveform span:nth-child(4) { animation-delay: 0.3s; }
-    .mm-waveform span:nth-child(5) { animation-delay: 0.4s; }
-
-    @keyframes mm-pulse-red { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.3); opacity: 0; } }
-    @keyframes mm-wave-dance { 0%, 100% { height: 4px; } 50% { height: 16px; } }
-    /* ===== Generative Explainer Animation Panel ===== */
-    .mm-explainer-panel {
-      background: #fafaf9; /* lighter bg */
-      border-top: 1px solid var(--border-subtle);
-      padding: 1.5rem;
-      display: none; /* Controlled by JS */
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
-    .mm-explainer-panel.visible {
-      display: flex;
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .mm-explainer-header {
-      font-family: var(--font-sans);
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #9a3412; /* orange */
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      text-align: center;
-    }
-    
-    /* Frequency Response Diagram (Dynamic) */
-    .mm-diagram-container {
-      width: 100%;
-      max-width: 480px;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 1rem;
-      font-family: var(--font-sans);
-    }
-    .mm-sig-box {
-      border: 1px solid var(--border-subtle);
-      background: #fff;
-      border-radius: 6px;
-      padding: 0.75rem;
-      text-align: center;
-    }
-    .mm-sig-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem; }
-    .mm-sig-freq { font-size: 0.7rem; color: var(--ink-muted); font-family: var(--font-mono); }
-    
-    .mm-sig-in { color: #16a34a; } /* Green for passing */
-    .mm-sig-out { color: #ef4444; } /* Red for attenuated */
-
-    .mm-diagram-arrow-wrapper {
-      position: relative;
-      width: 60px; height: 30px;
-    }
-    .mm-diagram-arrow {
-      position: absolute; inset: 0;
-      color: var(--border-subtle);
-    }
-    .mm-diagram-arrow svg { width: 100%; height: 100%; }
-
-    /* The "Generative" Waveform visualization */
-    .mm-diagram-visual-waves {
-      display: flex; align-items: flex-end; gap: 2px; height: 30px;
-      width: 100%; justify-content: center; margin-top: 0.5rem;
-    }
-    .mm-diagram-visual-waves span {
-      display: block; width: 4px; border-radius: 2px;
-      height: 4px; /* Default tiny */
-      transition: height 0.3s ease, background 0.3s ease;
-    }
-    
-    /* States for input passing vs output attenuated */
-    .waves-in span { height: 28px; background: #c7d2fe; animation: mm-wave-flow 0.8s infinite linear; }
-    .waves-out span { height: 2px; background: rgba(239, 68, 68, 0.2); animation: none; } /* tiny and static */
-
-    @keyframes mm-wave-flow { 0%, 100% { height: 20px; } 50% { height: 28px; } }
-
-/* ===== OpenAI-Style Exploratory Sandbox ===== */
+    /* ============================================================
+       EXPLORATORY SANDBOX (Ideal Gas Law)
+       ============================================================ */
     .sandbox-wrapper {
       background: #fff;
       border: 1px solid var(--border-subtle);
@@ -924,14 +529,10 @@
     }
     .sandbox-title { font-size: 0.85rem; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 0.5rem; }
     .sandbox-badge { background: #e0e7ff; color: #4338ca; padding: 0.2rem 0.6rem; border-radius: 100px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
-    
-    .sandbox-body {
-      display: grid;
-      grid-template-columns: 1fr;
-      @media (min-width: 768px) { grid-template-columns: 1fr 1fr; }
+    .sandbox-body { display: grid; grid-template-columns: 1fr; }
+    @media (min-width: 768px) {
+      .sandbox-body { grid-template-columns: 1fr 1fr; }
     }
-    
-    /* Visualization Area */
     .sandbox-viz {
       padding: 2.5rem;
       background: #fafaf9;
@@ -941,102 +542,60 @@
       justify-content: center;
       position: relative;
       border-bottom: 1px solid var(--border-subtle);
-      @media (min-width: 768px) { border-bottom: none; border-right: 1px solid var(--border-subtle); }
     }
-    
-    /* Cylinder & Piston Graphic */
+    @media (min-width: 768px) {
+      .sandbox-viz { border-bottom: none; border-right: 1px solid var(--border-subtle); }
+    }
+
+    /* Cylinder & Piston */
     .cylinder-container {
       width: 140px; height: 180px;
       border: 3px solid #d1d5db;
       border-top: none;
       border-radius: 0 0 8px 8px;
       position: relative;
-      background: rgba(254, 215, 170, 0.2); /* Gas color */
+      background: rgba(254, 215, 170, 0.2);
       display: flex; align-items: flex-end;
       transition: background 0.3s ease;
     }
     .piston {
       position: absolute; left: -3px; right: -3px; height: 16px;
       background: var(--ink-light); border-radius: 4px;
-      top: 50%; /* Changed by JS */
+      top: 50%;
       transition: top 0.1s ease;
       display: flex; justify-content: center;
     }
-    .piston-rod {
-      width: 8px; height: 180px; background: #9ca3af;
-      position: absolute; bottom: 100%;
-    }
-    .gas-particle {
-      position: absolute; width: 6px; height: 6px;
-      background: var(--accent); border-radius: 50%;
-      opacity: 0.6;
-    }
-    
+    .piston-rod { width: 8px; height: 180px; background: #9ca3af; position: absolute; bottom: 100%; }
+    .gas-particle { position: absolute; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; opacity: 0.6; }
+
     /* Pressure Gauge */
     .gauge-wrapper { position: absolute; top: 1.5rem; right: 1.5rem; text-align: center; }
     .gauge-value { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: #ef4444; transition: color 0.3s; }
     .gauge-label { font-size: 0.7rem; color: var(--ink-muted); text-transform: uppercase; font-weight: 600; }
-    
+
     /* Controls & AI Tutor Area */
     .sandbox-interaction { padding: 2rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; }
-    
     .slider-group { margin-bottom: 1.5rem; }
     .slider-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 600; }
     .slider-value { font-family: var(--font-mono); color: var(--accent); }
-    
-    input[type=range] {
-      -webkit-appearance: none; width: 100%; background: transparent;
-    }
+
+    input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
     input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%;
       background: var(--accent); cursor: pointer; margin-top: -8px; box-shadow: 0 2px 6px rgba(194,65,12,0.3);
     }
-    input[type=range]::-webkit-slider-runnable-track {
-      width: 100%; height: 4px; cursor: pointer; background: #e5e7eb; border-radius: 2px;
-    }
-    
-    /* Dynamic AI Tutor Box */
-    .sandbox-tutor {
-      background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1.25rem;
-      position: relative;
-    }
+    input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: #e5e7eb; border-radius: 2px; }
+
+    /* AI Tutor Box */
+    .sandbox-tutor { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1.25rem; position: relative; }
     .tutor-header { display: flex; align-items: center; gap: 0.5rem; color: #16a34a; font-weight: 700; font-size: 0.75rem; margin-bottom: 0.5rem; text-transform: uppercase; }
     .tutor-header svg { width: 14px; height: 14px; animation: pulse-green 2s infinite; }
     .tutor-text { font-size: 0.95rem; color: #15803d; line-height: 1.5; min-height: 4.5em; }
-    
     .sandbox-caption { font-family: var(--font-sans); font-size: 0.8125rem; color: var(--ink-muted); padding: 1rem 1.5rem; background: #fff; border-top: 1px solid var(--border-subtle); }
-    
-    /* Typing Dots Animation */
-    .typing-dots { display: flex; gap: 4px; align-items: center; height: 22px; }
-    .typing-dots span {
-      width: 6px; height: 6px;
-      background: rgba(194,65,12,0.5);
-      border-radius: 50%;
-      animation: bounce 1.4s infinite ease-in-out both;
-    }
-    .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
-    .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
-    
-    /* Blinking Cursor for Typewriter */
-    .typewriter-cursor {
-      display: inline-block;
-      width: 2px;
-      background-color: var(--accent);
-      animation: blink 1s step-end infinite;
-      margin-left: 3px;
-      vertical-align: text-bottom;
-      height: 1.1em;
-    }
-    
-    @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
-    @keyframes pulse-green { 
-      0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4); } 
-      70% { box-shadow: 0 0 0 4px rgba(22, 163, 74, 0); } 
-      100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); } 
-    }
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-    /* ===== Edge-Cloud Latency Dashboard ===== */
+    /* ============================================================
+       EDGE-CLOUD LATENCY DASHBOARD
+       ============================================================ */
     .ec-wrapper {
       background: #fff;
       border: 1px solid var(--border-subtle);
@@ -1047,16 +606,7 @@
       font-family: var(--font-sans);
       overflow: hidden;
     }
-    
-    /* Latency Timer Header */
-    .ec-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--border-subtle);
-    }
+    .ec-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-subtle); }
     .ec-title { font-size: 0.85rem; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: 0.05em; }
     .ec-timer-box {
       background: #1a1a1a; color: #fff; padding: 0.4rem 1rem; border-radius: 6px;
@@ -1065,60 +615,38 @@
       display: flex; align-items: center; gap: 0.5rem;
     }
     .ec-timer-box span { color: #9ece6a; font-size: 0.75rem; }
-
-    /* Layout */
-    .ec-layout {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    @media (min-width: 768px) {
-      .ec-layout { flex-direction: row; align-items: stretch; }
-    }
-
-    /* Edge & Cloud Nodes */
+    .ec-layout { display: flex; flex-direction: column; gap: 1.5rem; }
+    @media (min-width: 768px) { .ec-layout { flex-direction: row; align-items: stretch; } }
     .ec-node { flex: 1; border-radius: 12px; padding: 1.5rem; position: relative; border: 1px solid; transition: all 0.3s ease; }
     .ec-edge { background: #f5f0eb; border-color: var(--border-subtle); }
     .ec-cloud { background: #1a1a1a; border-color: #2d1a0e; color: #fff; box-shadow: inset 0 0 40px rgba(194,65,12,0.05); }
-    
     .ec-node-header { text-align: center; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem; }
     .ec-edge .ec-node-header { color: var(--ink-muted); }
     .ec-cloud .ec-node-header { color: var(--accent); }
-
     .ec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
     .ec-module {
       padding: 0.75rem 0.5rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; text-align: center;
       transition: all 0.2s ease; border: 1px solid;
     }
-    /* Edge Modules */
     .ec-edge .ec-module { background: #fff; border-color: var(--border-subtle); color: var(--ink-light); }
     .ec-edge .ec-module.active { background: var(--accent); border-color: var(--accent); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(194,65,12,0.2); }
-    
-    /* Cloud Modules */
     .ec-cloud .ec-module { background: #2d1a0e; border-color: rgba(194,65,12,0.3); color: rgba(255,255,255,0.7); }
     .ec-cloud .ec-module.active { background: #c2410c; border-color: #f97316; color: #fff; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(249,115,22,0.3); }
-
-    /* Special Bottom Banners */
     .ec-banner { margin-top: 1.5rem; padding: 0.75rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-align: center; display: flex; align-items: center; justify-content: center; gap: 0.5rem; border: 1px solid; transition: all 0.3s; }
     .ec-privacy { background: #e8f5e9; color: #15803d; border-color: #bbf7d0; }
     .ec-privacy.active { box-shadow: 0 0 15px rgba(22, 163, 74, 0.4); }
     .ec-target { background: rgba(245, 158, 11, 0.1); color: #fbbf24; border-color: rgba(245, 158, 11, 0.3); }
-    
+
     /* Network Bridge */
     .ec-network { display: flex; flex-direction: column; justify-content: center; align-items: center; min-width: 140px; position: relative; }
     .ec-net-path { width: 100%; height: 2px; border-top: 2px dashed var(--border-subtle); position: relative; margin: 0.5rem 0; display: flex; align-items: center; }
-    .ec-cloud .ec-net-path { border-color: #4a4a4a; }
-    
     .ec-net-label { font-size: 0.65rem; color: var(--ink-muted); text-align: center; line-height: 1.4; font-weight: 500; background: #fff; padding: 0 4px; z-index: 2; }
-    
-    /* Flying Data Packets */
     .ec-packet { position: absolute; width: 8px; height: 8px; border-radius: 50%; opacity: 0; z-index: 5; }
-    .packet-tx { background: var(--accent); box-shadow: 0 0 10px var(--accent); } /* Edge to Cloud */
-    .packet-rx { background: #10b981; box-shadow: 0 0 10px #10b981; } /* Cloud to Edge */
+    .packet-tx { background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+    .packet-rx { background: #10b981; box-shadow: 0 0 10px #10b981; }
 
     @keyframes fly-right { 0% { left: 0; opacity: 1; } 90% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
     @keyframes fly-left { 0% { right: 0; opacity: 1; } 90% { opacity: 1; } 100% { right: 100%; opacity: 0; } }
-    
     .anim-tx { animation: fly-right 0.3s linear forwards; }
     .anim-rx { animation: fly-left 0.3s linear forwards; }
 
@@ -1129,7 +657,9 @@
       @keyframes fly-left { 0% { bottom: 0; opacity: 1; } 100% { bottom: 100%; opacity: 0; } }
     }
 
-    /* ===== Interactive Digital Divide Map ===== */
+    /* ============================================================
+       INTERACTIVE DIGITAL DIVIDE MAP
+       ============================================================ */
     .map-wrapper {
       background: #fff;
       border: 1px solid var(--border-subtle);
@@ -1139,43 +669,24 @@
       box-shadow: 0 8px 30px rgba(0,0,0,0.04);
       font-family: var(--font-sans);
     }
-    
     .map-container {
       position: relative;
       width: 100%;
-      /* Aspect ratio control for SVG in responsive container */
-      padding-bottom: 52%; 
+      padding-bottom: 52%;
       height: 0;
       overflow: hidden;
       margin: 1.5rem 0;
     }
-    
-    #svg-world-map {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-    }
-
-    /* Map Paths Default Style */
+    #svg-world-map { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
     .region-path {
+      fill: #f5f0eb;
       stroke: #fff;
       stroke-width: 0.75;
       stroke-linejoin: round;
       transition: fill 0.3s ease, stroke-width 0.3s ease;
       cursor: pointer;
     }
-    
-    /* Choropleth Color Scale base (Will be overridden by JS inline styles) */
-    .region-path { fill: #f5f0eb; } /* No Data gray */
-
-    /* Hover Highlight Style */
-    .region-path.highlight {
-      stroke: var(--ink);
-      stroke-width: 1.5;
-      z-index: 10;
-    }
-
-    /* Interactive Tooltip */
+    .region-path.highlight { stroke: var(--ink); stroke-width: 1.5; z-index: 10; }
     .div-tooltip {
       position: absolute;
       background: rgba(26, 26, 26, 0.96);
@@ -1183,7 +694,7 @@
       padding: 0.75rem 1rem;
       border-radius: 6px;
       font-size: 0.8rem;
-      pointer-events: none; /* Let clicks pass through */
+      pointer-events: none;
       opacity: 0;
       transform: translateY(10px) scale(0.95);
       transition: opacity 0.2s ease, transform 0.2s ease;
@@ -1191,128 +702,15 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
       backdrop-filter: blur(4px);
     }
-    
-    .div-tooltip.visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    
-    .tooltip-header {
-      font-weight: 700;
-      font-size: 0.9rem;
-      margin-bottom: 0.3rem;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-      padding-bottom: 0.3rem;
-    }
-    
-    .tooltip-stat-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 1.5rem;
-      margin-top: 0.25rem;
-    }
-    
+    .div-tooltip.visible { opacity: 1; transform: translateY(0) scale(1); }
+    .tooltip-header { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 0.3rem; }
+    .tooltip-stat-row { display: flex; justify-content: space-between; gap: 1.5rem; margin-top: 0.25rem; }
     .stat-label { color: rgba(255,255,255,0.6); }
     .stat-val { font-family: var(--font-mono); font-weight: 500; color: var(--accent-light); }
 
-    /* ===== Interactive Digital Divide World Map (Replacing Console) ===== */
-    .map-wrapper {
-      background: #fff;
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin: 3rem 0;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.04);
-      font-family: var(--font-sans);
-    }
-    
-    .map-container {
-      position: relative;
-      width: 100%;
-      /* Aspect ratio control for SVG in responsive container */
-      padding-bottom: 52%; 
-      height: 0;
-      overflow: hidden;
-      margin: 1.5rem 0;
-    }
-    
-    #svg-world-map {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-    }
-
-    /* Map Paths Default Style */
-    .region-path {
-      stroke: #fff;
-      stroke-width: 0.75;
-      stroke-linejoin: round;
-      transition: fill 0.3s ease, stroke-width 0.3s ease;
-      cursor: pointer;
-    }
-    
-    /* Choropleth Color Scale base (Will be overridden by JS inline styles) */
-    .region-path { fill: #f5f0eb; } /* No Data gray */
-
-    /* Hover Highlight Style */
-    .region-path.highlight {
-      stroke: var(--ink);
-      stroke-width: 1.5;
-      z-index: 10;
-    }
-
-    /* Interactive Tooltip */
-    .div-tooltip {
-      position: absolute;
-      background: rgba(26, 26, 26, 0.96);
-      color: #fff;
-      padding: 0.75rem 1rem;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      pointer-events: none; /* Let clicks pass through */
-      opacity: 0;
-      transform: translateY(10px) scale(0.95);
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      z-index: 100;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      backdrop-filter: blur(4px);
-    }
-    
-    .div-tooltip.visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    
-    .tooltip-header {
-      font-weight: 700;
-      font-size: 0.9rem;
-      margin-bottom: 0.3rem;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-      padding-bottom: 0.3rem;
-    }
-    
-    .tooltip-stat-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 1.5rem;
-      margin-top: 0.25rem;
-    }
-    
-    .stat-label { color: rgba(255,255,255,0.6); }
-    .stat-val { font-family: var(--font-mono); font-weight: 500; color: var(--accent-light); }
-
-    /* ===== References section ===== */
-    .ref-list p { margin-bottom: 0.75rem; }
-
-    /* ===== Max-width constraints from class ===== */
-    .max-w-\[720px\] { max-width: 720px; }
-    .max-w-\[600px\] { max-width: 600px; }
-    .max-w-md { max-width: 28rem; }
-    .h-\[3px\] { height: 3px; }
-    .space-y-1 > * + * { margin-top: 0.25rem; }
-    .space-y-3 > * + * { margin-top: 0.75rem; }
-
-    /* ===== Stat Callout (full-width accent card) ===== */
+    /* ============================================================
+       STAT CALLOUT (Full-width accent card)
+       ============================================================ */
     .stat-callout {
       background: linear-gradient(135deg, #1a1a1a 0%, #2d1a0e 100%);
       border-radius: 12px;
@@ -1327,10 +725,8 @@
     .stat-callout::before {
       content: '';
       position: absolute;
-      right: -20px;
-      top: -20px;
-      width: 120px;
-      height: 120px;
+      right: -20px; top: -20px;
+      width: 120px; height: 120px;
       background: radial-gradient(circle, rgba(194,65,12,0.15), transparent 70%);
       pointer-events: none;
     }
@@ -1343,18 +739,12 @@
       line-height: 1;
       flex-shrink: 0;
     }
-    .stat-callout-text {
-      font-family: var(--font-sans);
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.5;
-    }
-    .stat-callout-text strong {
-      color: #fff;
-      font-weight: 600;
-    }
+    .stat-callout-text { font-family: var(--font-sans); font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.5; }
+    .stat-callout-text strong { color: #fff; font-weight: 600; }
 
-    /* ===== Tech Badge (inline highlight for key terms) ===== */
+    /* ============================================================
+       TECH BADGE (Inline highlight)
+       ============================================================ */
     .tech-badge {
       display: inline-block;
       font-family: var(--font-mono);
@@ -1368,7 +758,22 @@
       vertical-align: baseline;
     }
 
-    /* ===== Conclusions Dark Section ===== */
+    /* ============================================================
+       KEY TAKEAWAY BOX
+       ============================================================ */
+    .takeaway {
+      background: linear-gradient(135deg, #fffbf5 0%, #fef3e2 100%);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+    }
+    .takeaway-label { font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 0.5rem; }
+    .takeaway p { font-size: 1rem; line-height: 1.65; color: var(--ink-light); }
+
+    /* ============================================================
+       CONCLUSIONS DARK SECTION
+       ============================================================ */
     .conclusions-section {
       background: linear-gradient(160deg, #1a1a1a 0%, #2d1a0e 50%, #1a1a1a 100%);
       border-radius: 16px;
@@ -1392,114 +797,14 @@
     .conclusions-section .pull-quote { border-left-color: var(--accent); }
     .conclusions-section .pull-quote p:first-child { color: rgba(255,255,255,0.9); }
 
-    /* ===== Enhanced Footer ===== */
-    .site-footer {
-      background: #1a1a1a;
-      color: rgba(255,255,255,0.4);
-      padding: 3rem 1.5rem;
-    }
-    .site-footer a { color: var(--accent); }
-    .footer-inner {
-      max-width: var(--max-wide);
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      align-items: center;
-      text-align: center;
-    }
-    .footer-brand {
-      font-family: var(--font-serif);
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.7);
-    }
+    /* ============================================================
+       REFERENCES SECTION
+       ============================================================ */
+    .ref-list p { margin-bottom: 0.75rem; }
 
-    /* ===== Scroll-triggered number animation ===== */
-    @keyframes countUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-    .stat-callout.visible .stat-callout-number { animation: countUp 0.6s ease forwards; }
-
-    /* ===== Print ===== */
-    @media print { .toc-sidebar, #progress-bar { display: none !important; } }
-
-    /* ===== Key Takeaway Box ===== */
-    .takeaway {
-      background: linear-gradient(135deg, #fffbf5 0%, #fef3e2 100%);
-      border-left: 4px solid var(--accent);
-      border-radius: 0 8px 8px 0;
-      padding: 1.25rem 1.5rem;
-      margin: 2rem 0;
-    }
-    .takeaway-label {
-      font-family: var(--font-sans);
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-    .takeaway p {
-      font-size: 1rem;
-      line-height: 1.65;
-      color: var(--ink-light);
-    }
-
-    /* ===== Hero Animation ===== */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .hero-animate { animation: fadeUp 0.8s ease forwards; }
-    .hero-animate-delay-1 { animation-delay: 0.15s; opacity: 0; }
-    .hero-animate-delay-2 { animation-delay: 0.3s; opacity: 0; }
-    .hero-animate-delay-3 { animation-delay: 0.5s; opacity: 0; }
-
-    /* ===== Reading Time Badge ===== */
-    .reading-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.375rem;
-      font-family: var(--font-sans);
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--ink-muted);
-      background: rgba(0,0,0,0.04);
-      border-radius: 100px;
-      padding: 0.3rem 0.75rem;
-    }
-
-    /* ===== Hero-to-Content Transition ===== */
-    .hero-transition {
-      height: 80px;
-      background: linear-gradient(to bottom, #1a1a1a 0%, var(--surface) 100%);
-    }
-    main {
-      position: relative;
-    }
-    main::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 1px;
-      height: 60px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-      opacity: 0.3;
-    }
-
-    /* ===== Section Divider ===== */
-    .section-divider {
-      width: 40px;
-      height: 3px;
-      background: var(--accent);
-      border: none;
-      margin: 3rem 0 2rem;
-      border-radius: 2px;
-    }
-
-    /* ===== Hero Redesign ===== */
+    /* ============================================================
+       HERO SECTION
+       ============================================================ */
     .hero-bg {
       background: linear-gradient(160deg, #1a1a1a 0%, #2d1a0e 40%, #1a1a1a 100%);
       position: relative;
@@ -1525,10 +830,8 @@
     }
     .hero-kicker {
       font-family: var(--font-sans);
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
+      font-size: 0.7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em;
       color: var(--accent);
       display: inline-block;
       padding: 0.3rem 0.75rem;
@@ -1561,57 +864,104 @@
       line-height: 1.55;
       margin-top: 1.25rem;
     }
-    .hero-meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 1.75rem;
-    }
+    .hero-meta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 1.75rem; }
     .hero-meta-pill {
       font-family: var(--font-sans);
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-size: 0.75rem; font-weight: 500;
       color: rgba(255,255,255,0.5);
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 100px;
       padding: 0.35rem 0.85rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
+      display: inline-flex; align-items: center; gap: 0.4rem;
     }
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1px;
-      margin-top: 3rem;
-      background: rgba(255,255,255,0.06);
-      border-radius: 12px;
-      overflow: hidden;
+    .hero-transition {
+      height: 80px;
+      background: linear-gradient(to bottom, #1a1a1a 0%, var(--surface) 100%);
     }
-    .hero-stat {
-      background: rgba(255,255,255,0.03);
-      padding: 1.25rem 1.5rem;
-      transition: background 0.2s;
+    main { position: relative; }
+    main::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 1px; height: 60px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      opacity: 0.3;
     }
-    .hero-stat:hover { background: rgba(255,255,255,0.06); }
-    .hero-stat-num {
-      font-family: var(--font-sans);
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--accent);
-      letter-spacing: -0.02em;
+
+    /* Hero Animation */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-animate { animation: fadeUp 0.8s ease forwards; }
+    .hero-animate-delay-1 { animation-delay: 0.15s; opacity: 0; }
+    .hero-animate-delay-2 { animation-delay: 0.3s; opacity: 0; }
+    .hero-animate-delay-3 { animation-delay: 0.5s; opacity: 0; }
+
+    /* ============================================================
+       SECTION DIVIDER
+       ============================================================ */
+    .section-divider {
+      width: 40px; height: 3px;
+      background: var(--accent);
+      border: none;
+      margin: 3rem 0 2rem;
+      border-radius: 2px;
     }
-    .hero-stat-label {
-      font-family: var(--font-sans);
-      font-size: 0.7rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .site-footer {
+      background: #1a1a1a;
       color: rgba(255,255,255,0.4);
-      margin-top: 0.25rem;
+      padding: 3rem 1.5rem;
     }
+    .site-footer a { color: var(--accent); }
+    .footer-inner {
+      max-width: var(--max-wide);
+      margin: 0 auto;
+      display: flex; flex-direction: column;
+      gap: 1rem; align-items: center; text-align: center;
+    }
+    .footer-brand { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 600; color: rgba(255,255,255,0.7); }
+
+    /* ============================================================
+       SHARED KEYFRAME ANIMATIONS
+       ============================================================ */
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4); }
+      70% { box-shadow: 0 0 0 4px rgba(22, 163, 74, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+    @keyframes countUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .stat-callout.visible .stat-callout-number { animation: countUp 0.6s ease forwards; }
+
+    /* Typing dots & typewriter cursor */
+    .typing-dots { display: flex; gap: 4px; align-items: center; height: 22px; }
+    .typing-dots span {
+      width: 6px; height: 6px;
+      background: rgba(194,65,12,0.5);
+      border-radius: 50%;
+      animation: bounce 1.4s infinite ease-in-out both;
+    }
+    .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+    .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+    .typewriter-cursor {
+      display: inline-block;
+      width: 2px;
+      background-color: var(--accent);
+      animation: blink 1s step-end infinite;
+      margin-left: 3px;
+      vertical-align: text-bottom;
+      height: 1.1em;
+    }
+
+    /* ============================================================
+       PRINT
+       ============================================================ */
+    @media print { .toc-sidebar, #progress-bar { display: none !important; } }
   </style>
 </head>
 
@@ -1647,23 +997,15 @@
   <!-- ====== HEADER / HERO ====== -->
   <header class="hero-bg">
     <div class="relative max-w-wide mx-auto px-6" style="padding-top:clamp(3rem,8vw,6rem);padding-bottom:clamp(2.5rem,6vw,4rem);">
-
-      <!-- Kicker -->
       <div class="hero-animate">
         <span class="hero-kicker">ELEC0139 &middot; UCL &middot; May 2026</span>
       </div>
-
-      <!-- Title -->
       <h1 class="hero-title hero-animate hero-animate-delay-1">
         What If Every Student Had a <em>Brilliant Tutor</em> Available 24/7?
       </h1>
-
-      <!-- Subtitle -->
       <p class="hero-subtitle hero-animate hero-animate-delay-2">
         Inside the agentic AI systems that are turning Bloom&rsquo;s impossible dream (personalised one-on-one tutoring for every learner) into an engineering problem with a real solution.
       </p>
-
-      <!-- Meta pills -->
       <div class="hero-meta-row hero-animate hero-animate-delay-2">
         <span class="hero-meta-pill">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -1675,11 +1017,9 @@
         </span>
         <span class="hero-meta-pill">Emerging Topics in Integrated Machine Learning Systems 25/26</span>
       </div>
-
     </div>
   </header>
 
-  <!-- Smooth dark-to-light transition -->
   <div class="hero-transition"></div>
 
   <!-- ====== MAIN CONTENT ====== -->
@@ -1699,7 +1039,6 @@
       <p class="text-body text-ink-light mb-6">The pipeline is collapsing from the other end, too. The 2024 TALIS survey found that one in five teachers under 30 plans to leave the profession within five years; in some countries, that figure rises to nearly half (Education International, 2025). In the United States alone, roughly 411,500 teaching positions were either unfilled or occupied by under-qualified staff in the 2024&ndash;25 school year, roughly one in eight positions nationally (Learning Policy Institute, 2025). These are not abstract statistics. They translate directly into overcrowded classrooms, widening achievement gaps, and students in STEM subjects who may never encounter a fully qualified teacher.</p>
       <p class="text-body text-ink-light mb-6">The pattern is self-reinforcing: burnout drives experienced educators out, which increases the workload on those who remain, which drives more burnout. Across OECD countries, secondary schools consistently suffer worse vacancies than primary, especially in science, mathematics, and technology (OECD Education at a Glance, 2025). Rural and economically disadvantaged communities bear the heaviest burden: limited tax bases, geographic isolation, and distance from teacher-training programmes compound recruitment challenges. In Sub-Saharan Africa, the student-to-teacher ratio can exceed <strong class="text-ink font-medium">56:1</strong> (UNESCO, 2024). At that density, personalised instruction is not merely difficult; it is physically impossible.</p>
 
-      <!-- Stat Callout: Teacher Shortage -->
       <div class="stat-callout fade-in">
         <div class="stat-callout-number">1 in 8</div>
         <div class="stat-callout-text"><strong>U.S. teaching positions</strong> were either unfilled or staffed by under-qualified teachers in the 2024-25 school year. In Sub-Saharan Africa, one teacher can face 56 students. The global gap: 44 million teachers short by 2030.</div>
@@ -1720,7 +1059,6 @@
       <p class="text-body text-ink-light mb-6">This is not theoretical. Khan Academy&rsquo;s Khanmigo, built on GPT-4, grew from roughly 68,000 users during its 2023&ndash;24 pilot to <strong class="text-ink font-medium">over 700,000</strong> in 2024&ndash;25, with projections exceeding one million for 2025&ndash;26 (Khan Academy, 2025; DiCerbo, 2025). A 2025 systematic review covering 82 peer-reviewed studies distilled the field into five recurring themes: RAG dramatically reduces hallucination; prompt-engineering guardrails preserve academic integrity; multi-agent debate improves accuracy on complex tasks; affective scaffolding increases student persistence; and &mdash; perhaps most importantly &mdash; hybrid human&ndash;AI workflows consistently outperform fully autonomous tutors (Garcia-Bosque et al., 2025). The question is no longer <em>whether</em> AI can enhance education, but how to design, deploy, and govern it responsibly.</p>
 
       <div class="comparison-grid fade-in">
-        
         <div class="comp-card">
           <div class="comp-title">Traditional EdTech</div>
           <div class="comp-desc">MOOCs & basic adaptive platforms.</div>
@@ -1730,7 +1068,6 @@
             <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Fails to diagnose underlying misconceptions</li>
           </ul>
         </div>
-
         <div class="comp-card">
           <div class="comp-title">Basic LLM / Chatbot</div>
           <div class="comp-desc">Standard ChatGPT or Claude without guardrails.</div>
@@ -1740,7 +1077,6 @@
             <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Solves problems instead of teaching (the cognitive crutch)</li>
           </ul>
         </div>
-
         <div class="comp-card highlight">
           <div class="comp-title text-accent">Agentic Tutor</div>
           <div class="comp-desc">The Intelligent Classroom architecture.</div>
@@ -1750,9 +1086,8 @@
             <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> <strong>Socratic scaffolding</strong> (guides discovery, preserves struggle)</li>
           </ul>
         </div>
-
       </div>
-      
+
       <!-- Chart #1: Khanmigo User Growth -->
       <div class="my-12 fade-in" style="background:#fff;border:1px solid var(--border-subtle);border-radius:12px;padding:1.5rem;">
         <p class="font-sans text-caption text-ink-muted uppercase tracking-wide mb-3" style="font-weight:600;">Fig. 1 &mdash; Khanmigo User Growth &amp; Adoption</p>
@@ -1776,6 +1111,7 @@
       <p class="text-body text-ink-light mb-6">The best human tutors do not lecture. They ask questions. They probe for misunderstandings, offer hints at the right moment, and resist the urge to simply hand over the answer. It turns out that large language models (GPT-4, Gemini, Claude) are surprisingly good at this, once you tell them to do it. Equip an LLM with agentic capabilities like planning, tool use, memory, and reflection, and it becomes capable of sustained, pedagogically meaningful dialogue with a learner.</p>
       <p class="text-body text-ink-light mb-6">Khanmigo is the clearest example. Ask it to help you solve a quadratic equation, and it will not show you the answer. It will ask what you have tried so far, nudge you toward the right factorisation, and wait for you to get there yourself. Its Writing Coach module guides students through essay planning, thesis refinement, and draft revision without generating a single sentence on their behalf. It also flags passages of more than fifteen words pasted from external sources for teacher review (Khan Academy, 2025). This is not a gimmick. It is a structural encoding of pedagogical principles into the agent&rsquo;s behaviour.</p>
 
+      <!-- Socratic Chat Demo -->
       <div class="chat-demo-wrapper my-12" id="socratic-chat-demo">
         <div class="chat-header">
           <span class="chat-title">Live Socratic Dialogue Demo</span>
@@ -1785,13 +1121,11 @@
           <div class="chat-msg student" id="msg-student">
             <div class="chat-bubble">I'm stuck. Why isn't the derivative of sin(x²) just cos(x²)?</div>
           </div>
-          
           <div class="chat-msg tutor" id="msg-tutor-typing" style="display: none;">
             <div class="chat-bubble">
-              <div class="typing-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+              <div class="typing-dots"><span></span><span></span><span></span></div>
             </div>
           </div>
-          
           <div class="chat-msg tutor" id="msg-tutor-text" style="display: none;">
             <div class="chat-bubble">
               <span id="tutor-text-content"></span><span class="typewriter-cursor"></span>
@@ -1799,8 +1133,8 @@
           </div>
         </div>
       </div>
-      
-      <p class="text-body text-ink-light mb-6">Under the hood, several key techniques make this possible. <strong class="text-ink font-medium">Chain-of-thought prompting</strong> (Wei et al., 2023) gets the model to &ldquo;show its working&rdquo; &mdash; generating intermediate reasoning steps before committing to a final answer, which dramatically improves performance on maths and logic. The <strong class="text-ink font-medium">ReAct framework</strong> (Yao et al., 2023) goes further, interleaving reasoning with tool use: the agent can pause mid-thought to search a knowledge base, run a calculation, or check a database, then resume with that new information in hand. Chen et al. (2024) showed that chaining multiple LLM calls into a pipeline (one to diagnose the student&rsquo;s state, another to generate a response, a third to verify its quality &mdash; produces tutoring interactions that approach expert human tutors.</p>
+
+      <p class="text-body text-ink-light mb-6">Under the hood, several key techniques make this possible. <strong class="text-ink font-medium">Chain-of-thought prompting</strong> (Wei et al., 2023) gets the model to &ldquo;show its working&rdquo; &mdash; generating intermediate reasoning steps before committing to a final answer, which dramatically improves performance on maths and logic. The <strong class="text-ink font-medium">ReAct framework</strong> (Yao et al., 2023) goes further, interleaving reasoning with tool use: the agent can pause mid-thought to search a knowledge base, run a calculation, or check a database, then resume with that new information in hand. Chen et al. (2024) showed that chaining multiple LLM calls into a pipeline (one to diagnose the student&rsquo;s state, another to generate a response, a third to verify its quality) produces tutoring interactions that approach expert human tutors.</p>
       <p class="text-body text-ink-light mb-6">But there is a catch that often gets overlooked: <strong class="text-ink font-medium">deployment cost</strong>. State-of-the-art LLMs contain billions of parameters. Running them requires serious GPU memory &mdash; far more than the Chromebooks, tablets, and shared classroom PCs that most students actually use. On such devices, the bottleneck is usually not raw compute but the <em>memory wall</em>: the bandwidth limit when shuttling billions of weights between DRAM and the processor for each inference pass.</p>
       <p class="text-body text-ink-light mb-6">This is where model compression enters the picture. <strong class="text-ink font-medium">Quantization</strong> takes each weight from its original 32-bit floating-point representation and squeezes it into 4 or 8 bits. Formally, each floating-point weight \( W_{\text{fp}} \) maps to its quantized counterpart \( W_q \) via:</p>
 
@@ -1811,13 +1145,12 @@
 
       <p class="text-body text-ink-light mb-6">The payoff is enormous. Representing each weight in 4 bits instead of 32 slashes the memory footprint by up to 8&times;, directly relieving the DRAM bandwidth bottleneck. Recent edge-device benchmarks confirm this works in practice: 4-bit quantized models retain over 91% accuracy while halving memory usage and shaving inference latency from 150ms to 110ms (Agrawal et al., 2025). Two complementary techniques complete the picture. <strong class="text-ink font-medium">Knowledge distillation</strong> compresses a large &ldquo;teacher&rdquo; model into a smaller &ldquo;student&rdquo; that captures 85% of its capability at a fraction of the cost. <strong class="text-ink font-medium">Structured pruning</strong> surgically removes entire layers or attention heads that contribute little to output quality, shrinking models by up to 60%. Together, these methods are what make it possible to run an intelligent tutor on the same Chromebook a student uses for everything else.</p>
 
-      <!-- Stat Callout: Compression -->
       <div class="stat-callout fade-in">
         <div class="stat-callout-number">8&times;</div>
         <div class="stat-callout-text"><strong>Memory reduction</strong> from 4-bit quantization, with over 91% accuracy retained. Combined with distillation (85% capability at a fraction of the cost) and pruning (60% size reduction), these techniques make classroom-grade hardware viable for intelligent tutoring.</div>
       </div>
 
-      <!-- Chart #2: Model Compression Techniques -->
+      <!-- Chart #2: Model Compression -->
       <div class="my-12 fade-in" style="background:#fff;border:1px solid var(--border-subtle);border-radius:12px;padding:1.5rem;">
         <p class="font-sans text-caption text-ink-muted uppercase tracking-wide mb-3" style="font-weight:600;">Fig. 2 &mdash; Model Compression: Accuracy Retention vs. Memory Reduction</p>
         <div style="position:relative;height:340px;"><canvas id="chart2"></canvas></div>
@@ -1825,8 +1158,9 @@
       </div>
 
       <h3 id="sec-2-2" class="text-h2 mb-5 mt-14">2.2&ensp;RAG: Teaching the Tutor Not to Make Things Up</h3>
-     <p class="text-body text-ink-light mb-6">An LLM that confidently tells a student that the mitochondria is the &ldquo;brain of the cell&rdquo; is worse than no tutor at all. Retrieval-augmented generation (RAG) attacks this hallucination problem by fetching verified passages before the model speaks. However, early dense-vector RAG had a fatal flaw in education: it lacked structural understanding. It could find semantically similar text, but it couldn't map prerequisite dependencies.</p>
+      <p class="text-body text-ink-light mb-6">An LLM that confidently tells a student that the mitochondria is the &ldquo;brain of the cell&rdquo; is worse than no tutor at all. Retrieval-augmented generation (RAG) attacks this hallucination problem by fetching verified passages before the model speaks. However, early dense-vector RAG had a fatal flaw in education: it lacked structural understanding. It could find semantically similar text, but it couldn't map prerequisite dependencies.</p>
       <p class="text-body text-ink-light mb-6">Enter <strong class="text-ink font-medium">GraphRAG</strong> and <strong class="text-ink font-medium">Knowledge Graphs (KG)</strong>. Instead of just searching a flat database of text chunks, the system traverses a structured network of concepts. If a student struggles with $F=ma$, the Knowledge Graph explicitly links this to <em>Mass</em> and <em>Acceleration</em>, and maps <em>Acceleration</em> back to <em>Velocity</em>. By running a hybrid retrieval (Dense Vector Search + Graph Traversal), the agentic tutor retrieves not just the answer, but the entire cognitive scaffolding needed to understand it. This guarantees the AI teaches what <em>your</em> course intends, following the exact pedagogical structure defined by the educators.</p>
+
       <div class="formula-block my-8 text-center">
         $$ P(y \mid x) = \sum_{z \in \mathcal{Z}} P(z \mid x)\, P(y \mid z, x) $$
         <p class="font-sans text-caption text-ink-muted mt-3" style="text-align:left;">where <em>x</em> is the student&rsquo;s query, <em>Z</em> is the set of candidate documents, <em>P</em>(<em>z</em> | <em>x</em>) is the retrieval probability (via dense vector similarity), and <em>P</em>(<em>y</em> | <em>z</em>, <em>x</em>) is the conditional generation probability given query and retrieved context.</p>
@@ -1835,30 +1169,27 @@
       <p class="text-body text-ink-light mb-6">In plain English: when a student asks a question, the system first encodes the query into a vector and searches a curated corpus (textbooks, lecture notes, problem sets) for semantically similar content. The best matches are fed to the LLM as context, constraining it to generate answers grounded in <em>your course materials</em>, not the unfiltered internet. Verma (2025) describes <strong class="text-ink font-medium">LPITutor</strong>, which takes this further with a modular pipeline: one stage extracts the student&rsquo;s intent, another retrieves relevant materials, and a third synthesises a pedagogically appropriate response anchored in those sources.</p>
       <p class="text-body text-ink-light mb-6">The Garcia-Bosque et al. (2025) systematic review identifies retrieval grounding as the single most effective technique for reducing hallucination in educational agents. But the benefits extend beyond accuracy. RAG gives educators institutional control: you curate and update the corpus, and the AI teaches what <em>your</em> course intends, not whatever happened to be popular on the internet during pre-training.</p>
 
-     <div class="rag-console-wrapper fade-in" id="rag-live-demo">
+      <!-- GraphRAG Console Demo -->
+      <div class="rag-console-wrapper fade-in" id="rag-live-demo">
         <div class="rag-console-header">
           <span>GraphRAG Pipeline Execution Log</span>
           <span id="rag-status-indicator" style="color:#f7768e;">Status: Standby</span>
         </div>
         <div class="rag-console-body" id="rag-console-container">
-          
           <div class="rag-log" id="r-log-1">
             <span class="rag-tag tag-query">QUERY</span>
             Intercepted student input: <span class="rag-text-highlight">"Why does F=ma?"</span>
           </div>
-          
           <div class="rag-log" id="r-log-2">
             <span class="rag-tag tag-encode">ENCODE</span>
             Converting query to dense vector...
             <div class="rag-vector-text" id="r-vector-text"></div>
           </div>
-          
           <div class="rag-log" id="r-log-3">
             <span class="rag-tag tag-graph">KG TRAVERSAL</span>
             Mapping conceptual dependencies via Educational Knowledge Graph...
             <div class="rag-graph-box" id="r-graph-text"></div>
           </div>
-          
           <div class="rag-log" id="r-log-4">
             <span class="rag-tag tag-retrieve">HYBRID RETRIEVE</span>
             Fusing Vector Search + Sub-graph matching in <span class="rag-text-highlight">Course Corpus</span>...
@@ -1868,7 +1199,6 @@
               Context: "Newton's Second Law defines force as the rate of change of momentum (dp/dt). For a constant mass, this simplifies to F = m * a."
             </div>
           </div>
-          
           <div class="rag-log" id="r-log-5">
             <span class="rag-tag tag-llm">GENERATE</span>
             Injecting retrieved sub-graph & context. LLM generating grounded answer...
@@ -1876,22 +1206,20 @@
               <span id="r-answer-text"></span><span class="rag-cursor" id="r-cursor" style="display:none;"></span>
             </div>
           </div>
-
         </div>
       </div>
-      
+
       <h3 id="sec-2-3" class="text-h2 mb-5 mt-14">2.3&ensp;When One Agent Isn&rsquo;t Enough: Multi-Agent Collaboration</h3>
       <p class="text-body text-ink-light mb-6">A single tutor, no matter how capable, cannot simultaneously diagnose a learning gap, design a personalised lesson plan, adapt content difficulty, and assess progress &mdash; at least, not well. The solution? Split the job. Wang et al. (2025b) propose a <strong class="text-ink font-medium">five-agent system</strong> where each agent has one focused role: a Gap Identifier (diagnoses deficits), a Learner Profiler (models student characteristics), a Dynamic Planner (generates learning paths), a Content Adapter (tailors difficulty), and a Feedback Synthesiser (consolidates assessment data). Think of it less like a single tutor and more like a well-coordinated teaching team.</p>
       <p class="text-body text-ink-light mb-6">An especially promising technique is <strong class="text-ink font-medium">multi-agent debate</strong>: several LLM agents independently reason about a problem, then compare and reconcile their outputs. This consistently improves accuracy on open-ended tasks like essay evaluation (Garcia-Bosque et al., 2025). The <strong class="text-ink font-medium">EduThink4AI</strong> framework (2026) pushes this further with a four-agent pipeline &mdash; one generates answers, one checks validity, one critiques, and one synthesises &mdash; explicitly designed to model and develop critical thinking in students.</p>
       <p class="text-body text-ink-light mb-6"><strong class="text-ink font-medium">Knowledge tracing</strong> is another natural fit for multi-agent approaches. Instead of relying on static test scores, these systems model what a student knows and how that knowledge evolves in real time. Xu et al. (2024) simulate students as different personas to track varied learning trajectories; Scarlatos et al. (2025) use dialogue itself as the probe, refining knowledge estimates through conversational exchanges rather than formal assessments.</p>
 
+      <!-- Multi-Agent Dashboard -->
       <div class="mas-wrapper fade-in" id="mas-demo">
         <div class="mas-header">
           <div class="mas-title">Five-Agent Adaptive Learning System (Wang et al., 2025b)</div>
         </div>
-        
         <div class="mas-grid">
-          
           <div class="mas-full">
             <div class="mas-node" id="agent-student" style="width: 200px; border-style: dashed;">
               <div class="mas-status">IDLE</div>
@@ -1902,62 +1230,52 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
             </div>
           </div>
-
           <div class="mas-node" id="agent-gap">
             <div class="mas-status">WAITING</div>
             <div class="mas-node-title">Agent 1: Gap Identifier</div>
             <div class="mas-node-desc">Diagnose deficits</div>
           </div>
-          
           <div class="mas-node" id="agent-profiler">
             <div class="mas-status">WAITING</div>
             <div class="mas-node-title">Agent 2: Learner Profiler</div>
             <div class="mas-node-desc">Model student</div>
           </div>
-          
           <div class="mas-node" id="agent-planner">
             <div class="mas-status">WAITING</div>
             <div class="mas-node-title">Agent 3: Dynamic Planner</div>
             <div class="mas-node-desc">Generate paths</div>
           </div>
-
           <div class="mas-full">
             <div class="mas-arrow-down" id="arrow-2">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
             </div>
           </div>
-
           <div class="mas-center">
             <div class="mas-node" id="agent-adapter" style="width: 100%;">
               <div class="mas-status">WAITING</div>
               <div class="mas-node-title">Agent 4: Content Adapter</div>
               <div class="mas-node-desc">Tailor difficulty</div>
             </div>
-            
             <div class="mas-arrow-down" id="arrow-3">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
             </div>
-            
             <div class="mas-node" id="agent-synth" style="width: 100%;">
               <div class="mas-status">WAITING</div>
               <div class="mas-node-title">Agent 5: Feedback Synth.</div>
               <div class="mas-node-desc">Consolidate data</div>
             </div>
-            
             <div class="mas-arrow-down" id="arrow-4">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
             </div>
-            
             <div class="mas-node" id="agent-output" style="width: 100%; border-color: transparent; background: transparent;">
               <div class="mas-status" style="display:none;"></div>
               <div class="mas-node-title" style="font-size: 1.1rem;">Adapted Response</div>
             </div>
           </div>
-
         </div>
       </div>
 
-      <!-- Chart #3: Key Findings from LLM Agents in Education (Garcia-Bosque et al., 2025) -->
+      <!-- Chart #3: Education Themes -->
       <div class="my-12 fade-in" style="background:#fff;border:1px solid var(--border-subtle);border-radius:12px;padding:1.5rem;">
         <p class="font-sans text-caption text-ink-muted uppercase tracking-wide mb-3" style="font-weight:600;">Fig. 3 &mdash; Recurring Themes in LLM Agent Education Research (82 studies)</p>
         <div style="position:relative;height:300px;"><canvas id="chart3"></canvas></div>
@@ -1967,9 +1285,11 @@
       <h3 id="sec-2-4" class="text-h2 mb-5 mt-14">2.4&ensp;Eyes, Ears, and Voice: The Multimodal Tutor</h3>
       <p class="text-body text-ink-light mb-6">Text is only one way that learning happens. Students draw diagrams, speak questions aloud, point at confusing passages, and express frustration through facial expressions they may not even be aware of. The most advanced AI tutors are starting to perceive all of this. Foundation models like GPT-4o (OpenAI, 2024), Gemini 2.5 (Google DeepMind, 2025), and Claude (Anthropic, 2025) now integrate text, speech, and vision natively, opening educational interactions that were previously impossible.</p>
       <p class="text-body text-ink-light mb-6"><strong class="text-ink font-medium">Speech</strong> is the most natural interface for young learners. Khanmigo&rsquo;s voice mode lets students who struggle with typing engage through conversation. Researchers at the NSF iSAT Institute (University of Colorado) have fine-tuned a Discrete Multimodal LLM specifically for classroom speech, tackling the unique challenges of background noise, children&rsquo;s speech patterns, and diverse accents that standard ASR handles poorly (Trinh et al., 2025).</p>
-     <p class="text-body text-ink-light mb-6">But the true paradigm shift in STEM education extends beyond passive image recognition. Abstract concepts in mathematics and physics are notoriously difficult to grasp through static text or equations alone. The most advanced agentic tutors now embrace <strong class="text-ink font-medium">Exploratory Learning</strong>. Instead of merely explaining a formula, the AI dynamically generates interactive visual modules directly within the conversational interface.</p>
+      <p class="text-body text-ink-light mb-6">But the true paradigm shift in STEM education extends beyond passive image recognition. Abstract concepts in mathematics and physics are notoriously difficult to grasp through static text or equations alone. The most advanced agentic tutors now embrace <strong class="text-ink font-medium">Exploratory Learning</strong>. Instead of merely explaining a formula, the AI dynamically generates interactive visual modules directly within the conversational interface.</p>
       <p class="text-body text-ink-light mb-6">Consider the Ideal Gas Law ($PV=nRT$). Rather than reading a definition, students are presented with a manipulable simulation. As they drag a slider to compress the volume or increase the temperature, they watch the pressure gauge spike in real-time, accompanied by the AI tutor's contextual, live-updating explanations. This transforms equations into tangible experiments, fundamentally shifting the AI's role from an answer-provider to a sandbox-creator.</p>
-     <div class="sandbox-wrapper my-12 fade-in" id="exploratory-sandbox">
+
+      <!-- Exploratory Sandbox -->
+      <div class="sandbox-wrapper my-12 fade-in" id="exploratory-sandbox">
         <div class="sandbox-header">
           <div class="sandbox-title">
             <svg viewBox="0 0 24 24" fill="none" width="18" height="18" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
@@ -1977,14 +1297,12 @@
           </div>
           <div class="sandbox-badge">Live Module</div>
         </div>
-        
         <div class="sandbox-body">
           <div class="sandbox-viz">
             <div class="gauge-wrapper">
               <div class="gauge-value" id="gauge-p">1.0 atm</div>
               <div class="gauge-label">Pressure (P)</div>
             </div>
-            
             <div class="cylinder-container" id="gas-cylinder">
               <div class="piston" id="gas-piston">
                 <div class="piston-rod"></div>
@@ -1992,7 +1310,6 @@
               <div id="particles-container"></div>
             </div>
           </div>
-          
           <div class="sandbox-interaction">
             <div class="controls-area">
               <div class="slider-group">
@@ -2002,7 +1319,6 @@
                 </div>
                 <input type="range" id="slider-t" min="100" max="800" value="300">
               </div>
-              
               <div class="slider-group">
                 <div class="slider-header">
                   <span>Volume (V)</span>
@@ -2011,7 +1327,6 @@
                 <input type="range" id="slider-v" min="2" max="10" value="5" step="0.1">
               </div>
             </div>
-            
             <div class="sandbox-tutor">
               <div class="tutor-header">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
@@ -2023,7 +1338,6 @@
             </div>
           </div>
         </div>
-        
         <div class="sandbox-caption">
           Fig. 5 &mdash; Exploratory Learning Interface. Inspired by modern agentic capabilities, the AI generates a dynamic physics sandbox where explanations evolve in real-time as the student manipulates variables.
         </div>
@@ -2046,7 +1360,8 @@
         <p class="font-sans text-caption text-ink-muted mt-3" style="text-align:left;">Latency decomposition for edge-cloud co-design in agentic tutoring systems.</p>
       </div>
 
-     <div class="ec-wrapper fade-in" id="edge-cloud-demo">
+      <!-- Edge-Cloud Dashboard -->
+      <div class="ec-wrapper fade-in" id="edge-cloud-demo">
         <div class="ec-header">
           <div class="ec-title">End-to-End Pipeline Tracer</div>
           <div class="ec-timer-box">
@@ -2054,7 +1369,6 @@
             <div id="ec-clock">0.000s</div>
           </div>
         </div>
-
         <div class="ec-layout">
           <div class="ec-node ec-edge" id="ec-node-edge">
             <div class="ec-node-header">Student Device (Edge)</div>
@@ -2069,7 +1383,6 @@
               Biometric data never leaves device
             </div>
           </div>
-
           <div class="ec-network">
             <div class="ec-net-label">Compact vectors<br>(&lt;1/10 raw size)</div>
             <div class="ec-net-path">
@@ -2080,7 +1393,6 @@
             </div>
             <div class="ec-net-label" style="position:absolute; bottom:10px;">Response</div>
           </div>
-
           <div class="ec-node ec-cloud" id="ec-node-cloud">
             <div class="ec-node-header">Cloud Compute</div>
             <div class="ec-grid" style="grid-template-columns: 1fr;">
@@ -2096,7 +1408,6 @@
             </div>
           </div>
         </div>
-        
         <div class="sandbox-caption" style="margin: 2rem -1.5rem -2rem; border-top: 1px solid var(--border-subtle); background: #fafaf9;">
           Fig. 6 &mdash; Latency Decomposition. By isolating feature extraction on the edge device, the system preserves privacy and compresses the payload, achieving the &lt;2s latency SLA necessary for natural conversational flow.
         </div>
@@ -2130,6 +1441,7 @@
         <p class="font-sans text-caption text-ink-muted mt-3 uppercase">&ldquo;ChatGPT as a Cognitive Crutch,&rdquo; 2025</p>
       </div>
 
+      <!-- Chart: Forgetting Curve -->
       <div class="my-12 fade-in" style="background:#fff;border:1px solid var(--border-subtle);border-radius:12px;padding:1.5rem;" id="curve-chart-container">
         <p class="font-sans text-caption text-ink-muted uppercase tracking-wide mb-3" style="font-weight:600;">Fig. 7 &mdash; The Cognitive Crutch: Memory Retention Over Time</p>
         <div style="position:relative;height:340px;"><canvas id="chart-forgetting"></canvas></div>
@@ -2142,35 +1454,24 @@
       <p class="text-body text-ink-light mb-6">AI tutoring could be the great equaliser &mdash; or the great amplifier. As of 2024, <strong class="text-ink font-medium">2.6 billion people remain offline</strong>. Internet access reaches 83% in urban areas but just 48% in rural ones (ITU, 2024). The divide is not just connectivity: it is AI literacy, linguistic inclusion, and cultural relevance. Most AI educational tools are built in English, for English-speaking contexts, with limited accommodation for the multilingual and indigenous communities that need them most (Frontiers in Computer Science, 2026).</p>
       <p class="text-body text-ink-light mb-6">Brookings (2024) articulated what they call the &ldquo;new digital divide&rdquo;: affluent students get AI tools <em>plus</em> human teachers who coach them on how to use those tools effectively. Disadvantaged students get the technology alone, without the scaffolding to make it educationally productive. The implication is sobering: simply distributing AI tutors without investing in teacher training, multilingual models, culturally responsive content, and basic infrastructure could make inequality worse, not better.</p>
 
-    <div class="map-wrapper my-12 fade-in" id="digital-divide-map-section">
+      <!-- Digital Divide Map -->
+      <div class="map-wrapper my-12 fade-in" id="digital-divide-map-section">
         <p class="font-sans text-caption text-ink-muted uppercase tracking-wide mb-3" style="font-weight:600;">Fig. 4 &mdash; Global Digital Divide: Urban-Rural Internet Gap (2024)</p>
-        
         <div class="map-container">
           <div id="map-tooltip" class="div-tooltip"></div>
-          
           <svg id="svg-world-map" viewBox="0 0 800 420" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="800" height="420" fill="#fafaf9" rx="8"/>
-            
             <path id="reg-europe" class="region-path" d="M380 70 L400 60 L440 65 L480 85 L490 120 L450 160 L390 150 L370 110 Z" />
-            
             <path id="reg-cis" class="region-path" d="M480 85 L540 60 L620 65 L680 80 L690 120 L640 160 L500 170 L490 120 Z" />
-            
             <path id="reg-americas" class="region-path" d="M80 60 L140 50 L180 60 L230 110 L250 160 L230 200 L250 250 L220 320 L160 380 L120 360 L140 320 L110 280 L140 220 L80 180 L50 120 Z" />
-            
             <path id="reg-arab" class="region-path" d="M390 150 L450 160 L500 170 L520 200 L490 230 L430 225 L400 200 Z" />
-            
             <path id="reg-asiapacific" class="region-path" d="M500 170 L640 160 L720 180 L760 220 L740 280 L680 340 L600 380 L540 370 L520 330 L540 280 L520 200 Z" />
-            
             <path id="reg-africa" class="region-path" d="M370 110 L390 150 L400 200 L430 225 L490 230 L460 280 L440 340 L380 380 L320 360 L280 320 L300 260 L280 200 L320 150 Z" />
-            
           </svg>
         </div>
-        
         <p class="font-sans text-caption text-ink-muted mt-3" style="text-align:left;">Source: ITU Facts and Figures 2024. Total offline: 2.6 billion (1.8 billion in rural areas). Legend: Shading represents the Urban-to-Rural Internet Gap Ratio. The stagnation of the 1.7x global ratio masks massive disparities, reaching as high as 2.5x in Africa, severely limiting access to real-time educational agents in disadvantaged communities.</p>
       </div>
-        
-        <p class="font-sans text-caption text-ink-muted mt-3" style="text-align:left;">Source: ITU Facts and Figures 2024. Total offline: 2.6 billion (1.8 billion in rural areas). Legend: Shading represents the Urban-to-Rural Internet Gap Ratio. The stagnation of the 1.7x global ratio masks massive disparities, reaching as high as 2.5x in Africa, severely limiting access to real-time educational agents in disadvantaged communities.</p>
-      </div>
+
       <h3 id="sec-3-4" class="text-h2 mb-5 mt-14">3.4&ensp;Cheating, Detection, and Why Prevention Beats Policing</h3>
       <p class="text-body text-ink-light mb-6">Students will use AI to cheat. That is not a prediction; it is already happening. The question is what to do about it. AI-detection tools &mdash; the ones that try to identify machine-generated text &mdash; are unreliable. They produce both false positives and false negatives, and their accuracy degrades as models improve. Khanmigo takes a fundamentally different approach: <strong class="text-ink font-medium">architectural prevention</strong>. It structurally cannot generate complete essays, and it flags anything longer than fifteen words pasted from external sources. Rather than playing cat-and-mouse with detectors, it removes the opportunity in the first place.</p>
       <p class="text-body text-ink-light mb-6">Institutions are catching up. The most thoughtful universities now distinguish between prohibited, permitted, and encouraged uses of AI &mdash; recognising that a blanket ban is neither enforceable nor educationally productive. The strongest frameworks treat <strong class="text-ink font-medium">AI literacy as a learning objective in its own right</strong>: teaching students to use these tools critically and transparently rather than pretending the tools do not exist. Assessment redesign &mdash; oral examinations, process-based evaluation, in-class supervised tasks &mdash; creates contexts where AI assistance is either unnecessary or openly integrated. The goal is not to defeat AI. It is to make the learning itself the point.</p>
@@ -2185,11 +1486,9 @@
         <h2 style="font-size:2rem;line-height:1.25;letter-spacing:-0.02em;font-weight:600;color:#fff;margin-bottom:2.5rem;">The Two-Sigma Problem, Forty Years Later</h2>
         <p class="text-body mb-6">In 1984, Benjamin Bloom proved that one-on-one tutoring could lift student performance by two standard deviations. The result was electrifying, and then, for four decades, frustrating. Everyone knew personalised tutoring worked. Nobody could afford to provide it. For the first time, the convergence of large language models, agentic architectures, retrieval-augmented generation, multi-agent systems, and multimodal perception offers a credible technological pathway to that goal. Millions of students are already interacting with AI tutors daily.</p>
         <p class="text-body mb-6">But the evidence in this blog points to a critical qualification that should temper any utopian impulse: <strong>hybrid human-AI workflows consistently outperform fully autonomous systems</strong>. The most effective implementations (Khanmigo, LPITutor, multi-agent educational frameworks) position AI as a tool <em>for</em> teachers and students, not a replacement for the relationships at the heart of education.</p>
-
         <div class="pull-quote pl-6 py-1 my-10">
           <p class="text-xl md:text-2xl font-serif font-medium leading-snug tracking-tight">Teachers do not merely transmit information. They inspire curiosity, model intellectual integrity, navigate the emotional complexities of learning, and socialise young people into communities of practice. These functions are not replicable by current AI systems, however sophisticated.</p>
         </div>
-
         <p class="text-body mb-6">Three open research questions will shape what comes next. First, <strong>cross-lingual equity</strong>: rigorous development and auditing of AI tutors in underrepresented languages, using participatory design that incorporates local pedagogical traditions. Second, <strong>longitudinal evidence</strong>: most existing evaluations span fewer than eight weeks; we need sustained, large-scale studies to understand long-term effects on learning, motivation, and cognitive development. Third, <strong>governance that keeps pace</strong>: AI deployment in education is outrunning the regulatory institutions meant to oversee it, and international coordination through frameworks like the EU AI Act and UNESCO&rsquo;s Ethics of AI Recommendation will be essential.</p>
         <p class="text-body mb-6">The intelligent classroom is no longer speculative. It is emerging. The question is not whether AI will transform education (it already is) but whether that transformation will be guided by the values of equity, agency, and genuine understanding, or by commercial imperatives and technological momentum alone.</p>
         <p class="text-body mb-6" style="color:rgba(255,255,255,0.85);font-weight:500;">The promise of agentic AI in education is not that it will make teachers obsolete. It is that it will make the <em>best practices</em> of teaching (individualised attention, Socratic dialogue, formative assessment, adaptive scaffolding) available at a scale that was previously impossible. Bloom&rsquo;s two-sigma problem may finally have a solution. But walking that path responsibly demands investment not only in technology, but in the institutional, ethical, and deeply human capital that gives education its meaning.</p>
@@ -2263,30 +1562,39 @@
 
   <!-- ====== SCRIPTS ====== -->
   <script>
-    // 1. Reading Progress Bar
-    const progressBar = document.getElementById('progress-bar');
-    window.addEventListener('scroll', () => {
-      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      if (progressBar && scrollHeight > 0) progressBar.style.transform = 'scaleX(' + (scrollTop / scrollHeight) + ')';
-    });
-
-    // 2. Fade-in on scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: "0px 0px -50px 0px", threshold: 0 });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // 3. TOC active highlight — robust scrollspy using getBoundingClientRect
+    /* ==========================================================
+       1. READING PROGRESS BAR
+       ========================================================== */
     (function() {
-      const tocLinks = document.querySelectorAll('.toc-link');
-      // Build ordered list of anchors from the TOC links themselves
-      const anchors = [];
+      var progressBar = document.getElementById('progress-bar');
+      window.addEventListener('scroll', function() {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        if (progressBar && scrollHeight > 0) progressBar.style.transform = 'scaleX(' + (scrollTop / scrollHeight) + ')';
+      });
+    })();
+
+    /* ==========================================================
+       2. SCROLL FADE-IN OBSERVER
+       ========================================================== */
+    (function() {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -50px 0px', threshold: 0 });
+      document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+    })();
+
+    /* ==========================================================
+       3. TOC ACTIVE HIGHLIGHT (Scrollspy)
+       ========================================================== */
+    (function() {
+      var tocLinks = document.querySelectorAll('.toc-link');
+      var anchors = [];
       tocLinks.forEach(function(link) {
         var id = link.getAttribute('href').substring(1);
         var el = document.getElementById(id);
@@ -2294,44 +1602,35 @@
       });
 
       function updateTOC() {
-        var threshold = 200; // pixels from top of viewport
+        var threshold = 200;
         var activeId = '';
-
-        // Walk backwards: the last anchor whose top is above the threshold wins
         for (var i = anchors.length - 1; i >= 0; i--) {
-          var rect = anchors[i].el.getBoundingClientRect();
-          if (rect.top <= threshold) {
+          if (anchors[i].el.getBoundingClientRect().top <= threshold) {
             activeId = anchors[i].id;
             break;
           }
         }
-
-        // If nothing matched (user is at very top), highlight the first
-        if (!activeId && anchors.length > 0) {
-          activeId = anchors[0].id;
-        }
-
+        if (!activeId && anchors.length > 0) activeId = anchors[0].id;
         anchors.forEach(function(a) {
-          if (a.id === activeId) {
-            a.link.classList.add('active');
-          } else {
-            a.link.classList.remove('active');
-          }
+          a.link.classList.toggle('active', a.id === activeId);
         });
       }
 
       window.addEventListener('scroll', updateTOC, { passive: true });
       window.addEventListener('resize', updateTOC, { passive: true });
-      // Run once on load (after a short delay to let layout settle)
       setTimeout(updateTOC, 100);
     })();
 
-    // ===== CHART.JS INTERACTIVE CHARTS =====
+    /* ==========================================================
+       4. CHART.JS — GLOBAL DEFAULTS
+       ========================================================== */
     Chart.defaults.font.family = '"Outfit", system-ui, sans-serif';
     Chart.defaults.font.size = 12;
     Chart.defaults.color = '#767676';
 
-    // Chart 1: Khanmigo User Growth
+    /* ==========================================================
+       5. CHART 1 — Khanmigo User Growth
+       ========================================================== */
     new Chart(document.getElementById('chart1'), {
       type: 'bar',
       data: {
@@ -2370,7 +1669,9 @@
       }
     });
 
-    // Chart 2: Model Compression Techniques
+    /* ==========================================================
+       6. CHART 2 — Model Compression Techniques
+       ========================================================== */
     new Chart(document.getElementById('chart2'), {
       type: 'bar',
       data: {
@@ -2398,7 +1699,9 @@
       }
     });
 
-    // Chart 3: LLM Agent Education Themes (Garcia-Bosque et al. 2025)
+    /* ==========================================================
+       7. CHART 3 — LLM Agent Education Themes
+       ========================================================== */
     new Chart(document.getElementById('chart3'), {
       type: 'bar',
       data: {
@@ -2430,16 +1733,16 @@
       }
     });
 
-      // ===== Chart 4: Interactive Digital Divide World Map (Replacing Console) =====
+    /* ==========================================================
+       8. DIGITAL DIVIDE MAP (Interactive Choropleth)
+       ========================================================== */
     (function() {
-      const sectionEl = document.getElementById('digital-divide-map-section');
+      var sectionEl = document.getElementById('digital-divide-map-section');
       if (!sectionEl) return;
-      const svgMap = document.getElementById('svg-world-map');
-      const tooltip = document.getElementById('map-tooltip');
+      var svgMap = document.getElementById('svg-world-map');
+      var tooltip = document.getElementById('map-tooltip');
 
-      // 1. Data Structure based on ITU 2024 (Provided in prompt)
-      // Metric used for shading (Choropleth): Gap Ratio (higher is worse)
-      const data = {
+      var data = {
         'reg-africa': { name: 'Africa', urban: 55, rural: 22, ratio: 2.50 },
         'reg-asiapacific': { name: 'Asia-Pacific', urban: 76, rural: 45, ratio: 1.69 },
         'reg-arab': { name: 'Arab States', urban: 82, rural: 52, ratio: 1.58 },
@@ -2448,314 +1751,269 @@
         'reg-europe': { name: 'Europe', urban: 95, rural: 88, ratio: 1.08 }
       };
 
-      // 2. Color Scale Function (Mapping Ratio to Orange Shading)
-      // Input: Gap Ratio (Range ~1.0 to 2.5)
-      // Output: Shading Color (Light Orange -> Dark Red-Orange)
       function getColor(ratio) {
-        // Linear Interpolation manually for simplified logic
-        const minRatio = 1.0; const maxRatio = 2.5;
-        // Normalize ratio to 0.0 - 1.0
-        let norm = (ratio - minRatio) / (maxRatio - minRatio);
-        norm = Math.max(0, Math.min(1, norm)); // Clamp
-
-        // Saturated orange -> dark red-ish orange
-        if (norm > 0.8) return '#9a3412'; // Darkest (Africa 2.5)
-        if (norm > 0.6) return '#c2410c'; // Saturated Accent (Arab/AP ~1.6-1.7)
-        if (norm > 0.3) return '#f97316'; // Saturated Orange (Americas ~1.25)
-        return '#fed7aa'; // Lightest (Europe/CIS ~1.0-1.1)
+        var norm = (ratio - 1.0) / 1.5;
+        norm = Math.max(0, Math.min(1, norm));
+        if (norm > 0.8) return '#9a3412';
+        if (norm > 0.6) return '#c2410c';
+        if (norm > 0.3) return '#f97316';
+        return '#fed7aa';
       }
 
-      // 3. Initialize Map: Apply initial color shading based on Ratio
-      svgMap.querySelectorAll('.region-path').forEach(path => {
-        const regionId = path.id;
-        const regionData = data[regionId];
-        
+      svgMap.querySelectorAll('.region-path').forEach(function(path) {
+        var regionData = data[path.id];
         if (regionData) {
-          // Calculate and apply initial shading
           path.style.fill = getColor(regionData.ratio);
-
-          // Setup Interaction Listeners
-          path.addEventListener('mouseover', (e) => showTooltip(e, regionData));
-          path.addEventListener('mousemove', (e) => moveTooltip(e));
-          path.addEventListener('mouseout', (e) => hideTooltip(e));
+          path.addEventListener('mouseover', function(e) { showTooltip(e, regionData); });
+          path.addEventListener('mousemove', moveTooltip);
+          path.addEventListener('mouseout', hideTooltip);
         }
       });
 
-      // 4. Interaction Functions
       function showTooltip(e, regionData) {
-        // Highlight the path
         e.target.classList.add('highlight');
-
-        // Populate tooltip content
-        tooltip.innerHTML = `
-          <div class="tooltip-header">${regionData.name}</div>
-          <div class="tooltip-stat-row">
-            <span class="stat-label">Urban Usage</span>
-            <span class="stat-val">${regionData.urban}%</span>
-          </div>
-          <div class="tooltip-stat-row">
-            <span class="stat-label">Rural Usage</span>
-            <span class="stat-val">${regionData.rural}%</span>
-          </div>
-          <div class="tooltip-stat-row" style="margin-top:0.6rem; padding-top:0.4rem; border-top:1px dashed rgba(255,255,255,0.15)">
-            <span class="stat-label" style="color:var(--accent); font-weight:600;">城乡差距倍数 (Gap Ratio)</span>
-            <span class="stat-val" style="color:#f97316; font-size:1rem;">${regionData.ratio.toFixed(2)}&times;</span>
-          </div>
-        `;
-
-        // Make visible and position it initially
+        tooltip.innerHTML =
+          '<div class="tooltip-header">' + regionData.name + '</div>' +
+          '<div class="tooltip-stat-row"><span class="stat-label">Urban Usage</span><span class="stat-val">' + regionData.urban + '%</span></div>' +
+          '<div class="tooltip-stat-row"><span class="stat-label">Rural Usage</span><span class="stat-val">' + regionData.rural + '%</span></div>' +
+          '<div class="tooltip-stat-row" style="margin-top:0.6rem;padding-top:0.4rem;border-top:1px dashed rgba(255,255,255,0.15)">' +
+            '<span class="stat-label" style="color:var(--accent);font-weight:600;">Gap Ratio</span>' +
+            '<span class="stat-val" style="color:#f97316;font-size:1rem;">' + regionData.ratio.toFixed(2) + '&times;</span>' +
+          '</div>';
         tooltip.classList.add('visible');
-        moveTooltip(e); // Set initial position
+        moveTooltip(e);
       }
 
       function moveTooltip(e) {
-        // Position the tooltip near the mouse, using document page coordinates
-        // Calculate offset relative to the containing element
-        const containerRect = svgMap.closest('.map-container').getBoundingClientRect();
-        const offsetLeft = 15; const offsetTop = 20;
-        
-        // Calculate relative offset within the document for a safe document-level placement
-        tooltip.style.left = (e.pageX + offsetLeft) + 'px';
-        tooltip.style.top = (e.pageY + offsetTop) + 'px';
+        tooltip.style.left = (e.pageX + 15) + 'px';
+        tooltip.style.top = (e.pageY + 20) + 'px';
       }
 
       function hideTooltip(e) {
-        // Remove highlight and hide tooltip
         e.target.classList.remove('highlight');
         tooltip.classList.remove('visible');
       }
-
     })();
-// ===== Socratic Chat Typewriter Animation =====
+
+    /* ==========================================================
+       9. SOCRATIC CHAT TYPEWRITER ANIMATION
+       ========================================================== */
     (function() {
-      const chatContainer = document.getElementById('socratic-chat-demo');
+      var chatContainer = document.getElementById('socratic-chat-demo');
       if (!chatContainer) return;
 
-      const chatObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+      var chatObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             runChatSequence();
             chatObserver.unobserve(entry.target);
           }
         });
-      }, { rootMargin: "0px 0px -100px 0px" }); 
-
+      }, { rootMargin: '0px 0px -100px 0px' });
       chatObserver.observe(chatContainer);
 
       function runChatSequence() {
-        const msgStudent = document.getElementById('msg-student');
-        const msgTyping = document.getElementById('msg-tutor-typing');
-        const msgText = document.getElementById('msg-tutor-text');
-        const textContent = document.getElementById('tutor-text-content');
-        
-        const responseString = "Good try! You correctly applied the derivative to the outer function (sin). But let's look closer. What does the Chain Rule tell us we need to do with the inner function (x²)?";
+        var msgStudent = document.getElementById('msg-student');
+        var msgTyping = document.getElementById('msg-tutor-typing');
+        var msgText = document.getElementById('msg-tutor-text');
+        var textContent = document.getElementById('tutor-text-content');
+        var responseString = "Good try! You correctly applied the derivative to the outer function (sin). But let's look closer. What does the Chain Rule tell us we need to do with the inner function (x²)?";
 
-        setTimeout(() => {
-          msgStudent.classList.add('visible');
-        }, 400);
+        setTimeout(function() { msgStudent.classList.add('visible'); }, 400);
 
-        setTimeout(() => {
+        setTimeout(function() {
           msgTyping.style.display = 'flex';
-          msgTyping.offsetHeight; 
+          msgTyping.offsetHeight; // force reflow
           msgTyping.classList.add('visible');
         }, 1200);
 
-        setTimeout(() => {
+        setTimeout(function() {
           msgTyping.style.display = 'none';
           msgText.style.display = 'flex';
           msgText.offsetHeight;
           msgText.classList.add('visible');
-          
-          let i = 0;
-          const typingSpeed = 35; 
-          
+
+          var i = 0;
           function typeWriter() {
             if (i < responseString.length) {
               textContent.innerHTML += responseString.charAt(i);
               i++;
-              setTimeout(typeWriter, typingSpeed);
+              setTimeout(typeWriter, 35);
             }
           }
           typeWriter();
-        }, 3000); 
+        }, 3000);
       }
     })();
 
-   // ===== GraphRAG Console Live Animation =====
+    /* ==========================================================
+       10. GRAPHRAG CONSOLE LIVE ANIMATION
+       ========================================================== */
     (function() {
-      const ragContainer = document.getElementById('rag-live-demo');
+      var ragContainer = document.getElementById('rag-live-demo');
       if (!ragContainer) return;
 
-      const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+      function sleep(ms) { return new Promise(function(resolve) { setTimeout(resolve, ms); }); }
 
-      const ragObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+      var ragObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             runGraphRagSequence();
             ragObserver.unobserve(entry.target);
           }
         });
-      }, { rootMargin: "0px 0px -100px 0px" });
-
+      }, { rootMargin: '0px 0px -100px 0px' });
       ragObserver.observe(ragContainer);
 
       async function runGraphRagSequence() {
-        document.getElementById('rag-status-indicator').innerText = "Status: Hybrid Processing...";
-        document.getElementById('rag-status-indicator').style.color = "#9ece6a";
+        document.getElementById('rag-status-indicator').innerText = 'Status: Hybrid Processing...';
+        document.getElementById('rag-status-indicator').style.color = '#9ece6a';
 
-        // Step 1: Query
         await sleep(400);
         document.getElementById('r-log-1').classList.add('visible');
 
-        // Step 2: Dense Vector Encode
         await sleep(600);
         document.getElementById('r-log-2').classList.add('visible');
-        const vectorEl = document.getElementById('r-vector-text');
+        var vectorEl = document.getElementById('r-vector-text');
         await sleep(300);
-        vectorEl.innerText = "[0.012, -0.043, 0.891, 0.112";
+        vectorEl.innerText = '[0.012, -0.043, 0.891, 0.112';
         await sleep(150);
-        vectorEl.innerText += ", -0.993, 0.442, 0.001, -0.334";
+        vectorEl.innerText += ', -0.993, 0.442, 0.001, -0.334';
         await sleep(150);
-        vectorEl.innerText += ", 0.776, -0.128, ... 1536 dim]";
+        vectorEl.innerText += ', 0.776, -0.128, ... 1536 dim]';
 
-        // Step 3: Knowledge Graph Traversal (The New Magic!)
         await sleep(700);
         document.getElementById('r-log-3').classList.add('visible');
-        const graphEl = document.getElementById('r-graph-text');
+        var graphEl = document.getElementById('r-graph-text');
         await sleep(400);
-        graphEl.innerText = "[Force (Target)]";
+        graphEl.innerText = '[Force (Target)]';
         await sleep(200);
-        graphEl.innerText += "\n   ├── requires ──> [Mass]";
+        graphEl.innerText += '\n   ├── requires ──> [Mass]';
         await sleep(200);
-        graphEl.innerText += "\n   └── requires ──> [Acceleration]";
+        graphEl.innerText += '\n   └── requires ──> [Acceleration]';
         await sleep(200);
-        graphEl.innerText += "\n                      └── requires ──> [Velocity]";
+        graphEl.innerText += '\n                      └── requires ──> [Velocity]';
         await sleep(200);
-        graphEl.innerText += "\n                      └── derives_from ──> [Momentum (dp/dt)]";
+        graphEl.innerText += '\n                      └── derives_from ──> [Momentum (dp/dt)]';
 
-        // Step 4: Hybrid Retrieve
         await sleep(900);
         document.getElementById('r-log-4').classList.add('visible');
 
-        // Step 5: Generate
         await sleep(1000);
         document.getElementById('r-log-5').classList.add('visible');
         document.getElementById('r-cursor').style.display = 'inline-block';
 
-        const answerString = "Based on the graph context, F=ma is a special case. Newton defined force as the rate of change of momentum (dp/dt). Only when mass is constant does this simplify to m*(dv/dt), which is m*a.";
-        const answerEl = document.getElementById('r-answer-text');
-        
+        var answerString = "Based on the graph context, F=ma is a special case. Newton defined force as the rate of change of momentum (dp/dt). Only when mass is constant does this simplify to m*(dv/dt), which is m*a.";
+        var answerEl = document.getElementById('r-answer-text');
+
         await sleep(400);
-        for (let i = 0; i < answerString.length; i++) {
+        for (var i = 0; i < answerString.length; i++) {
           answerEl.innerHTML += answerString.charAt(i);
-          await sleep(20); // Fast typing
+          await sleep(20);
         }
-        
-        document.getElementById('rag-status-indicator').innerText = "Status: Completed";
-        document.getElementById('rag-status-indicator').style.color = "#7aa2f7";
+
+        document.getElementById('rag-status-indicator').innerText = 'Status: Completed';
+        document.getElementById('rag-status-indicator').style.color = '#7aa2f7';
       }
     })();
 
-    // ===== Multi-Agent Orchestration Animation =====
+    /* ==========================================================
+       11. MULTI-AGENT ORCHESTRATION ANIMATION
+       ========================================================== */
     (function() {
-      const masContainer = document.getElementById('mas-demo');
+      var masContainer = document.getElementById('mas-demo');
       if (!masContainer) return;
-      
-      const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-      
-      const setNodeState = (id, state, statusText) => {
-        const node = document.getElementById(id);
-        const statusEl = node.querySelector('.mas-status');
-        node.className = `mas-node ${state}`;
+
+      function sleep(ms) { return new Promise(function(resolve) { setTimeout(resolve, ms); }); }
+
+      function setNodeState(id, state, statusText) {
+        var node = document.getElementById(id);
+        var statusEl = node.querySelector('.mas-status');
+        node.className = 'mas-node ' + state;
         if (statusEl && statusText) {
           statusEl.style.display = 'block';
           statusEl.innerText = statusText;
         }
-      };
+      }
 
-      const setArrowState = (id, isActive) => {
-        const arrow = document.getElementById(id);
+      function setArrowState(id, isActive) {
+        var arrow = document.getElementById(id);
         if (isActive) arrow.classList.add('active');
         else arrow.classList.remove('active');
-      };
+      }
 
-      const masObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+      var masObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             runMasSequence();
             masObserver.unobserve(entry.target);
           }
         });
-      }, { rootMargin: "0px 0px -100px 0px" });
-
+      }, { rootMargin: '0px 0px -100px 0px' });
       masObserver.observe(masContainer);
 
       async function runMasSequence() {
-        // Step 1: Student interacts
         await sleep(400);
         setNodeState('agent-student', 'state-active', 'SENDING');
         setArrowState('arrow-1', true);
-        
+
         await sleep(800);
         setNodeState('agent-student', 'state-done', 'SENT');
         setArrowState('arrow-1', false);
 
-        // Step 2: Agents 1, 2, 3 process in PARALLEL
         setNodeState('agent-gap', 'state-active', 'ANALYSING');
         setNodeState('agent-profiler', 'state-active', 'PROFILING');
         setNodeState('agent-planner', 'state-active', 'PLANNING');
-        
-        await sleep(1500); // Parallel computing simulation
-        
+
+        await sleep(1500);
         setNodeState('agent-gap', 'state-done', 'DONE');
         setNodeState('agent-profiler', 'state-done', 'DONE');
         setNodeState('agent-planner', 'state-done', 'DONE');
         setArrowState('arrow-2', true);
 
-        // Step 3: Agent 4 (Adapter) kicks in
         await sleep(600);
         setArrowState('arrow-2', false);
         setNodeState('agent-adapter', 'state-active', 'ADAPTING');
-        
+
         await sleep(1200);
         setNodeState('agent-adapter', 'state-done', 'DONE');
         setArrowState('arrow-3', true);
 
-        // Step 4: Agent 5 (Synthesiser) kicks in
         await sleep(600);
         setArrowState('arrow-3', false);
         setNodeState('agent-synth', 'state-active', 'SYNTHESISING');
-        
+
         await sleep(1200);
         setNodeState('agent-synth', 'state-done', 'DONE');
         setArrowState('arrow-4', true);
 
-        // Step 5: Final Output
         await sleep(600);
         setArrowState('arrow-4', false);
         setNodeState('agent-output', 'state-done', 'DELIVERED');
       }
     })();
 
-    // ===== Exploratory Sandbox Physics & AI Logic =====
+    /* ==========================================================
+       12. EXPLORATORY SANDBOX — Ideal Gas Law Physics
+       ========================================================== */
     (function() {
-      const sliderT = document.getElementById('slider-t');
-      const sliderV = document.getElementById('slider-v');
-      const valT = document.getElementById('val-t');
-      const valV = document.getElementById('val-v');
-      const gaugeP = document.getElementById('gauge-p');
-      const piston = document.getElementById('gas-piston');
-      const cylinder = document.getElementById('gas-cylinder');
-      const tutorText = document.getElementById('tutor-dynamic-text');
-      const particlesContainer = document.getElementById('particles-container');
-      
+      var sliderT = document.getElementById('slider-t');
+      var sliderV = document.getElementById('slider-v');
+      var valT = document.getElementById('val-t');
+      var valV = document.getElementById('val-v');
+      var gaugeP = document.getElementById('gauge-p');
+      var piston = document.getElementById('gas-piston');
+      var cylinder = document.getElementById('gas-cylinder');
+      var tutorText = document.getElementById('tutor-dynamic-text');
+      var particlesContainer = document.getElementById('particles-container');
+
       if (!sliderT) return;
 
-      // Setup fake particles
-      const numParticles = 20;
-      const particles = [];
-      for(let i=0; i<numParticles; i++) {
-        const p = document.createElement('div');
+      // Create particles
+      var numParticles = 20;
+      var particles = [];
+      for (var i = 0; i < numParticles; i++) {
+        var p = document.createElement('div');
         p.className = 'gas-particle';
         particlesContainer.appendChild(p);
         particles.push({
@@ -2768,32 +2026,28 @@
       }
 
       function updatePhysics() {
-        const T = parseFloat(sliderT.value);
-        const V = parseFloat(sliderV.value);
-        
-        // P = nRT / V (simplified constants for visual scale)
-        const P = (T / 300) / (V / 5);
-        
-        // Update UI numbers
-        valT.innerText = `${T} K`;
-        valV.innerText = `${V.toFixed(1)} L`;
-        gaugeP.innerText = `${P.toFixed(2)} atm`;
-        
-        // Visual updates
-        const pistonTop = 100 - (V / 10) * 100; // Map Volume 2-10L to percentage
-        piston.style.top = `${pistonTop}%`;
-        
-        // Color shifts based on temp (Red = hot, Blue = cold)
-        if (T > 500) cylinder.style.background = 'rgba(254, 202, 202, 0.4)'; // Red-ish
-        else if (T < 200) cylinder.style.background = 'rgba(191, 219, 254, 0.4)'; // Blue-ish
-        else cylinder.style.background = 'rgba(254, 215, 170, 0.2)'; // Orange-ish
-        
-        // Gauge color based on Pressure
-        if (P > 2.0) gaugeP.style.color = '#dc2626'; // Danger red
-        else if (P < 0.5) gaugeP.style.color = '#2563eb'; // Cold blue
-        else gaugeP.style.color = '#ea580c'; // Normal orange
+        var T = parseFloat(sliderT.value);
+        var V = parseFloat(sliderV.value);
+        var P = (T / 300) / (V / 5);
 
-        // Dynamic AI Contextual Logic (The Magic!)
+        valT.innerText = T + ' K';
+        valV.innerText = V.toFixed(1) + ' L';
+        gaugeP.innerText = P.toFixed(2) + ' atm';
+
+        // Piston position
+        piston.style.top = (100 - (V / 10) * 100) + '%';
+
+        // Temperature-based cylinder color
+        if (T > 500) cylinder.style.background = 'rgba(254, 202, 202, 0.4)';
+        else if (T < 200) cylinder.style.background = 'rgba(191, 219, 254, 0.4)';
+        else cylinder.style.background = 'rgba(254, 215, 170, 0.2)';
+
+        // Pressure-based gauge color
+        if (P > 2.0) gaugeP.style.color = '#dc2626';
+        else if (P < 0.5) gaugeP.style.color = '#2563eb';
+        else gaugeP.style.color = '#ea580c';
+
+        // AI Tutor contextual responses
         if (P > 2.5) {
           tutorText.innerHTML = "<strong>Danger zone!</strong> The pressure is extremely high. You've either crushed the volume or cranked the heat way up. The particles are slamming into the cylinder walls constantly!";
         } else if (P < 0.4) {
@@ -2805,163 +2059,146 @@
         } else {
           tutorText.innerHTML = "Try isolating variables. Keep the Volume steady and slide the Temperature up and down. Watch how the pressure responds directly to the added heat energy.";
         }
-        
-        // Particle speed based on Temperature
-        const speedMultiplier = T / 300;
-        const currentHeight = 180 * (V / 10); // usable height
-        
-        particles.forEach(p => {
+
+        // Particle animation
+        var speedMultiplier = T / 300;
+        var currentHeight = 180 * (V / 10);
+        particles.forEach(function(p) {
           p.x += p.vx * speedMultiplier;
           p.y += p.vy * speedMultiplier;
-          
-          // Bounce off walls
-          if(p.x <= 0 || p.x >= 134) p.vx *= -1;
-          if(p.y <= 0 || p.y >= currentHeight - 10) p.vy *= -1;
-          
-          // Clamp positions
+          if (p.x <= 0 || p.x >= 134) p.vx *= -1;
+          if (p.y <= 0 || p.y >= currentHeight - 10) p.vy *= -1;
           p.x = Math.max(0, Math.min(p.x, 134));
           p.y = Math.max(0, Math.min(p.y, currentHeight - 10));
-          
-          p.el.style.left = `${p.x}px`;
-          p.el.style.bottom = `${p.y}px`;
+          p.el.style.left = p.x + 'px';
+          p.el.style.bottom = p.y + 'px';
         });
-        
+
         requestAnimationFrame(updatePhysics);
       }
-      
+
       sliderT.addEventListener('input', updatePhysics);
       sliderV.addEventListener('input', updatePhysics);
-      
-      // Start loop
       updatePhysics();
     })();
 
-    // ===== Edge-Cloud Latency Dashboard Animation =====
+    /* ==========================================================
+       13. EDGE-CLOUD LATENCY DASHBOARD ANIMATION
+       ========================================================== */
     (function() {
-      const ecContainer = document.getElementById('edge-cloud-demo');
+      var ecContainer = document.getElementById('edge-cloud-demo');
       if (!ecContainer) return;
 
-      const clockEl = document.getElementById('ec-clock');
-      const phaseEl = document.getElementById('ec-phase');
-      const packetTx = document.getElementById('ec-packet-tx');
-      const packetRx = document.getElementById('ec-packet-rx');
-      
-      const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-      
-      const toggleMod = (id, force) => {
-        const el = document.getElementById(id);
+      var clockEl = document.getElementById('ec-clock');
+      var phaseEl = document.getElementById('ec-phase');
+      var packetTx = document.getElementById('ec-packet-tx');
+      var packetRx = document.getElementById('ec-packet-rx');
+
+      function sleep(ms) { return new Promise(function(resolve) { setTimeout(resolve, ms); }); }
+
+      function toggleMod(id, force) {
+        var el = document.getElementById(id);
         if (force !== undefined) el.classList.toggle('active', force);
         else el.classList.toggle('active');
-      };
+      }
 
-      const ecObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+      var ecObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             runLatencySimulation();
             ecObserver.unobserve(entry.target);
           }
         });
-      }, { rootMargin: "0px 0px -100px 0px" });
-
+      }, { rootMargin: '0px 0px -100px 0px' });
       ecObserver.observe(ecContainer);
 
       async function runLatencySimulation() {
-        let startTime = performance.now();
-        let running = true;
-        
-        // High-precision timer loop
+        var startTime = performance.now();
+        var running = true;
+
         function updateClock(currentTime) {
           if (!running) return;
-          let elapsed = (currentTime - startTime) / 1000;
-          clockEl.innerText = elapsed.toFixed(3) + 's';
+          clockEl.innerText = ((currentTime - startTime) / 1000).toFixed(3) + 's';
           requestAnimationFrame(updateClock);
         }
         requestAnimationFrame(updateClock);
 
-        // Phase 1: Edge Inferencing (T_edge)
-        phaseEl.innerText = "T_edge";
+        // T_edge
+        phaseEl.innerText = 'T_edge';
         toggleMod('ec-m-speech', true);
         toggleMod('ec-m-vision', true);
         document.getElementById('ec-privacy-lock').classList.add('active');
-        await sleep(250); // Edge extraction is fast
+        await sleep(250);
         toggleMod('ec-m-audio', true);
         toggleMod('ec-m-engage', true);
-        await sleep(150); 
-        
-        // Turn off Edge
-        ['ec-m-speech','ec-m-vision','ec-m-audio','ec-m-engage'].forEach(id => toggleMod(id, false));
+        await sleep(150);
+        ['ec-m-speech','ec-m-vision','ec-m-audio','ec-m-engage'].forEach(function(id) { toggleMod(id, false); });
         document.getElementById('ec-privacy-lock').classList.remove('active');
 
-        // Phase 2: Network TX (T_net_tx)
-        phaseEl.innerText = "T_net_tx";
+        // T_net_tx
+        phaseEl.innerText = 'T_net_tx';
         packetTx.classList.add('anim-tx');
-        await sleep(300); // Network flight time
+        await sleep(300);
         packetTx.classList.remove('anim-tx');
 
-        // Phase 3: Cloud Processing (T_cloud)
-        phaseEl.innerText = "T_cloud";
+        // T_cloud
+        phaseEl.innerText = 'T_cloud';
         toggleMod('ec-m-rag', true);
-        await sleep(400); // RAG is heavy
+        await sleep(400);
         toggleMod('ec-m-rag', false);
-        
         toggleMod('ec-m-agent', true);
-        await sleep(300); // Multi-agent routing
+        await sleep(300);
         toggleMod('ec-m-agent', false);
-        
         toggleMod('ec-m-llm', true);
-        await sleep(500); // LLM generation
+        await sleep(500);
         toggleMod('ec-m-llm', false);
 
-        // Phase 4: Network RX (T_net_rx)
-        phaseEl.innerText = "T_net_rx";
+        // T_net_rx
+        phaseEl.innerText = 'T_net_rx';
         packetRx.classList.add('anim-rx');
         await sleep(300);
         packetRx.classList.remove('anim-rx');
-        
-        // Finish!
-        running = false; // Stop timer
-        phaseEl.innerText = "T_total";
-        clockEl.style.color = "#10b981"; // Turn clock green
-        
-        // Highlight the target SLA banner
-        const targetBanner = document.getElementById('ec-target-sla');
-        targetBanner.style.background = "#15803d";
-        targetBanner.style.color = "#fff";
-        targetBanner.style.borderColor = "#15803d";
-        targetBanner.innerText = "✓ SLA Met: Delivered under 2s";
+
+        // Complete
+        running = false;
+        phaseEl.innerText = 'T_total';
+        clockEl.style.color = '#10b981';
+
+        var targetBanner = document.getElementById('ec-target-sla');
+        targetBanner.style.background = '#15803d';
+        targetBanner.style.color = '#fff';
+        targetBanner.style.borderColor = '#15803d';
+        targetBanner.innerText = '✓ SLA Met: Delivered under 2s';
       }
     })();
 
-    // ===== Chart 5: Forgetting Curve Animation =====
+    /* ==========================================================
+       14. CHART — Forgetting Curve (Animated Draw)
+       ========================================================== */
     (function() {
-      const container = document.getElementById('curve-chart-container');
+      var container = document.getElementById('curve-chart-container');
       if (!container) return;
 
-      // 1. Generate mathematically realistic decay data based on Ebbinghaus model
-      // Formula: R = 100 * exp(-t / S) where S is relative memory strength
-      const labels = [];
-      const dataTrad = []; // Stronger consolidation (S = 12)
-      const dataAI = [];   // Weaker consolidation "Crutch" (S = 3.5)
+      var labels = [];
+      var dataTrad = [];
+      var dataAI = [];
 
-      // Calculate data points for 14 days (with 0.5 day steps for a smooth curve)
-      for (let t = 0; t <= 14; t += 0.5) {
-        // Only show label text for whole days
-        labels.push(t === 0 ? 'Day 0' : (t % 2 === 0 ? 'Day ' + t : '')); 
+      for (var t = 0; t <= 14; t += 0.5) {
+        labels.push(t === 0 ? 'Day 0' : (t % 2 === 0 ? 'Day ' + t : ''));
         dataTrad.push(100 * Math.exp(-t / 12));
         dataAI.push(100 * Math.exp(-t / 3.5));
       }
 
-      // 2. Initialize Empty Chart for Animation
-      const ctx = document.getElementById('chart-forgetting').getContext('2d');
-      const forgettingChart = new Chart(ctx, {
+      var ctx = document.getElementById('chart-forgetting').getContext('2d');
+      var forgettingChart = new Chart(ctx, {
         type: 'line',
         data: {
           labels: labels,
           datasets: [
             {
               label: 'Unassisted Learning (Active Encoding)',
-              data: [], // Starts empty
-              borderColor: '#1a1a1a', // Solid black/dark grey
+              data: [],
+              borderColor: '#1a1a1a',
               backgroundColor: 'transparent',
               borderWidth: 2.5,
               tension: 0.4,
@@ -2970,14 +2207,14 @@
             },
             {
               label: 'Unrestricted AI Access (Cognitive Crutch)',
-              data: [], // Starts empty
-              borderColor: '#c2410c', // Warning Orange/Red
+              data: [],
+              borderColor: '#c2410c',
               backgroundColor: 'transparent',
               borderWidth: 2.5,
               tension: 0.4,
               pointRadius: 0,
               pointHitRadius: 10,
-              borderDash: [6, 4] // Dashed line to emphasize vulnerability
+              borderDash: [6, 4]
             }
           ]
         },
@@ -2987,59 +2224,41 @@
           interaction: { mode: 'index', intersect: false },
           plugins: {
             legend: { position: 'bottom', labels: { usePointStyle: true, padding: 16 } },
-            tooltip: { 
-              callbacks: { 
-                title: (ctx) => 'Time: ' + (ctx[0].dataIndex * 0.5) + ' Days',
-                label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}% Retention` 
-              } 
+            tooltip: {
+              callbacks: {
+                title: function(ctx) { return 'Time: ' + (ctx[0].dataIndex * 0.5) + ' Days'; },
+                label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(1) + '% Retention'; }
+              }
             }
           },
           scales: {
-            y: { 
-              title: { display: true, text: 'Memory Retention (%)' }, 
-              min: 0, max: 105, 
-              grid: { color: '#e5e2de' } 
-            },
-            x: { 
-              grid: { display: false }, 
-              ticks: { maxTicksLimit: 8, font: { size: 11 } } 
-            }
+            y: { title: { display: true, text: 'Memory Retention (%)' }, min: 0, max: 105, grid: { color: '#e5e2de' } },
+            x: { grid: { display: false }, ticks: { maxTicksLimit: 8, font: { size: 11 } } }
           }
         }
       });
 
-      // 3. Trigger progressive drawing animation on scroll
-      let animationTriggered = false;
-      const observer = new IntersectionObserver((entries) => {
+      var animationTriggered = false;
+      var observer = new IntersectionObserver(function(entries) {
         if (entries[0].isIntersecting && !animationTriggered) {
           animationTriggered = true;
           animateCurves();
           observer.disconnect();
         }
-      }, { threshold: 0.3 }); // Trigger when 30% of the chart is visible
-
+      }, { threshold: 0.3 });
       observer.observe(container);
 
       function animateCurves() {
-        let i = 0;
-        // Draw one point every 35 milliseconds
-        const drawInterval = setInterval(() => {
-          if (i >= labels.length) {
-            clearInterval(drawInterval);
-            return;
-          }
-          // Push the next data point to both curves simultaneously
+        var i = 0;
+        var drawInterval = setInterval(function() {
+          if (i >= labels.length) { clearInterval(drawInterval); return; }
           forgettingChart.data.datasets[0].data.push(dataTrad[i]);
           forgettingChart.data.datasets[1].data.push(dataAI[i]);
-          // Update chart smoothly without default transition animations jumping
-          forgettingChart.update('none'); 
+          forgettingChart.update('none');
           i++;
-        }, 35); 
+        }, 35);
       }
     })();
-
- 
-    
   </script>
 </body>
 </html>
