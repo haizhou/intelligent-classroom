@@ -22,7 +22,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     /* ===== Design Tokens ===== */
@@ -35,8 +35,8 @@
       --accent: #c2410c;
       --accent-light: #fed7aa;
       --border-subtle: #e5e2de;
-      --font-serif: "Source Serif 4", Georgia, serif;
-      --font-sans: "DM Sans", system-ui, sans-serif;
+      --font-serif: "Newsreader", Georgia, serif;
+      --font-sans: "Outfit", system-ui, sans-serif;
       --font-mono: "JetBrains Mono", monospace;
       --max-prose: 680px;
       --max-wide: 960px;
@@ -271,6 +271,63 @@
 
     /* ===== Print ===== */
     @media print { .toc-sidebar, #progress-bar { display: none !important; } }
+
+    /* ===== Key Takeaway Box ===== */
+    .takeaway {
+      background: linear-gradient(135deg, #fffbf5 0%, #fef3e2 100%);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+    }
+    .takeaway-label {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .takeaway p {
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--ink-light);
+    }
+
+    /* ===== Hero Animation ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-animate { animation: fadeUp 0.8s ease forwards; }
+    .hero-animate-delay-1 { animation-delay: 0.15s; opacity: 0; }
+    .hero-animate-delay-2 { animation-delay: 0.3s; opacity: 0; }
+    .hero-animate-delay-3 { animation-delay: 0.5s; opacity: 0; }
+
+    /* ===== Reading Time Badge ===== */
+    .reading-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      background: rgba(0,0,0,0.04);
+      border-radius: 100px;
+      padding: 0.3rem 0.75rem;
+    }
+
+    /* ===== Section Divider ===== */
+    .section-divider {
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+      border: none;
+      margin: 3rem 0 2rem;
+      border-radius: 2px;
+    }
   </style>
 </head>
 
@@ -308,17 +365,23 @@
     <div class="absolute inset-0 opacity-[0.035]" style="background-image: radial-gradient(circle at 20% 50%, #c2410c 1px, transparent 1px), radial-gradient(circle at 80% 20%, #c2410c 1px, transparent 1px); background-size: 60px 60px;"></div>
     <div class="relative max-w-wide mx-auto px-6 pt-16 pb-12 md:pt-24 md:pb-20">
       <div class="font-sans text-caption uppercase tracking-widest text-ink-muted mb-8">
-        <span class="text-accent font-semibold">ELEC0141</span>
+        <span class="text-accent font-semibold">ELEC0139</span>
         <span class="mx-2 text-border-subtle">&middot;</span>
-        <span>Natural Language Processing</span>
+        <span>Emerging Topics in Integrated Machine Learning Systems</span>
         <span class="mx-2 text-border-subtle">&middot;</span>
         <span>UCL Electronic &amp; Electrical Engineering</span>
         <span class="mx-2 text-border-subtle">&middot;</span>
         <span>May 2026</span>
       </div>
-      <h1 class="text-display max-w-[720px] mb-6">The Intelligent Classroom</h1>
-      <p class="font-sans text-xl md:text-2xl text-ink-light font-light max-w-[600px] leading-relaxed tracking-tight mb-10">How Agentic AI Is Transforming Real-Time Education</p>
-      <div class="flex flex-wrap gap-4 mt-4">
+      <h1 class="text-display max-w-[720px] mb-6 hero-animate">The Intelligent Classroom</h1>
+      <p class="font-sans text-xl md:text-2xl text-ink-light font-light max-w-[600px] leading-relaxed tracking-tight mb-6 hero-animate hero-animate-delay-1">How Agentic AI Is Transforming Real-Time Education</p>
+      <div class="mb-10 hero-animate hero-animate-delay-2">
+        <span class="reading-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          ~20 min read &middot; ~5,000 words
+        </span>
+      </div>
+      <div class="flex flex-wrap gap-4 mt-4 hero-animate hero-animate-delay-3">
         <div class="stat-card bg-white/70 backdrop-blur border border-border-subtle rounded-lg px-5 py-4 min-w-[140px]">
           <div class="font-sans text-3xl font-bold text-accent tracking-tight">44M</div>
           <div class="font-sans text-caption text-ink-muted mt-1 uppercase">Teachers needed by 2030</div>
@@ -373,7 +436,14 @@
         <div style="position:relative;height:320px;"><canvas id="chart1"></canvas></div>
         <p class="font-sans text-caption text-ink-muted mt-3" style="text-align:left;">Sources: DiCerbo (2025), <em>Education Week</em>; Khan Academy Annual Report SY24-25; K-12 Dive (Aug 2025); Sal Khan interview, <em>Unsupervised Learning</em> (Apr 2025). District partners grew from 45 to 380+ over the same period.</p>
       </div>
+      <!-- Key Takeaway: Part 1 -->
+      <div class="takeaway fade-in">
+        <div class="takeaway-label">Key Takeaway</div>
+        <p>The global teacher shortage (44M by 2030), Bloom&rsquo;s two-sigma problem (1984), and the limitations of earlier EdTech all point to one conclusion: <strong>education needs a technology that can engage in open-ended, adaptive dialogue at scale</strong>. Agentic AI &mdash; with Khanmigo already reaching 1.4M users &mdash; represents the first credible candidate.</p>
+      </div>
     </section>
+
+    <hr class="section-divider">
 
     <!-- ===== PART 2 ===== -->
     <section id="part-2" class="fade-in mb-20">
@@ -449,7 +519,14 @@
       </div>
 
       <p class="text-body text-ink-light mb-6">The architectural response is <strong class="text-ink font-medium">edge-cloud co-design</strong>, in which the multimodal pipeline is partitioned across device and cloud tiers. Lightweight, latency-critical components &mdash; speech activity detection, voice-to-text front-end feature extraction, facial engagement classification &mdash; run locally on the student&rsquo;s device, while computationally intensive operations &mdash; full LLM reasoning, RAG retrieval, and response generation &mdash; are offloaded to cloud infrastructure. By performing audio feature extraction on-device, the system transmits compact feature vectors rather than raw audio waveforms, compressing the upstream payload by an order of magnitude. Edge-cloud collaborative frameworks such as <strong class="text-ink font-medium">EdgeShard</strong> (Zhang et al., 2024) demonstrate how LLM inference can be partitioned across heterogeneous devices, and the NeurIPS 2024 Edge-Device LLM Competition has catalysed research into models that can run on hardware as constrained as a Raspberry Pi 4 with 4GB RAM (Liu et al., 2024).</p>
+      <!-- Key Takeaway: Part 2 -->
+      <div class="takeaway fade-in">
+        <div class="takeaway-label">Key Takeaway</div>
+        <p>Four complementary technologies form the integrated agentic tutor: <strong>LLM Socratic dialogue</strong> (with CoT/ReAct), <strong>RAG grounding</strong> (eliminating hallucination), <strong>multi-agent orchestration</strong> (specialised roles), and <strong>multimodal perception</strong> (speech + vision). Edge-cloud co-design and model compression (4-bit quantization retaining 98%+ accuracy) make deployment feasible on classroom hardware.</p>
+      </div>
     </section>
+
+    <hr class="section-divider">
 
     <!-- ===== PART 3 ===== -->
     <section id="part-3" class="fade-in mb-20">
@@ -486,7 +563,14 @@
       <h3 id="sec-3-4" class="text-h2 mb-5 mt-14">3.4&ensp;Academic Integrity</h3>
       <p class="text-body text-ink-light mb-6">The deployment of LLMs in educational contexts inevitably raises concerns about academic dishonesty. Technical responses include AI-generated text detection tools, which attempt to identify statistical signatures of machine-generated content. However, these tools remain unreliable: they produce both false positives and false negatives, and their accuracy degrades as LLMs become more sophisticated. Khanmigo&rsquo;s approach &mdash; structurally preventing the generation of complete written work and flagging externally pasted content &mdash; represents a more robust design philosophy, shifting from post-hoc detection to <strong class="text-ink font-medium">architectural prevention</strong>.</p>
       <p class="text-body text-ink-light mb-6">Institutional responses are equally important. Universities are increasingly developing AI-use policies that distinguish between prohibited, permitted, and encouraged uses of AI tools. The most productive frameworks treat <strong class="text-ink font-medium">AI literacy as a learning objective</strong> in its own right, teaching students how to use AI tools critically and transparently. Assessment redesign &mdash; oral examinations, process-based evaluation, in-class supervised tasks &mdash; complements technological measures by creating evaluation contexts in which AI assistance is either unnecessary or transparently integrated.</p>
+      <!-- Key Takeaway: Part 3 -->
+      <div class="takeaway fade-in">
+        <div class="takeaway-label">Key Takeaway</div>
+        <p>Four ethical risks demand design-level responses, not just policy: <strong>privacy</strong> (solved architecturally via edge computing), <strong>cognitive atrophy</strong> (solved via Socratic scaffolding), <strong>digital divide</strong> (2.6B offline, 48% rural access), and <strong>academic integrity</strong> (solved via architectural prevention over post-hoc detection). The EU AI Act classifying educational AI as &ldquo;high-risk&rdquo; sets the regulatory baseline.</p>
+      </div>
     </section>
+
+    <hr class="section-divider">
 
     <!-- ===== CONCLUSIONS ===== -->
     <section id="conclusions" class="fade-in mb-20">
@@ -558,7 +642,7 @@
   <!-- ====== FOOTER ====== -->
   <footer class="border-t border-border-subtle py-10">
     <div class="max-w-wide mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-caption text-ink-muted">
-      <span>ELEC0141 Natural Language Processing &middot; UCL Electronic &amp; Electrical Engineering &middot; May 2026</span>
+      <span>ELEC0139 Emerging Topics in Integrated Machine Learning Systems &middot; UCL Electronic &amp; Electrical Engineering &middot; May 2026</span>
       <span>~5,000 words</span>
     </div>
   </footer>
@@ -629,7 +713,7 @@
     })();
 
     // ===== CHART.JS INTERACTIVE CHARTS =====
-    Chart.defaults.font.family = '"DM Sans", system-ui, sans-serif';
+    Chart.defaults.font.family = '"Outfit", system-ui, sans-serif';
     Chart.defaults.font.size = 12;
     Chart.defaults.color = '#767676';
 
