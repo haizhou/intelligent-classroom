@@ -890,6 +890,107 @@
 
     @keyframes mm-wave-flow { 0%, 100% { height: 20px; } 50% { height: 28px; } }
 
+/* ===== OpenAI-Style Exploratory Sandbox ===== */
+    .sandbox-wrapper {
+      background: #fff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+      margin: 3rem 0;
+      font-family: var(--font-sans);
+    }
+    .sandbox-header {
+      background: var(--surface);
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sandbox-title { font-size: 0.85rem; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 0.5rem; }
+    .sandbox-badge { background: #e0e7ff; color: #4338ca; padding: 0.2rem 0.6rem; border-radius: 100px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+    
+    .sandbox-body {
+      display: grid;
+      grid-template-columns: 1fr;
+      @media (min-width: 768px) { grid-template-columns: 1fr 1fr; }
+    }
+    
+    /* Visualization Area */
+    .sandbox-viz {
+      padding: 2.5rem;
+      background: #fafaf9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-bottom: 1px solid var(--border-subtle);
+      @media (min-width: 768px) { border-bottom: none; border-right: 1px solid var(--border-subtle); }
+    }
+    
+    /* Cylinder & Piston Graphic */
+    .cylinder-container {
+      width: 140px; height: 180px;
+      border: 3px solid #d1d5db;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      position: relative;
+      background: rgba(254, 215, 170, 0.2); /* Gas color */
+      display: flex; align-items: flex-end;
+      transition: background 0.3s ease;
+    }
+    .piston {
+      position: absolute; left: -3px; right: -3px; height: 16px;
+      background: var(--ink-light); border-radius: 4px;
+      top: 50%; /* Changed by JS */
+      transition: top 0.1s ease;
+      display: flex; justify-content: center;
+    }
+    .piston-rod {
+      width: 8px; height: 180px; background: #9ca3af;
+      position: absolute; bottom: 100%;
+    }
+    .gas-particle {
+      position: absolute; width: 6px; height: 6px;
+      background: var(--accent); border-radius: 50%;
+      opacity: 0.6;
+    }
+    
+    /* Pressure Gauge */
+    .gauge-wrapper { position: absolute; top: 1.5rem; right: 1.5rem; text-align: center; }
+    .gauge-value { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: #ef4444; transition: color 0.3s; }
+    .gauge-label { font-size: 0.7rem; color: var(--ink-muted); text-transform: uppercase; font-weight: 600; }
+    
+    /* Controls & AI Tutor Area */
+    .sandbox-interaction { padding: 2rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; }
+    
+    .slider-group { margin-bottom: 1.5rem; }
+    .slider-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 600; }
+    .slider-value { font-family: var(--font-mono); color: var(--accent); }
+    
+    input[type=range] {
+      -webkit-appearance: none; width: 100%; background: transparent;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%;
+      background: var(--accent); cursor: pointer; margin-top: -8px; box-shadow: 0 2px 6px rgba(194,65,12,0.3);
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%; height: 4px; cursor: pointer; background: #e5e7eb; border-radius: 2px;
+    }
+    
+    /* Dynamic AI Tutor Box */
+    .sandbox-tutor {
+      background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1.25rem;
+      position: relative;
+    }
+    .tutor-header { display: flex; align-items: center; gap: 0.5rem; color: #16a34a; font-weight: 700; font-size: 0.75rem; margin-bottom: 0.5rem; text-transform: uppercase; }
+    .tutor-header svg { width: 14px; height: 14px; animation: pulse-green 2s infinite; }
+    .tutor-text { font-size: 0.95rem; color: #15803d; line-height: 1.5; min-height: 4.5em; }
+    
+    .sandbox-caption { font-family: var(--font-sans); font-size: 0.8125rem; color: var(--ink-muted); padding: 1rem 1.5rem; background: #fff; border-top: 1px solid var(--border-subtle); }
     
     /* Typing Dots Animation */
     .typing-dots { display: flex; gap: 4px; align-items: center; height: 22px; }
@@ -1585,99 +1686,65 @@
       <h3 id="sec-2-4" class="text-h2 mb-5 mt-14">2.4&ensp;Eyes, Ears, and Voice: The Multimodal Tutor</h3>
       <p class="text-body text-ink-light mb-6">Text is only one way that learning happens. Students draw diagrams, speak questions aloud, point at confusing passages, and express frustration through facial expressions they may not even be aware of. The most advanced AI tutors are starting to perceive all of this. Foundation models like GPT-4o (OpenAI, 2024), Gemini 2.5 (Google DeepMind, 2025), and Claude (Anthropic, 2025) now integrate text, speech, and vision natively, opening educational interactions that were previously impossible.</p>
       <p class="text-body text-ink-light mb-6"><strong class="text-ink font-medium">Speech</strong> is the most natural interface for young learners. Khanmigo&rsquo;s voice mode lets students who struggle with typing engage through conversation. Researchers at the NSF iSAT Institute (University of Colorado) have fine-tuned a Discrete Multimodal LLM specifically for classroom speech, tackling the unique challenges of background noise, children&rsquo;s speech patterns, and diverse accents that standard ASR handles poorly (Trinh et al., 2025).</p>
-      <p class="text-body text-ink-light mb-6"><strong class="text-ink font-medium">Vision</strong> adds another dimension entirely. <strong class="text-ink font-medium">ClassMind</strong> (2025) combines Whisper (transcription) and pyannote (speaker diarisation) with video analysis to generate instructional feedback at scale &mdash; something human classroom observers can offer only sporadically and at considerable cost. A review of 104 studies on AI in classroom management found growing adoption for attendance, behaviour monitoring, and engagement detection, though only 22% addressed ethical concerns and just 13% included privacy safeguards.</p>
-      <p class="text-body text-ink-light mb-6">The fusion of vision and language is especially powerful for STEM, where learning revolves around diagrams, equations, and spatial reasoning. <strong class="text-ink font-medium">UniEdu</strong> (Wang et al., 2025) combines visual question answering, diagram interpretation, and textual explanation in a single model &mdash; imagine pointing your tablet camera at a circuit diagram and having the tutor explain why your resistor values are wrong.</p>
-
-      <div class="mm-lens-wrapper my-12 fade-in" id="multimodal-lens-demo">
-        
-        <div class="mm-lens-header">
-          <span class="mm-lens-title">Multimodal Engine (Speech + Vision + Actuation)</span>
-          <span class="mm-lens-status" id="mm-status-text">Ready</span>
+     <p class="text-body text-ink-light mb-6">But the true paradigm shift in STEM education extends beyond passive image recognition. Abstract concepts in mathematics and physics are notoriously difficult to grasp through static text or equations alone. The most advanced agentic tutors now embrace <strong class="text-ink font-medium">Exploratory Learning</strong>. Instead of merely explaining a formula, the AI dynamically generates interactive visual modules directly within the conversational interface.</p>
+      <p class="text-body text-ink-light mb-6">Consider the Ideal Gas Law ($PV=nRT$). Rather than reading a definition, students are presented with a manipulable simulation. As they drag a slider to compress the volume or increase the temperature, they watch the pressure gauge spike in real-time, accompanied by the AI tutor's contextual, live-updating explanations. This transforms equations into tangible experiments, fundamentally shifting the AI's role from an answer-provider to a sandbox-creator.</p>
+     <div class="sandbox-wrapper my-12 fade-in" id="exploratory-sandbox">
+        <div class="sandbox-header">
+          <div class="sandbox-title">
+            <svg viewBox="0 0 24 24" fill="none" width="18" height="18" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Interactive Explainer: Ideal Gas Law
+          </div>
+          <div class="sandbox-badge">Live Module</div>
         </div>
         
-        <div class="mm-lens-viewfinder">
-          <div class="viewfinder-corner corner-tl"></div>
-          <div class="viewfinder-corner corner-tr"></div>
-          <div class="viewfinder-corner corner-bl"></div>
-          <div class="viewfinder-corner corner-br"></div>
-          
-          <div class="mm-scan-line" id="mm-scan-line"></div>
-          
-          <div class="mm-ai-hint" id="mm-ai-hint">
-            <div class="mm-ai-hint-title">Visual Context Extracted</div>
-            <div class="mm-ai-hint-body" style="font-family: var(--font-mono); font-size: 0.8rem;">
-              <span style="color:#16a34a">✓</span> R1 = 10k&Omega;<br>
-              <span style="color:#ef4444">!</span> C1 = 10&micro;F (Highlighting)<br>
-              <span style="color:#16a34a">✓</span> f_in = 1kHz<br>
-              <em>Calc: f_c = 1/(2&pi;RC) &approx; 1.59Hz.</em>
+        <div class="sandbox-body">
+          <div class="sandbox-viz">
+            <div class="gauge-wrapper">
+              <div class="gauge-value" id="gauge-p">1.0 atm</div>
+              <div class="gauge-label">Pressure (P)</div>
+            </div>
+            
+            <div class="cylinder-container" id="gas-cylinder">
+              <div class="piston" id="gas-piston">
+                <div class="piston-rod"></div>
+              </div>
+              <div id="particles-container"></div>
             </div>
           </div>
-
-          <svg id="mm-circuit-svg" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M60 120H100M300 120H340" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="60" cy="120" r="15" stroke="#1a1a1a" stroke-width="2"/>
-            <path d="M60 112V128M52 120H68" stroke="#1a1a1a" stroke-width="1.5"/>
-            <text x="45" y="160" font-family="JetBrains Mono, monospace" font-size="14" fill="#1a1a1a">Vin</text>
-            <text x="45" y="178" font-family="Newsreader, serif" font-size="11" font-style="italic" fill="#767676">1kHz Sin</text>
-            <path d="M100 120L110 105L125 135L140 105L155 135L170 105L185 135L200 120" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/>
-            <text x="135" y="90" font-family="JetBrains Mono, monospace" font-size="14" fill="#1a1a1a">R1</text>
-            <text x="135" y="108" font-family="Newsreader, serif" font-size="11" font-style="italic" fill="#767676">10k&Omega;</text>
-            <path d="M200 120H300" stroke="#1a1a1a" stroke-width="2"/>
-            <circle cx="200" cy="120" r="3" fill="#1a1a1a"/>
-            <path d="M200 120V155M180 155H220M180 165H220M200 165V200" stroke="#1a1a1a" stroke-width="2"/>
-            <text x="230" y="155" font-family="JetBrains Mono, monospace" font-size="14" fill="#1a1a1a">C1</text>
-            <text x="230" y="173" id="svg-target-c-value" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" fill="#c2410c">10&micro;F</text>
-            <path d="M160 200H240M180 210H220M195 220H205" stroke="#1a1a1a" stroke-width="1.5"/>
-            <text x="325" y="110" font-family="JetBrains Mono, monospace" font-size="14" fill="#1a1a1a">Vout</text>
-            <path d="M300 120V125M300 115V120" stroke="#1a1a1a" stroke-width="2"/>
-          </svg>
-        </div>
-
-        <div class="mm-explainer-panel" id="mm-explainer-panel">
-          <div class="mm-explainer-header">Generative Viz: Frequency Response (f_in vs f_c)</div>
           
-          <div class="mm-diagram-container">
-            <div class="mm-sig-box mm-sig-in">
-              <div class="mm-sig-title">Vin (Input)</div>
-              <div class="mm-sig-freq">f_in = 1,000Hz</div>
-              <div class="mm-diagram-visual-waves waves-in">
-                <span></span><span></span><span></span><span></span><span></span>
+          <div class="sandbox-interaction">
+            <div class="controls-area">
+              <div class="slider-group">
+                <div class="slider-header">
+                  <span>Temperature (T)</span>
+                  <span class="slider-value" id="val-t">300 K</span>
+                </div>
+                <input type="range" id="slider-t" min="100" max="800" value="300">
+              </div>
+              
+              <div class="slider-group">
+                <div class="slider-header">
+                  <span>Volume (V)</span>
+                  <span class="slider-value" id="val-v">5.0 L</span>
+                </div>
+                <input type="range" id="slider-v" min="2" max="10" value="5" step="0.1">
               </div>
             </div>
             
-            <div class="mm-diagram-arrow-wrapper">
-              <div class="mm-diagram-arrow">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            <div class="sandbox-tutor">
+              <div class="tutor-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                AI Tutor is observing...
               </div>
-            </div>
-            
-            <div class="mm-sig-box mm-sig-out" id="mm-output-box">
-              <div class="mm-sig-title">Vout (Output)</div>
-              <div class="mm-sig-freq">f_c &approx; 1.6Hz</div>
-              <div class="mm-diagram-visual-waves waves-out" id="mm-output-waves">
-                <span></span><span></span><span></span><span></span><span></span>
+              <div class="tutor-text" id="tutor-dynamic-text">
+                Try dragging the sliders. Notice what happens to the pressure when you compress the volume or heat up the gas.
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="mm-voice-bar">
-          <div class="mm-mic-btn" id="mm-mic">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
-          </div>
-          <div class="mm-transcript">
-            <div class="mm-student-text" id="mm-student-speech"></div>
-            <div class="mm-tutor-response">
-              <div class="mm-waveform" id="mm-waveform">
-                <span></span><span></span><span></span><span></span><span></span>
-              </div>
-              <div class="mm-tutor-text" id="mm-tutor-speech"></div>
             </div>
           </div>
         </div>
         
-        <div class="mm-lens-caption">
-          Fig. 5 &mdash; Multimodal Integration (Final). The system fuses speech recognition (Student query) with computer vision (Diagram scanning) to deliver pedagogically grounded audio feedback accompanied by generatively animated frequency response visualization.
+        <div class="sandbox-caption">
+          Fig. 5 &mdash; Exploratory Learning Interface. Inspired by modern agentic capabilities, the AI generates a dynamic physics sandbox where explanations evolve in real-time as the student manipulates variables.
         </div>
       </div>
 
@@ -2281,84 +2348,103 @@
       }
     })();
 
-    // ===== Multimodal Voice + Vision + Generative Sequence =====
+    // ===== Exploratory Sandbox Physics & AI Logic =====
     (function() {
-      const mmContainer = document.getElementById('multimodal-lens-demo');
-      if (!mmContainer) return;
-
-      const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+      const sliderT = document.getElementById('slider-t');
+      const sliderV = document.getElementById('slider-v');
+      const valT = document.getElementById('val-t');
+      const valV = document.getElementById('val-v');
+      const gaugeP = document.getElementById('gauge-p');
+      const piston = document.getElementById('gas-piston');
+      const cylinder = document.getElementById('gas-cylinder');
+      const tutorText = document.getElementById('tutor-dynamic-text');
+      const particlesContainer = document.getElementById('particles-container');
       
-      const scanLine = document.getElementById('mm-scan-line');
-      const aiHint = document.getElementById('mm-ai-hint');
-      const mic = document.getElementById('mm-mic');
-      const studentSpeech = document.getElementById('mm-student-speech');
-      const waveform = document.getElementById('mm-waveform');
-      const tutorSpeech = document.getElementById('mm-tutor-speech');
-      const statusText = document.getElementById('mm-status-text');
-      // NEW elements to control
-      const explainerPanel = document.getElementById('mm-explainer-panel');
-      const outputWaves = document.getElementById('mm-output-waves');
-      const outputBox = document.getElementById('mm-output-box');
+      if (!sliderT) return;
 
-      const mmObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            runFullMultimodalSequence();
-            mmObserver.unobserve(entry.target);
-          }
+      // Setup fake particles
+      const numParticles = 20;
+      const particles = [];
+      for(let i=0; i<numParticles; i++) {
+        const p = document.createElement('div');
+        p.className = 'gas-particle';
+        particlesContainer.appendChild(p);
+        particles.push({
+          el: p,
+          x: Math.random() * 120,
+          y: Math.random() * 80,
+          vx: (Math.random() - 0.5) * 4,
+          vy: (Math.random() - 0.5) * 4
         });
-      }, { rootMargin: "0px 0px -100px 0px" });
-
-      mmObserver.observe(mmContainer);
-
-      async function runFullMultimodalSequence() {
-        // 1. Voice Input
-        await sleep(500);
-        statusText.innerText = "Listening...";
-        mic.classList.add('recording');
-        
-        const q = "Why is Vout almost zero at this frequency?";
-        for(let i=0; i<q.length; i++) {
-          studentSpeech.innerHTML += q[i];
-          await sleep(40);
-        }
-        
-        await sleep(400);
-        mic.classList.remove('recording');
-        statusText.innerText = "Processing Vision...";
-        
-        // 2. Vision Scan Triggers
-        scanLine.style.animation = 'mm-scan 1.5s ease-in-out 1 forwards'; // Scans slightly faster
-        
-        await sleep(900); // Wait for scanner to hit the capacitor
-        aiHint.classList.add('visible'); // Vision data extracted
-        
-        await sleep(800); // Small pause for processing
-        statusText.innerText = "Speaking...";
-        
-        // 3. Audio & Viz Output (Socratic Tutor + Generative Explainer)
-        // Part 1: Slide down the explainer panel
-        explainerPanel.classList.add('visible');
-        waveform.classList.add('playing');
-        
-        // Part 2: Simulate output attenuation after the panel is down
-        await sleep(1000); 
-        outputWaves.className = 'mm-diagram-visual-waves waves-out'; // Vout shrinks to tiny static dots
-        outputBox.style.boxShadow = '0 0 15px rgba(239, 68, 68, 0.2)'; // Faint red highlight
-
-        // Part 3: Type the answer simultaneously with Part 1 & 2
-        const a = "We extracted that input is 1kHz, but the cut-off frequency you calculated is only about 1.6Hz. If mass is constant, what does that mean for a high-frequency input?";
-        for(let i=0; i<a.length; i++) {
-          tutorSpeech.innerHTML += a[i];
-          // Notice we don't await *inside* a loop for the panel visibility, 
-          // the above actions and this loop happen concurrently (effectively).
-          await sleep(35);
-        }
-        
-        await sleep(1500);
-        waveform.classList.remove('playing');
-        statusText.innerText = "Active";
       }
+
+      function updatePhysics() {
+        const T = parseFloat(sliderT.value);
+        const V = parseFloat(sliderV.value);
+        
+        // P = nRT / V (simplified constants for visual scale)
+        const P = (T / 300) / (V / 5);
+        
+        // Update UI numbers
+        valT.innerText = `${T} K`;
+        valV.innerText = `${V.toFixed(1)} L`;
+        gaugeP.innerText = `${P.toFixed(2)} atm`;
+        
+        // Visual updates
+        const pistonTop = 100 - (V / 10) * 100; // Map Volume 2-10L to percentage
+        piston.style.top = `${pistonTop}%`;
+        
+        // Color shifts based on temp (Red = hot, Blue = cold)
+        if (T > 500) cylinder.style.background = 'rgba(254, 202, 202, 0.4)'; // Red-ish
+        else if (T < 200) cylinder.style.background = 'rgba(191, 219, 254, 0.4)'; // Blue-ish
+        else cylinder.style.background = 'rgba(254, 215, 170, 0.2)'; // Orange-ish
+        
+        // Gauge color based on Pressure
+        if (P > 2.0) gaugeP.style.color = '#dc2626'; // Danger red
+        else if (P < 0.5) gaugeP.style.color = '#2563eb'; // Cold blue
+        else gaugeP.style.color = '#ea580c'; // Normal orange
+
+        // Dynamic AI Contextual Logic (The Magic!)
+        if (P > 2.5) {
+          tutorText.innerHTML = "<strong>Danger zone!</strong> The pressure is extremely high. You've either crushed the volume or cranked the heat way up. The particles are slamming into the cylinder walls constantly!";
+        } else if (P < 0.4) {
+          tutorText.innerHTML = "The pressure has plummeted. With such a large volume and low temperature, the gas particles barely hit the walls. This is a great demonstration of direct and inverse proportionality.";
+        } else if (T > 600 && V > 7) {
+          tutorText.innerHTML = "Interesting! You've increased the temperature significantly, but the pressure is stable. Why? Because you also expanded the volume (<strong>Charles's Law</strong> in action).";
+        } else if (V < 3) {
+          tutorText.innerHTML = "You've compressed the gas into a tiny space. According to <strong>Boyle's Law</strong>, decreasing volume increases pressure, even if the temperature stays the same.";
+        } else {
+          tutorText.innerHTML = "Try isolating variables. Keep the Volume steady and slide the Temperature up and down. Watch how the pressure responds directly to the added heat energy.";
+        }
+        
+        // Particle speed based on Temperature
+        const speedMultiplier = T / 300;
+        const currentHeight = 180 * (V / 10); // usable height
+        
+        particles.forEach(p => {
+          p.x += p.vx * speedMultiplier;
+          p.y += p.vy * speedMultiplier;
+          
+          // Bounce off walls
+          if(p.x <= 0 || p.x >= 134) p.vx *= -1;
+          if(p.y <= 0 || p.y >= currentHeight - 10) p.vy *= -1;
+          
+          // Clamp positions
+          p.x = Math.max(0, Math.min(p.x, 134));
+          p.y = Math.max(0, Math.min(p.y, currentHeight - 10));
+          
+          p.el.style.left = `${p.x}px`;
+          p.el.style.bottom = `${p.y}px`;
+        });
+        
+        requestAnimationFrame(updatePhysics);
+      }
+      
+      sliderT.addEventListener('input', updatePhysics);
+      sliderV.addEventListener('input', updatePhysics);
+      
+      // Start loop
+      updatePhysics();
     })();
     
   </script>
