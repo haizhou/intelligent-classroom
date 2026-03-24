@@ -1626,6 +1626,75 @@
         }, 3000); 
       }
     })();
+
+    // ===== RAG Console Live Animation =====
+    (function() {
+      const ragContainer = document.getElementById('rag-live-demo');
+      if (!ragContainer) return;
+
+      // Helper function for delays
+      const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+      const ragObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            runRagSequence();
+            ragObserver.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: "0px 0px -100px 0px" });
+
+      ragObserver.observe(ragContainer);
+
+      async function runRagSequence() {
+        document.getElementById('rag-status-indicator').innerText = "Status: Processing...";
+        document.getElementById('rag-status-indicator').style.color = "#9ece6a";
+
+        // Step 1: Query
+        await sleep(400);
+        document.getElementById('r-log-1').classList.add('visible');
+
+        // Step 2: Encode
+        await sleep(800);
+        const log2 = document.getElementById('r-log-2');
+        log2.classList.add('visible');
+        
+        // Simulate vector generation rapidly
+        const vectorEl = document.getElementById('r-vector-text');
+        await sleep(300);
+        vectorEl.innerText = "[0.012, -0.043, 0.891, 0.112";
+        await sleep(150);
+        vectorEl.innerText += ", -0.993, 0.442, 0.001, -0.334";
+        await sleep(150);
+        vectorEl.innerText += ", 0.776, -0.128, ... 1536 dimensions]";
+
+        // Step 3: Retrieve
+        await sleep(900);
+        document.getElementById('r-log-3').classList.add('visible');
+
+        // Step 4: Document Match
+        await sleep(1200);
+        document.getElementById('r-log-4').classList.add('visible');
+
+        // Step 5: Generate & Typewriter
+        await sleep(1000);
+        document.getElementById('r-log-5').classList.add('visible');
+        document.getElementById('r-cursor').style.display = 'inline-block';
+
+        const answerString = "Based on your Chapter 4 notes, F=ma is actually a simplification. Newton originally defined force as the rate of change of momentum (dp/dt). If mass is constant, this becomes m*(dv/dt), which is m*a.";
+        const answerEl = document.getElementById('r-answer-text');
+        
+        await sleep(500); // Pause before typing
+        
+        for (let i = 0; i < answerString.length; i++) {
+          answerEl.innerHTML += answerString.charAt(i);
+          await sleep(25); // Extremely fast typing speed
+        }
+        
+        document.getElementById('rag-status-indicator').innerText = "Status: Completed";
+        document.getElementById('rag-status-indicator').style.color = "#7aa2f7";
+      }
+    })();
     
   </script>
 </body>
