@@ -328,6 +328,120 @@
       margin: 3rem 0 2rem;
       border-radius: 2px;
     }
+
+    /* ===== Hero Redesign ===== */
+    .hero-bg {
+      background: linear-gradient(160deg, #1a1a1a 0%, #2d1a0e 40%, #1a1a1a 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 600px 400px at 15% 80%, rgba(194,65,12,0.15), transparent),
+        radial-gradient(ellipse 500px 300px at 85% 20%, rgba(194,65,12,0.08), transparent);
+      pointer-events: none;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='0.8' fill='%23ffffff'/%3E%3C/svg%3E");
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    .hero-kicker {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      display: inline-block;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid rgba(194,65,12,0.3);
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: #fff;
+      max-width: 700px;
+    }
+    .hero-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, #f97316 0%, #c2410c 50%, #fbbf24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-subtitle {
+      font-family: var(--font-sans);
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      max-width: 560px;
+      line-height: 1.55;
+      margin-top: 1.25rem;
+    }
+    .hero-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.75rem;
+    }
+    .hero-meta-pill {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px;
+      padding: 0.35rem 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1px;
+      margin-top: 3rem;
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .hero-stat {
+      background: rgba(255,255,255,0.03);
+      padding: 1.25rem 1.5rem;
+      transition: background 0.2s;
+    }
+    .hero-stat:hover { background: rgba(255,255,255,0.06); }
+    .hero-stat-num {
+      font-family: var(--font-sans);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+    .hero-stat-label {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.25rem;
+    }
   </style>
 </head>
 
@@ -361,48 +475,59 @@
   </nav>
 
   <!-- ====== HEADER / HERO ====== -->
-  <header class="relative overflow-hidden bg-gradient-header">
-    <div class="absolute inset-0 opacity-[0.035]" style="background-image: radial-gradient(circle at 20% 50%, #c2410c 1px, transparent 1px), radial-gradient(circle at 80% 20%, #c2410c 1px, transparent 1px); background-size: 60px 60px;"></div>
-    <div class="relative max-w-wide mx-auto px-6 pt-16 pb-12 md:pt-24 md:pb-20">
-      <div class="font-sans text-caption uppercase tracking-widest text-ink-muted mb-8">
-        <span class="text-accent font-semibold">ELEC0139</span>
-        <span class="mx-2 text-border-subtle">&middot;</span>
-        <span>Emerging Topics in Integrated Machine Learning Systems</span>
-        <span class="mx-2 text-border-subtle">&middot;</span>
-        <span>UCL Electronic &amp; Electrical Engineering</span>
-        <span class="mx-2 text-border-subtle">&middot;</span>
-        <span>May 2026</span>
+  <header class="hero-bg">
+    <div class="relative max-w-wide mx-auto px-6" style="padding-top:clamp(3rem,8vw,6rem);padding-bottom:clamp(2.5rem,6vw,4rem);">
+
+      <!-- Kicker -->
+      <div class="hero-animate">
+        <span class="hero-kicker">ELEC0139 &middot; UCL &middot; May 2026</span>
       </div>
-      <h1 class="text-display max-w-[720px] mb-6 hero-animate">The Intelligent Classroom</h1>
-      <p class="font-sans text-xl md:text-2xl text-ink-light font-light max-w-[600px] leading-relaxed tracking-tight mb-6 hero-animate hero-animate-delay-1">How Agentic AI Is Transforming Real-Time Education</p>
-      <div class="mb-10 hero-animate hero-animate-delay-2">
-        <span class="reading-badge">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          ~20 min read &middot; ~5,000 words
+
+      <!-- Title -->
+      <h1 class="hero-title hero-animate hero-animate-delay-1">
+        What If Every Student Had a <em>Brilliant Tutor</em> Available 24/7?
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="hero-subtitle hero-animate hero-animate-delay-2">
+        Inside the agentic AI systems that are turning Bloom&rsquo;s impossible dream &mdash; personalised one-on-one tutoring for every learner &mdash; into an engineering problem with a real solution.
+      </p>
+
+      <!-- Meta pills -->
+      <div class="hero-meta-row hero-animate hero-animate-delay-2">
+        <span class="hero-meta-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          20 min read
         </span>
+        <span class="hero-meta-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          ~5,000 words
+        </span>
+        <span class="hero-meta-pill">Emerging Topics in Integrated Machine Learning Systems 25/26</span>
       </div>
-      <div class="flex flex-wrap gap-4 mt-4 hero-animate hero-animate-delay-3">
-        <div class="stat-card bg-white/70 backdrop-blur border border-border-subtle rounded-lg px-5 py-4 min-w-[140px]">
-          <div class="font-sans text-3xl font-bold text-accent tracking-tight">44M</div>
-          <div class="font-sans text-caption text-ink-muted mt-1 uppercase">Teachers needed by 2030</div>
+
+      <!-- Stats grid -->
+      <div class="hero-stats hero-animate hero-animate-delay-3">
+        <div class="hero-stat">
+          <div class="hero-stat-num">44M</div>
+          <div class="hero-stat-label">New teachers needed globally by 2030</div>
         </div>
-        <div class="stat-card bg-white/70 backdrop-blur border border-border-subtle rounded-lg px-5 py-4 min-w-[140px]">
-          <div class="font-sans text-3xl font-bold text-accent tracking-tight">700K+</div>
-          <div class="font-sans text-caption text-ink-muted mt-1 uppercase">Khanmigo users 2024&ndash;25</div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">1.4M</div>
+          <div class="hero-stat-label">Khanmigo users as of April 2025</div>
         </div>
-        <div class="stat-card bg-white/70 backdrop-blur border border-border-subtle rounded-lg px-5 py-4 min-w-[140px]">
-          <div class="font-sans text-3xl font-bold text-accent tracking-tight">2&sigma;</div>
-          <div class="font-sans text-caption text-ink-muted mt-1 uppercase">Bloom&rsquo;s tutoring effect</div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">2&sigma;</div>
+          <div class="hero-stat-label">Bloom&rsquo;s one-on-one tutoring effect</div>
         </div>
-        <div class="stat-card bg-white/70 backdrop-blur border border-border-subtle rounded-lg px-5 py-4 min-w-[140px]">
-          <div class="font-sans text-3xl font-bold text-accent tracking-tight">2.6B</div>
-          <div class="font-sans text-caption text-ink-muted mt-1 uppercase">People offline globally</div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">2.6B</div>
+          <div class="hero-stat-label">People still offline worldwide</div>
         </div>
       </div>
+
     </div>
   </header>
-
-  <div class="max-w-wide mx-auto px-6"><div class="w-full h-px bg-border-subtle"></div></div>
 
   <!-- ====== MAIN CONTENT ====== -->
   <main class="max-w-prose mx-auto px-6 py-16 md:py-24">
