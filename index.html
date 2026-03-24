@@ -1958,6 +1958,12 @@
         <p class="font-sans text-caption text-ink-muted mt-3 uppercase">&ldquo;ChatGPT as a Cognitive Crutch,&rdquo; 2025</p>
       </div>
 
+      <div class="my-12 fade-in" style="background:#fff;border:1px solid var(--border-subtle);border-radius:12px;padding:1.5rem;" id="curve-chart-container">
+        <p class="font-sans text-caption text-ink-muted uppercase tracking-wide mb-3" style="font-weight:600;">Fig. 7 &mdash; The Cognitive Crutch: Memory Retention Over Time</p>
+        <div style="position:relative;height:340px;"><canvas id="chart-forgetting"></canvas></div>
+        <p class="font-sans text-caption text-ink-muted mt-3" style="text-align:left;">Simulated retention data based on the Ebbinghaus forgetting model ($R = e^{-t/S}$). The steeper decay in the "AI-Assisted" curve illustrates the cognitive offloading effect observed by Gerlich (2025), where reduced encoding effort leads to exponentially weaker memory consolidation over a 14-day period.</p>
+      </div>
+
       <p class="text-body text-ink-light mb-6">The answer is not to cripple AI&rsquo;s capabilities &mdash; it is to design interactions that <em>preserve the struggle</em>. Khanmigo&rsquo;s Socratic approach is one model: prompt rather than tell, hint rather than solve. Lee et al. (2024) formalise this as a <strong class="text-ink font-medium">guidance-based framework</strong> where the AI provides scaffolding that still requires the student to do the cognitive heavy lifting. The key insight from the literature is clear: it is the <em>pedagogical design</em> of AI tutors, not their raw capability, that determines whether they sharpen or erode the minds they are meant to serve.</p>
 
       <h3 id="sec-3-3" class="text-h2 mb-5 mt-14">3.3&ensp;2.6 Billion People Are Still Offline. AI Could Widen the Gap.</h3>
@@ -2666,6 +2672,112 @@
         targetBanner.style.color = "#fff";
         targetBanner.style.borderColor = "#15803d";
         targetBanner.innerText = "✓ SLA Met: Delivered under 2s";
+      }
+    })();
+
+    // ===== Chart 5: Forgetting Curve Animation =====
+    (function() {
+      const container = document.getElementById('curve-chart-container');
+      if (!container) return;
+
+      // 1. Generate mathematically realistic decay data based on Ebbinghaus model
+      // Formula: R = 100 * exp(-t / S) where S is relative memory strength
+      const labels = [];
+      const dataTrad = []; // Stronger consolidation (S = 12)
+      const dataAI = [];   // Weaker consolidation "Crutch" (S = 3.5)
+
+      // Calculate data points for 14 days (with 0.5 day steps for a smooth curve)
+      for (let t = 0; t <= 14; t += 0.5) {
+        // Only show label text for whole days
+        labels.push(t === 0 ? 'Day 0' : (t % 2 === 0 ? 'Day ' + t : '')); 
+        dataTrad.push(100 * Math.exp(-t / 12));
+        dataAI.push(100 * Math.exp(-t / 3.5));
+      }
+
+      // 2. Initialize Empty Chart for Animation
+      const ctx = document.getElementById('chart-forgetting').getContext('2d');
+      const forgettingChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Unassisted Learning (Active Encoding)',
+              data: [], // Starts empty
+              borderColor: '#1a1a1a', // Solid black/dark grey
+              backgroundColor: 'transparent',
+              borderWidth: 2.5,
+              tension: 0.4,
+              pointRadius: 0,
+              pointHitRadius: 10
+            },
+            {
+              label: 'Unrestricted AI Access (Cognitive Crutch)',
+              data: [], // Starts empty
+              borderColor: '#c2410c', // Warning Orange/Red
+              backgroundColor: 'transparent',
+              borderWidth: 2.5,
+              tension: 0.4,
+              pointRadius: 0,
+              pointHitRadius: 10,
+              borderDash: [6, 4] // Dashed line to emphasize vulnerability
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { position: 'bottom', labels: { usePointStyle: true, padding: 16 } },
+            tooltip: { 
+              callbacks: { 
+                title: (ctx) => 'Time: ' + (ctx[0].dataIndex * 0.5) + ' Days',
+                label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}% Retention` 
+              } 
+            }
+          },
+          scales: {
+            y: { 
+              title: { display: true, text: 'Memory Retention (%)' }, 
+              min: 0, max: 105, 
+              grid: { color: '#e5e2de' } 
+            },
+            x: { 
+              grid: { display: false }, 
+              ticks: { maxTicksLimit: 8, font: { size: 11 } } 
+            }
+          }
+        }
+      });
+
+      // 3. Trigger progressive drawing animation on scroll
+      let animationTriggered = false;
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !animationTriggered) {
+          animationTriggered = true;
+          animateCurves();
+          observer.disconnect();
+        }
+      }, { threshold: 0.3 }); // Trigger when 30% of the chart is visible
+
+      observer.observe(container);
+
+      function animateCurves() {
+        let i = 0;
+        // Draw one point every 35 milliseconds
+        const drawInterval = setInterval(() => {
+          if (i >= labels.length) {
+            clearInterval(drawInterval);
+            return;
+          }
+          // Push the next data point to both curves simultaneously
+          forgettingChart.data.datasets[0].data.push(dataTrad[i]);
+          forgettingChart.data.datasets[1].data.push(dataAI[i]);
+          // Update chart smoothly without default transition animations jumping
+          forgettingChart.update('none'); 
+          i++;
+        }, 35); 
       }
     })();
     
