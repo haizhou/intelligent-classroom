@@ -876,8 +876,8 @@
       display: inline-flex; align-items: center; gap: 0.4rem;
     }
     .hero-transition {
-      height: 80px;
-      background: linear-gradient(to bottom, #1a1a1a 0%, var(--surface) 100%);
+      height: 120px;
+      background: linear-gradient(to bottom, #1a1a1a 0%, #231208 35%, var(--surface-warm) 75%, var(--surface) 100%);
     }
     main { position: relative; }
     main::before {
@@ -995,7 +995,8 @@
   </nav>
 
   <!-- ====== HEADER / HERO ====== -->
-  <header class="hero-bg">
+  <header class="hero-bg" style="position:relative;">
+  <canvas id="hero-neural-canvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0.35;"></canvas>
     <div class="relative max-w-wide mx-auto px-6" style="padding-top:clamp(3rem,8vw,6rem);padding-bottom:clamp(2.5rem,6vw,4rem);">
       <div class="hero-animate">
         <span class="hero-kicker">ELEC0139 &middot; UCL &middot; May 2026</span>
@@ -2170,6 +2171,107 @@
         targetBanner.style.borderColor = '#15803d';
         targetBanner.innerText = '✓ SLA Met: Delivered under 2s';
       }
+    })();
+
+    /* ==========================================================
+       0. HERO — Neural Network Floating Nodes
+       ========================================================== */
+    (function() {
+      var canvas = document.getElementById('hero-neural-canvas');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var header = canvas.parentElement;
+
+      function resize() {
+        canvas.width = header.offsetWidth;
+        canvas.height = header.offsetHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      /* Node config */
+      var NODE_COUNT = 28;
+      var CONNECT_DIST = 160;
+      var nodes = [];
+
+      for (var i = 0; i < NODE_COUNT; i++) {
+        nodes.push({
+          x: Math.random(),
+          y: Math.random(),
+          vx: (Math.random() - 0.5) * 0.00018,
+          vy: (Math.random() - 0.5) * 0.00018,
+          r: Math.random() * 2.2 + 1.2,
+          pulse: Math.random() * Math.PI * 2,  /* phase offset */
+          pulseSpeed: 0.012 + Math.random() * 0.018
+        });
+      }
+
+      /* Accent colour palette for edges */
+      var EDGE_COLORS = [
+        'rgba(194,65,12,',    /* accent orange-red */
+        'rgba(251,191,36,',   /* warm gold */
+        'rgba(200,130,60,'    /* amber mid */
+      ];
+
+      function draw() {
+        var W = canvas.width;
+        var H = canvas.height;
+        ctx.clearRect(0, 0, W, H);
+
+        /* Update positions */
+        nodes.forEach(function(n) {
+          n.x += n.vx;
+          n.y += n.vy;
+          if (n.x < 0 || n.x > 1) n.vx *= -1;
+          if (n.y < 0 || n.y > 1) n.vy *= -1;
+          n.pulse += n.pulseSpeed;
+        });
+
+        /* Draw edges */
+        for (var i = 0; i < nodes.length; i++) {
+          for (var j = i + 1; j < nodes.length; j++) {
+            var a = nodes[i], b = nodes[j];
+            var dx = (a.x - b.x) * W;
+            var dy = (a.y - b.y) * H;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < CONNECT_DIST) {
+              var alpha = (1 - dist / CONNECT_DIST) * 0.55;
+              /* Pulse the edge brightness slightly */
+              var pulse = 0.7 + 0.3 * Math.sin((a.pulse + b.pulse) * 0.5);
+              alpha *= pulse;
+              var colorIdx = (i + j) % EDGE_COLORS.length;
+              ctx.beginPath();
+              ctx.moveTo(a.x * W, a.y * H);
+              ctx.lineTo(b.x * W, b.y * H);
+              ctx.strokeStyle = EDGE_COLORS[colorIdx] + alpha.toFixed(3) + ')';
+              ctx.lineWidth = alpha * 1.8;
+              ctx.stroke();
+            }
+          }
+        }
+
+        /* Draw nodes */
+        nodes.forEach(function(n) {
+          var glow = 0.55 + 0.45 * Math.sin(n.pulse);
+          var radius = n.r * (0.9 + 0.2 * glow);
+
+          /* Outer glow ring */
+          ctx.beginPath();
+          ctx.arc(n.x * W, n.y * H, radius * 3.5, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(194,65,12,' + (glow * 0.12).toFixed(3) + ')';
+          ctx.fill();
+
+          /* Core dot */
+          ctx.beginPath();
+          ctx.arc(n.x * W, n.y * H, radius, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(251,191,36,' + (0.4 + glow * 0.55).toFixed(3) + ')';
+          ctx.fill();
+        });
+
+        requestAnimationFrame(draw);
+      }
+
+      draw();
     })();
 
     /* ==========================================================
