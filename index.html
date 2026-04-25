@@ -76,6 +76,16 @@
     }
     .nav-links a:hover { color: var(--accent); }
 
+    /* ── HERO CANVAS ── */
+    #heroCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: .55;
+    }
+
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
@@ -606,6 +616,35 @@
     .ethics-title { font-weight: 600; color: #fff; margin-bottom: .5rem; }
     .ethics-body { font-size: .825rem; color: var(--text-muted); line-height: 1.6; }
 
+    /* ── TRACE GUIDE + COLLAPSIBLE ── */
+    .trace-guide {
+      font-size: .875rem !important;
+      color: var(--text-dim) !important;
+      font-style: italic;
+      border-left: 2px solid rgba(56,189,248,.2);
+      padding-left: 1rem !important;
+      margin-bottom: 1rem !important;
+    }
+    .trace-collapsed {
+      display: none;
+      flex-direction: column; gap: .75rem;
+    }
+    .trace-collapsed.open { display: flex; }
+    .trace-toggle {
+      display: flex; align-items: center; gap: .5rem;
+      background: none; border: 1px solid var(--border);
+      border-radius: 6px; padding: .45rem 1rem;
+      font-family: var(--mono); font-size: .7rem;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--text-dim); cursor: pointer;
+      margin: .25rem 0;
+      transition: border-color .2s, color .2s;
+      width: fit-content;
+    }
+    .trace-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .trace-toggle svg { transition: transform .25s; }
+    .trace-toggle.open svg { transform: rotate(180deg); }
+
     /* ── REACT TRACE ── */
     .react-trace {
       max-width: var(--max);
@@ -920,7 +959,88 @@
       .conclusion-cards { grid-template-columns: 1fr; }
     }
 
-    /* ── SECTION DIVIDER ── */
+    /* ── DATA FLOW DIAGRAM ── */
+    .data-flow-diagram {
+      max-width: var(--max);
+      margin: 1.5rem 0 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      padding: 1.25rem 1.25rem .75rem;
+    }
+    .dfd-label {
+      font-family: var(--mono); font-size: .65rem;
+      letter-spacing: .08em; color: var(--text-dim);
+      text-transform: uppercase; margin-bottom: .85rem;
+    }
+    .data-flow-diagram svg { width: 100%; height: auto; display: block; }
+
+    /* ── PART DIVIDER BANNER ── */
+    .part-divider {
+      max-width: var(--max-wide);
+      margin: 5rem auto 4rem;
+      padding: 0 2rem;
+    }
+    .part-divider-inner {
+      display: flex; align-items: center; gap: 1.25rem;
+    }
+    .part-divider-num {
+      font-family: var(--mono);
+      font-size: 3.5rem; font-weight: 500;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      flex-shrink: 0;
+      opacity: .25;
+    }
+    .part-divider-label {
+      font-family: var(--mono);
+      font-size: .72rem; letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      flex-shrink: 0;
+    }
+    .part-divider-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, var(--border-bright), transparent);
+    }
+    .part-divider-conclusion .part-divider-num { display: none; }
+    .part-divider-conclusion .part-divider-label {
+      font-size: .8rem; letter-spacing: .2em; color: var(--accent2);
+    }
+    .part-divider-conclusion .part-divider-line:first-of-type {
+      background: linear-gradient(90deg, transparent, var(--border-bright));
+    }
+
+    .part-divider-inline {
+      margin-top: 0;
+      margin-bottom: 2rem;
+    }
+
+    /* ── SECTION TITLE COLOUR ACCENTS ── */
+    h2.section-title[data-part="1"]::after {
+      content: ''; display: block;
+      width: 48px; height: 3px; border-radius: 2px;
+      margin-top: .75rem;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    h2.section-title[data-part="2"]::after {
+      content: ''; display: block;
+      width: 48px; height: 3px; border-radius: 2px;
+      margin-top: .75rem;
+      background: linear-gradient(90deg, var(--accent2), var(--accent3));
+    }
+    h2.section-title[data-part="3"]::after {
+      content: ''; display: block;
+      width: 48px; height: 3px; border-radius: 2px;
+      margin-top: .75rem;
+      background: linear-gradient(90deg, var(--accent3), var(--warn));
+    }
+
+    /* ── SECTION DIVIDER (keep for any remaining uses) ── */
     .section-div {
       max-width: var(--max); margin: 4rem 0;
       border: none; border-top: 1px solid var(--border);
@@ -1029,6 +1149,7 @@
 
 <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
 <section class="hero">
+  <canvas id="heroCanvas"></canvas>
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
   <div class="hero-inner">
@@ -1074,12 +1195,75 @@
 
 <!-- ═══════════════════════════════ PART 1 ═══════════════════════════════ -->
 <section id="part1" style="padding-top: 3rem;">
-  <div class="part-label fade-in">Part 1 — The Domain</div>
-  <h2 class="section-title fade-in">From Passive Analysis to Active Decision-Making: The Case for Agentic AI in Clinical Care</h2>
+  <div class="part-divider part-divider-inline fade-in">
+    <div class="part-divider-inner">
+      <span class="part-divider-num">01</span>
+      <span class="part-divider-line"></span>
+      <span class="part-divider-label">The Domain</span>
+      <span class="part-divider-line" style="background:linear-gradient(90deg,var(--border-bright),transparent)"></span>
+    </div>
+  </div>
+  <h2 class="section-title fade-in" data-part="1">From Passive Analysis to Active Decision-Making: The Case for Agentic AI in Clinical Care</h2>
 
   <h3 class="sub-title fade-in">1.1 The Domain: Medicine's Data Problem</h3>
 
   <p class="prose fade-in">Modern healthcare generates data at a scale that exceeds human capacity to process it. A single oncology patient may produce hundreds of gigabytes of information across their care pathway: genomic sequencing results, histopathology slides, radiological images, electronic health records spanning years of clinical notes, and a continuously expanding body of treatment guidelines. The clinician tasked with integrating this information into a treatment decision does so under time pressure, with incomplete access to the latest evidence, and without computational tools capable of reasoning across all of it simultaneously.</p>
+
+  <div class="data-flow-diagram fade-in">
+    <div class="dfd-label">Fig. 1 — The multimodal data challenge in oncology: four independent data silos, one clinician, one decision.</div>
+    <svg viewBox="0 0 720 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Four oncology data sources converging on a clinical decision point">
+      <defs>
+        <marker id="dfd-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 2L8 5L2 8" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+        <filter id="dfd-glow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Data source nodes -->
+      <!-- Genomics -->
+      <rect x="12" y="14" width="130" height="62" rx="10" fill="#0c1f3a" stroke="#818cf8" stroke-width="1.2"/>
+      <text x="77" y="37" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="600" fill="#c4b5fd">Genomics</text>
+      <text x="77" y="53" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#94a3b8">EGFR · KRAS · TP53</text>
+      <text x="77" y="67" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#64748b">Whole-genome sequencing</text>
+
+      <!-- Radiology -->
+      <rect x="12" y="90" width="130" height="62" rx="10" fill="#0c1f3a" stroke="#38bdf8" stroke-width="1.2"/>
+      <text x="77" y="113" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="600" fill="#7dd3fc">Radiology</text>
+      <text x="77" y="129" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#94a3b8">CT · PET · MRI</text>
+      <text x="77" y="143" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#64748b">Segmentation · staging</text>
+
+      <!-- Pathology -->
+      <rect x="578" y="14" width="130" height="62" rx="10" fill="#0c1f3a" stroke="#818cf8" stroke-width="1.2"/>
+      <text x="643" y="37" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="600" fill="#c4b5fd">Pathology</text>
+      <text x="643" y="53" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#94a3b8">H&amp;E slides · IHC</text>
+      <text x="643" y="67" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#64748b">Histopathology analysis</text>
+
+      <!-- EHR -->
+      <rect x="578" y="90" width="130" height="62" rx="10" fill="#0c1f3a" stroke="#38bdf8" stroke-width="1.2"/>
+      <text x="643" y="113" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="600" fill="#7dd3fc">EHR</text>
+      <text x="643" y="129" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#94a3b8">Clinical notes · labs</text>
+      <text x="643" y="143" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#64748b">Treatment history</text>
+
+      <!-- Centre: clinician decision node -->
+      <circle cx="360" cy="105" r="46" fill="#0a1525" stroke="#fbbf24" stroke-width="1.6" filter="url(#dfd-glow)"/>
+      <text x="360" y="98" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="13" font-weight="700" fill="#fde68a">Clinical</text>
+      <text x="360" y="115" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="13" font-weight="700" fill="#fde68a">Decision</text>
+      <!-- Warning icon -->
+      <text x="360" y="134" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#fbbf2488">⚡ cognitive overload</text>
+
+      <!-- Arrows from data sources to centre -->
+      <line x1="144" y1="45" x2="316" y2="90" stroke="#818cf8" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#dfd-arr)" opacity="0.7"/>
+      <line x1="144" y1="121" x2="314" y2="108" stroke="#38bdf8" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#dfd-arr)" opacity="0.7"/>
+      <line x1="578" y1="45" x2="404" y2="90" stroke="#818cf8" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#dfd-arr)" opacity="0.7"/>
+      <line x1="578" y1="121" x2="406" y2="108" stroke="#38bdf8" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#dfd-arr)" opacity="0.7"/>
+
+      <!-- Incompatible label in centre-top -->
+      <text x="360" y="185" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="#475569" letter-spacing="0.06em">NO SHARED REPRESENTATION · NO CROSS-MODAL REASONING</text>
+    </svg>
+  </div>
 
   <p class="prose fade-in">This is not a marginal inefficiency. Clinical decision-making errors contribute to an estimated 400,000 preventable deaths annually in the United States alone, with diagnostic error accounting for the largest share. In oncology specifically, where treatment decisions depend on the intersection of molecular pathology, imaging findings, and rapidly evolving guideline recommendations, the cognitive demands on clinicians have grown faster than any individual's capacity to meet them. The question is not whether artificial intelligence has a role in supporting these decisions. It is which kind of AI is adequate to the task.</p>
 
@@ -1108,7 +1292,7 @@
         </svg>
       </div>
       <div class="challenge-title">The Reliability Challenge</div>
-      <div class="challenge-body">Large language models hallucinate. A <a href="https://www.nature.com/articles/s41746-026-02443-6" target="_blank">2026 benchmarking study in <em>npj Digital Medicine</em></a> found that hallucinations persisted in approximately 30% of clinical scenarios, even after output filtering, few-shot prompting, and prompt engineering.</div>
+      <div class="challenge-body"><a href="https://www.nature.com/articles/s41746-026-02443-6" target="_blank">Liu et al. (2026)</a> in <em>npj Digital Medicine</em> found that hallucinations persisted in approximately 30% of clinical scenarios, even after output filtering, few-shot prompting, and prompt engineering.</div>
     </div>
     <div class="challenge-card">
       <div class="challenge-icon">
@@ -1118,7 +1302,7 @@
         </svg>
       </div>
       <div class="challenge-title">The Trust Challenge</div>
-      <div class="challenge-body">Even when AI performs accurately, clinicians decline to act on its recommendations. A 2025 meta-analysis of 62 studies on explainable AI in clinical decision support found that lack of transparency and interpretability remains the single most cited barrier to clinical adoption.</div>
+      <div class="challenge-body">Even when AI performs accurately, clinicians decline to act on its recommendations. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12427955/" target="_blank">Abbas et al. (2025)</a> found in a meta-analysis of 62 studies that lack of transparency and interpretability remains the single most cited barrier to clinical adoption.</div>
     </div>
   </div>
 
@@ -1126,78 +1310,91 @@
 
   <p class="prose fade-in">The emergence of agentic AI represents a qualitatively different response to all three challenges. Where static models produce outputs, agentic systems execute plans. An agentic AI does not simply generate a response to a clinical query. It decomposes the query into sub-tasks, selects appropriate tools for each, executes them sequentially or in parallel, evaluates intermediate results, and iterates until it reaches a conclusion it can defend with verifiable citations.</p>
 
-  <p class="prose fade-in">The empirical case for this architecture is now substantial. A landmark 2025 study published in <a href="https://www.nature.com/articles/s43018-025-00991-6" target="_blank"><em>Nature Cancer</em></a> by Ferber and colleagues at TU Dresden developed and validated an autonomous AI agent for clinical decision-making in oncology. Evaluated on 20 realistic multimodal patient cases, the agent reached correct clinical conclusions in <strong>91% of cases</strong>, compared to just <strong>30.3%</strong> for the base language model operating alone. The near-tripling of performance was achieved not by scaling the underlying model, but by giving it the ability to plan, retrieve evidence, execute specialised tools, and revise its reasoning.</p>
+  <p class="prose fade-in">The empirical case for this architecture is now substantial. <a href="https://www.nature.com/articles/s43018-025-00991-6" target="_blank">Ferber et al. (2025)</a>, published in <em>Nature Cancer</em>, developed and validated an autonomous AI agent for clinical decision-making in oncology at TU Dresden. Evaluated on 20 realistic multimodal patient cases, the agent reached correct clinical conclusions in <strong>91% of cases</strong>, compared to just <strong>30.3%</strong> for the base language model operating alone. The near-tripling of performance was achieved not by scaling the underlying model, but by giving it the ability to plan, retrieve evidence, execute specialised tools, and revise its reasoning.</p>
 
   <div class="callout success fade-in">
     <div class="callout-label">Key Finding</div>
     <p>This architecture also addresses the reliability problem directly. By anchoring generation in retrieved evidence rather than parametric memory, the system produced citations in 82.5% of responses that were accurately aligned with its assertions — enabling clinicians to verify the basis of each recommendation rather than accepting it on trust.</p>
   </div>
 
-  <p class="prose fade-in">The picture is not uniformly optimistic. A comprehensive review published in <a href="https://www.nature.com/articles/s44387-026-00076-4" target="_blank"><em>npj Artificial Intelligence</em> in 2026</a>, covering over 500 studies of AI agents in healthcare, concluded that technical innovation is outpacing the ethical governance frameworks needed to deploy these systems responsibly. Performance on controlled evaluations does not automatically translate into safety and equity in deployment at scale, and the review found that clinical validation of agentic systems remained predominantly limited to laboratory and simulation settings rather than prospective clinical trials with real patients. The gap between benchmark accuracy and deployable safety is not a technical detail. It is the central problem this blog examines. Part 2 examines how agentic architectures work in practice. Part 3 confronts the harder question: whether a system that reaches the right answer through a reasoning process that clinicians cannot follow, audit, or challenge is one that medicine should trust.</p>
+  <p class="prose fade-in">The picture is not uniformly optimistic. <a href="https://www.nature.com/articles/s44387-026-00076-4" target="_blank">Zhao et al. (2026)</a>, reviewing over 500 studies of AI agents in healthcare in <em>npj Artificial Intelligence</em>, concluded that technical innovation is outpacing the ethical governance frameworks needed to deploy these systems responsibly. Clinical validation of agentic systems remained predominantly limited to laboratory and simulation settings rather than prospective clinical trials with real patients. The gap between benchmark accuracy and deployable safety is not a technical detail. It is the central problem this blog examines. Part 2 examines how agentic architectures work in practice. Part 3 confronts the harder question: whether a system that reaches the right answer through a reasoning process that clinicians cannot follow, audit, or challenge is one that medicine should trust.</p>
 </section>
 
-<hr class="section-div">
-
-<!-- ═══════════════════════════════ PART 2 ═══════════════════════════════ -->
-<section id="part2" style="padding-top: 2rem;">
-  <div class="part-label fade-in">Part 2 — The Technology</div>
-  <h2 class="section-title fade-in">Inside the Clinical Agent: How Agentic AI Reasons, Retrieves, and Acts</h2>
+<div class="part-divider fade-in" data-part="02">
+  <div class="part-divider-inner">
+    <span class="part-divider-num">02</span>
+    <span class="part-divider-line"></span>
+    <span class="part-divider-label">The Technology</span>
+    <span class="part-divider-line"></span>
+  </div>
+</div>
+<section id="part2">
+  <h2 class="section-title fade-in" data-part="2">Inside the Clinical Agent: How Agentic AI Reasons, Retrieves, and Acts</h2>
 
   <h3 class="sub-title fade-in">2.1 The Architecture Shift: From Generation to Agency</h3>
 
   <p class="prose fade-in">To understand what makes agentic AI different from the language models that preceded it, it helps to start with what a standard large language model cannot do. When a clinician queries a model with a complex oncology case, the model generates a response in a single forward pass through its parameters. It draws entirely on knowledge encoded during training, cannot access real-time information, cannot call external tools, and cannot revise its reasoning when a gap appears mid-inference.</p>
 
-  <p class="prose fade-in">Agentic AI breaks this single-pass constraint. The dominant architectural paradigm enabling this is <strong>ReAct</strong>, introduced by <a href="https://arxiv.org/abs/2210.03629" target="_blank">Yao and colleagues at ICLR 2023</a>, which interleaves explicit reasoning traces with tool-use actions in a continuous loop: the agent generates a thought, executes an action, observes the result, updates its reasoning, and repeats. The annotated trace below shows what this looks like for a real oncology query: two retrieval and imaging tool calls, followed by a grounded synthesis, all within a single reasoning thread.</p>
+  <p class="prose fade-in">Agentic AI breaks this single-pass constraint. The dominant architectural paradigm enabling this is <strong>ReAct</strong>, introduced by <a href="https://arxiv.org/abs/2210.03629" target="_blank">Yao et al. (2023)</a>, which interleaves reasoning traces with tool-use actions in a continuous loop: think, act, observe, revise, repeat. The annotated trace below shows what this looks like for a real oncology query.</p>
+
+  <p class="prose fade-in trace-guide">You do not need to follow every clinical detail. The important point is the loop: the agent asks what is missing, retrieves evidence, checks constraints, and revises before answering.</p>
 
   <div class="react-trace fade-in">
     <div class="react-trace-header">
       <span class="react-trace-title">Annotated ReAct Trace — EGFR+ NSCLC Treatment Query</span>
-      <span class="react-trace-sub">Illustrative example based on Yao et al. (ICLR 2023) and Ferber et al. (Nature Cancer 2025) patterns</span>
+      <span class="react-trace-sub">Illustrative example based on Yao et al. (2023) and Ferber et al. (2025) patterns</span>
     </div>
     <div class="react-trace-body">
       <div class="trace-block thought">
         <span class="trace-tag thought-tag">Thought 1</span>
-        <span class="trace-text">The patient is a 58-year-old female with stage IIIB NSCLC, confirmed EGFR exon 19 deletion, no prior systemic therapy. I need to determine first-line treatment eligibility. I should retrieve current guideline recommendations for EGFR-mutant NSCLC before reasoning about drug selection.</span>
+        <span class="trace-text">The patient is a 58-year-old female with stage IIIB NSCLC, confirmed EGFR exon 19 deletion, no prior systemic therapy. I need to determine first-line treatment eligibility and retrieve current guideline recommendations before reasoning about drug selection.</span>
       </div>
       <div class="trace-block action">
         <span class="trace-tag action-tag">Action 1</span>
         <span class="trace-text">retrieve_guidelines(query="first-line EGFR-mutant NSCLC exon19 deletion treatment", source="ESMO_2024")</span>
       </div>
-      <div class="trace-block observation">
-        <span class="trace-tag obs-tag">Observation 1</span>
-        <span class="trace-text">Retrieved 3 chunks [cosine sim &gt; 0.87]: ESMO 2024 §4.1 — osimertinib recommended as preferred first-line agent for EGFR-mutant advanced NSCLC (IA evidence); FLAURA2 data: median PFS 25.5 mo (osimertinib + chemo) vs 16.7 mo (osimertinib mono) in exon19/L858R. Contraindication flag: QTc &gt; 500 ms.</span>
+
+      <div class="trace-collapsed" id="traceMiddle">
+        <div class="trace-block observation">
+          <span class="trace-tag obs-tag">Observation 1</span>
+          <span class="trace-text">Retrieved 3 chunks [cosine sim &gt; 0.87]: ESMO 2024 §4.1 — osimertinib recommended as preferred first-line agent (IA evidence); FLAURA2 data: PFS 25.5 mo vs 16.7 mo. Contraindication flag: QTc &gt; 500 ms.</span>
+        </div>
+        <div class="trace-block thought">
+          <span class="trace-tag thought-tag">Thought 2</span>
+          <span class="trace-text">Guidelines support osimertinib. I must check for cardiac contraindications and CNS metastases before finalising. Calling the imaging analysis tool.</span>
+        </div>
+        <div class="trace-block action">
+          <span class="trace-tag action-tag">Action 2</span>
+          <span class="trace-text">imaging_tool(modality="CT_chest_abdomen_pelvis", task="staging_and_CNS_screening", model="MedSAM-v2")</span>
+        </div>
+        <div class="trace-block observation">
+          <span class="trace-tag obs-tag">Observation 2</span>
+          <span class="trace-text">Structured finding: {"stage_CT": "IIIB", "CNS_mets": false, "pleural": false}. Confidence: 0.93.</span>
+        </div>
+        <div class="trace-block thought">
+          <span class="trace-tag thought-tag">Thought 3</span>
+          <span class="trace-text">Imaging confirms stage IIIB, no CNS involvement, no cardiac contraindication. Sufficient evidence to synthesise a cited recommendation.</span>
+        </div>
       </div>
-      <div class="trace-block thought">
-        <span class="trace-tag thought-tag">Thought 2</span>
-        <span class="trace-text">Guidelines support osimertinib. Before finalising, I must check whether the patient's ECG and cardiac history preclude this. I also need to confirm no concurrent CNS metastases requiring separate staging workup. Let me call the imaging analysis tool on the available CT scan.</span>
-      </div>
-      <div class="trace-block action">
-        <span class="trace-tag action-tag">Action 2</span>
-        <span class="trace-text">imaging_tool(modality="CT_chest_abdomen_pelvis", task="staging_and_CNS_screening", model="MedSAM-v2")</span>
-      </div>
-      <div class="trace-block observation">
-        <span class="trace-tag obs-tag">Observation 2</span>
-        <span class="trace-text">Segmentation output: primary lesion RUL 3.2 cm, mediastinal lymph nodes N2, no pleural effusion, no hepatic lesions. CNS: no intracranial metastases identified. Structured finding: {"stage_CT": "IIIB", "CNS_mets": false, "pleural": false}. Confidence: 0.93.</span>
-      </div>
-      <div class="trace-block thought">
-        <span class="trace-tag thought-tag">Thought 3</span>
-        <span class="trace-text">Imaging confirms stage IIIB, no CNS involvement. No cardiac contraindication flagged in EHR. The evidence now supports a recommendation. I will synthesise: osimertinib monotherapy first-line per ESMO IA, with FLAURA2 combination regimen as an alternative for discussion at MDT given stage IIIB. I have sufficient evidence to generate a cited recommendation.</span>
-      </div>
+
+      <button class="trace-toggle" onclick="toggleTrace()" id="traceToggleBtn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        Expand full reasoning trace
+      </button>
+
       <div class="trace-block output">
         <span class="trace-tag output-tag">Final Output</span>
-        <span class="trace-text">Recommended treatment: Osimertinib 80 mg/day (first-line, ESMO 2024 Grade IA). Rationale: confirmed EGFR exon 19 deletion, stage IIIB, no CNS metastases, no cardiac contraindications. Consider combination with platinum-based chemotherapy per FLAURA2 data (PFS benefit: +8.8 mo); MDT discussion advised. Citations: [ESMO Guidelines 2024 §4.1], [Wu et al. FLAURA2, NEJM 2023].</span>
+        <span class="trace-text">Osimertinib 80 mg/day (first-line, ESMO 2024 Grade IA). Consider combination per FLAURA2 data (PFS +8.8 mo); MDT discussion advised. Citations: [ESMO 2024 §4.1], [Wu et al., NEJM 2023].</span>
       </div>
     </div>
   </div>
 
-  <p class="prose fade-in">The trace makes visible what a static model elides entirely: the reasoning is structured, iterative, and auditable step by step. Each action is explicitly motivated by the preceding thought; each observation either confirms or redirects the next. For clinical applications, this architecture matters because medical reasoning is itself iterative. Physicians form initial hypotheses, order specific investigations, revise their working diagnosis, and only then commit to a treatment recommendation. ReAct and the <strong>planner-executor architectures</strong> that have evolved from it provide a computational analogue to this process.</p>
-
-  <p class="prose fade-in">The performance gain is architectural rather than parametric. The model is no longer asked to solve an oncology case in one indivisible act of generation. Instead, the case is decomposed into clinically meaningful subproblems: staging, biomarker interpretation, guideline retrieval, and treatment eligibility. Each is narrower and easier to validate than the global question of what should be done for this patient. This decomposition directly reduces the error compounding that characterises single-pass inference, where an early misreading of mutation status can silently distort the entire recommendation. Just as importantly, retrieval-augmented generation anchors the agent in external evidence rather than parametric memory, shifting the system from recall-based plausibility to source-based justification. The performance gap between the two regimes is empirically substantial: the same underlying model moves from 30.3% to 91% accuracy not by scaling, but by placing reasoning inside a closed process of decomposition, grounding, and self-revision.</p>
+  <p class="prose fade-in">The trace makes visible what a static model elides entirely: the reasoning is structured, iterative, and auditable step by step. The performance gain is architectural rather than parametric — the same underlying model moves from 30.3% to 91% accuracy not by scaling, but by placing reasoning inside a closed process of decomposition, retrieval, and self-revision. Each subproblem is narrower and easier to validate than the global clinical question, and RAG grounds the agent in external evidence rather than parametric memory, shifting from recall-based plausibility to source-based justification.</p>
 
   <div class="chart-card fade-in">
     <div class="chart-header">
-      <div class="chart-title">Performance: Agentic vs. Baseline — Oncology Decision Tasks</div>
-      <div class="chart-sub">Ferber et al., <em>Nature Cancer</em> 2025 · 20 multimodal patient cases</div>
+      <div class="chart-title">Fig. 2 — Clinical decision accuracy: agentic systems vs. base LLM</div>
+      <div class="chart-sub">Ferber et al. (2025), <em>Nature Cancer</em> · 20 multimodal oncology cases · Liu et al. (2026), <em>npj Digital Medicine</em></div>
     </div>
     <div class="chart-body">
       <canvas id="perfChart"></canvas>
@@ -1243,7 +1440,7 @@
 
   <div class="arch-diagram fade-in">
     <div class="arch-header">
-      <span class="arch-title">Ferber et al. — Agentic Oncology Pipeline</span>
+      <span class="arch-title">Fig. 3 — Ferber et al. Agentic Oncology Pipeline</span>
       <span style="font-size:.7rem;color:var(--text-dim)">Click a step to expand</span>
     </div>
     <div class="arch-body">
@@ -1310,7 +1507,7 @@
   <p class="prose fade-in">What matters in this pipeline is not any single module in isolation, but the closed-loop interaction between decomposition, evidence retrieval, specialised tool invocation, and iterative verification. Patient data are first rendered into a sequence of tractable questions; those questions trigger targeted retrieval and expert tools; the outputs of those tools are then reintroduced into the reasoning loop, where they can confirm, refine, or overturn the agent's prior hypothesis. The system therefore behaves less like a chatbot with attachments than like a <strong>closed-loop decision system</strong>, in which each stage conditions the next and each intermediate result remains available for correction. Its clinical strength lies precisely in this feedback structure: evidence does not merely decorate the answer after the fact, but actively reshapes the decision while it is being formed.</p>
 
   <div class="svg-container fade-in">
-    <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;color:var(--text-dim);text-transform:uppercase;margin-bottom:.6rem;">Fig. 1 — ReAct agent loop: how Ferber et al.'s system reasons through a clinical case</div>
+    <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;color:var(--text-dim);text-transform:uppercase;margin-bottom:.6rem;">Fig. 4 — ReAct agent loop: Thought-Action-Observation cycle in the Ferber et al. pipeline</div>
     <svg width="100%" viewBox="0 0 680 420" role="img" style="display:block;">
       <title>ReAct reasoning loop in the Ferber et al. oncology agent</title>
       <desc>Flowchart showing Thought-Action-Observation loop with tool suite, leading to clinical recommendation.</desc>
@@ -1545,7 +1742,7 @@
   <p class="prose fade-in">The architecture underlying these systems has a consistent topology across all the frameworks the literature evaluates, whether LangGraph, CrewAI, or bespoke implementations: orchestrator, parallel specialists, verifier. The diagram below shows how information flows through a Tier 3 (full MDT) deployment. The case enters the orchestrator, fans out to five specialist agents executing in parallel, and is then consolidated by a verifier before a recommendation reaches the clinician.</p>
 
   <div class="svg-container fade-in">
-    <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;color:var(--text-dim);text-transform:uppercase;margin-bottom:.6rem;">Fig. 2 — Multi-agent collaborative architecture (MDAgents / Biology MDPI 2026 pattern)</div>
+    <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;color:var(--text-dim);text-transform:uppercase;margin-bottom:.6rem;">Fig. 5 — Multi-agent collaborative architecture: orchestrator, specialist agents, and verifier (Tier 3 deployment)</div>
     <svg width="100%" viewBox="0 0 680 380" role="img" style="display:block;">
       <title>Multi-agent collaborative architecture for clinical AI</title>
       <desc>Orchestrator decomposes task to five parallel specialist agents; verifier consolidates before clinician output.</desc>
@@ -1635,12 +1832,20 @@
   </div>
 </section>
 
-<hr class="section-div">
+<div class="part-divider fade-in" data-part="03">
+  <div class="part-divider-inner">
+    <span class="part-divider-num">03</span>
+    <span class="part-divider-line"></span>
+    <span class="part-divider-label">The Ethics</span>
+    <span class="part-divider-line"></span>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════ PART 3 ═══════════════════════════════ -->
-<section id="part3" style="padding-top: 2rem;">
-  <div class="part-label fade-in">Part 3 — The Ethics</div>
-  <h2 class="section-title fade-in">The Trust Problem: Why Explainability Is Not Enough</h2>
+<section id="part3">
+  <h2 class="section-title fade-in" data-part="3">The Trust Problem: Why Explainability Is Not Enough</h2>
+
+  <p class="prose fade-in">The ethical challenges of agentic clinical AI are not three separate issues — trust, accountability, and fairness — sitting neatly alongside one another. They share a single structural root: the decision is produced through a multi-step process that is difficult to inspect from outside. Explainability fails because the reasoning unfolds across dozens of intermediate steps. Accountability fails because errors cannot be traced to a specific component without trace-level logging. Bias auditing fails because there is no single output to disaggregate — the bias is distributed across the pipeline. Part 3 develops each of these consequences in turn, but their common origin is worth naming first.</p>
 
   <h3 class="sub-title fade-in">3.1 The Technical Root: Why Agentic AI Is Harder to Explain Than Any Model Before It</h3>
 
@@ -1655,11 +1860,11 @@
 
   <p class="prose fade-in">The technical difficulty is worth making precise. Methods such as SHAP and LIME work by perturbing a model's inputs and observing how its outputs change — effectively mapping a local region of the model's input-output function. This approach is coherent when a model's decision is produced in a single deterministic pass from a fixed input. It breaks down when the input itself is not fixed but is dynamically constructed at inference time from retrieved documents, tool outputs, and previous reasoning steps. In an agentic system, the effective input to any given reasoning step — and thus the space that a post-hoc explanation must characterise — is not the original patient query. It is the accumulation of everything the agent has seen, retrieved, and concluded up to that point. This accumulated context is different for every patient and every run, making population-level feature attribution methods structurally inapplicable. Even if a perfect explanation of the final output were produced, it could not tell a clinician which of the thirty-seven intermediate reasoning steps contained the error that led to a harmful recommendation. What clinical AI explainability requires is not better post-hoc attribution of outputs. It is in-process transparency — visibility into reasoning as it unfolds, at a granularity that allows intervention before a conclusion hardens.</p>
 
-  <p class="prose fade-in">A 2025 article in <a href="https://www.frontiersin.org/journals/radiology/articles/10.3389/fradi.2025.1627169/full" target="_blank"><em>Frontiers in Radiology</em></a> identified three escalating demands that clinical AI explainability must meet. The first is <strong>context-dependence</strong>: explanations must be tailored to the specific clinical situation and specific user. The second is <strong>genuine dialogue</strong>: the system must respond to clinicians' follow-up questions about its reasoning, not just provide a static summary. The third, and currently unachieved, is <strong>social capability</strong>: the system must understand when an explanation is not sufficient and adjust accordingly. Current agentic systems reliably meet none of these three requirements.</p>
+  <p class="prose fade-in"><a href="https://www.frontiersin.org/journals/radiology/articles/10.3389/fradi.2025.1627169/full" target="_blank">Räz et al. (2025)</a>, writing in <em>Frontiers in Radiology</em>, identified three escalating demands that clinical AI explainability must meet. The first is <strong>context-dependence</strong>: explanations must be tailored to the specific clinical situation and user. The second is <strong>genuine dialogue</strong>: the system must respond to clinicians' follow-up questions, not just provide a static summary. The third, and currently unachieved, is <strong>social capability</strong>: understanding when an explanation is insufficient and adjusting accordingly. Current agentic systems reliably meet none of these three requirements.</p>
 
   <h3 class="sub-title fade-in">3.2 The Trust Paradox: Explanations Can Make Things Worse</h3>
 
-  <p class="prose fade-in">The intuitive response to the explainability problem is to build better explanation tools. The empirical evidence suggests this is not straightforwardly correct. A systematic review published in <a href="https://ai.jmir.org/2024/1/e53207" target="_blank"><em>JMIR AI</em></a>, screening 778 articles and analysing 10 that met rigorous empirical criteria, found that explainable AI increased clinicians' trust compared to unexplained AI in only five of the ten studies. Three studies found no significant effect. Two found that XAI could either increase or decrease trust depending on the quality and coherence of the explanation provided.</p>
+  <p class="prose fade-in">The intuitive response to the explainability problem is to build better explanation tools. The empirical evidence suggests this is not straightforwardly correct. <a href="https://ai.jmir.org/2024/1/e53207" target="_blank">Rosenbacke et al. (2024)</a>, screening 778 articles in <em>JMIR AI</em> and analysing 10 that met rigorous empirical criteria, found that explainable AI increased clinicians' trust compared to unexplained AI in only five of the ten studies. Three studies found no significant effect. Two found that XAI could either increase or decrease trust depending on explanation quality.</p>
 
   <div class="trust-scale fade-in">
     <div class="trust-header">
@@ -1694,7 +1899,7 @@
     <p>The EU AI Act classifies clinical decision support systems as high-risk AI applications, requiring comprehensive logging, transparent communication of capabilities and limitations, and human oversight sufficient to detect and correct errors. For a multi-agent clinical system spanning seven specialised agents and dozens of tool calls, what constitutes "sufficient understanding" for human oversight remains undefined. The regulatory framework has identified the right requirement. The technical and institutional infrastructure to meet it does not yet exist.</p>
   </div>
 
-  <p class="prose fade-in">This accountability vacuum has a distributional dimension. A <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12890167/" target="_blank">2026 scoping review published in <em>PLOS ONE</em></a> found that technical innovation in clinical agentic systems is outpacing ethical governance frameworks, and that the gap is largest in lower-resource settings where the infrastructure for human oversight is thinnest. If agentic AI is deployed at scale in under-resourced hospitals precisely because it appears to reduce the need for specialist oversight, the populations most likely to receive AI-influenced decisions with least human supervision are also those least equipped to challenge or correct errors.</p>
+  <p class="prose fade-in">This accountability vacuum has a distributional dimension. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12890167/" target="_blank">Njei et al. (2026)</a>, in a scoping review published in <em>PLOS ONE</em>, found that technical innovation in clinical agentic systems is outpacing ethical governance frameworks, and that the gap is largest in lower-resource settings where the infrastructure for human oversight is thinnest. If agentic AI is deployed at scale in under-resourced hospitals precisely because it appears to reduce the need for specialist oversight, the populations most likely to receive AI-influenced decisions with least human supervision are also those least equipped to challenge or correct errors.</p>
 
   <h3 class="sub-title fade-in">Designing Meaningful Human-in-the-Loop Intervention</h3>
 
@@ -1740,7 +1945,7 @@
 
   <p class="prose fade-in">The opacity of agentic systems does not only obscure errors in individual cases. It obscures systematic patterns of unfairness across patient populations. A biased training dataset produces a biased model, but a biased model whose reasoning cannot be examined is a model whose bias cannot be identified, measured, or corrected.</p>
 
-  <p class="prose fade-in">In clinical oncology, the training data available to large language models and the clinical trials from which guideline recommendations derive are both historically skewed toward white, male, Western patient populations. A landmark 2019 study published in <a href="https://www.science.org/doi/10.1126/science.aax2342" target="_blank"><em>Science</em></a> by Obermeyer and colleagues demonstrated that a widely deployed commercial algorithm for managing high-risk patients systematically underestimated the health needs of Black patients because it used healthcare cost as a proxy for health need, embedding the effects of historical underpayment into the risk model. The algorithm was accurate by its own metric. It was deeply unfair by any clinical standard. Its bias was invisible until a research team specifically designed a study to look for it.</p>
+  <p class="prose fade-in">In clinical oncology, the training data available to large language models and the clinical trials from which guideline recommendations derive are both historically skewed toward white, male, Western patient populations. <a href="https://www.science.org/doi/10.1126/science.aax2342" target="_blank">Obermeyer et al. (2019)</a>, published in <em>Science</em>, demonstrated that a widely deployed commercial algorithm systematically underestimated the health needs of Black patients because it used healthcare cost as a proxy for health need — embedding the effects of historical underpayment into the risk model. The algorithm was accurate by its own metric. It was deeply unfair by any clinical standard. Its bias was invisible until a research team specifically designed a study to look for it.</p>
 
   <div class="ethics-grid fade-in">
     <div class="ethics-card highlight">
@@ -1765,14 +1970,20 @@
     </div>
   </div>
 
-  <p class="prose fade-in">Agentic AI systems introduce a new layer of complexity to this problem. When a recommendation emerges from a multi-step reasoning chain spanning retrieved guidelines, genomic tools, and imaging analysis, there is no single point at which bias can be located and corrected. The implication is pointed: a system that cannot be examined cannot be audited for fairness, and a system that cannot be audited for fairness cannot be trusted to serve all patients equitably. Adequate bias auditing for agentic clinical systems would require not just demographic disaggregation of final outputs — the minimum standard typically applied to static models — but component-level attribution that can determine whether a performance disparity originates in the retrieval corpus, the imaging tool, the parametric model, or their interaction. No framework for conducting such an audit at clinical scale currently exists, and constructing one is an open research problem that the field has not yet seriously engaged.</p>
+
+  <p class="prose fade-in">When a recommendation emerges from a multi-step reasoning chain spanning retrieved guidelines, genomic tools, and imaging analysis, there is no single point at which bias can be located and corrected. The implication is pointed: a system that cannot be examined cannot be audited for fairness, and a system that cannot be audited for fairness cannot be trusted to serve all patients equitably. Adequate bias auditing for agentic clinical systems would require not just demographic disaggregation of final outputs — the minimum standard typically applied to static models — but component-level attribution that can determine whether a performance disparity originates in the retrieval corpus, the imaging tool, the parametric model, or their interaction. No framework for conducting such an audit at clinical scale currently exists, and constructing one is an open research problem that the field has not yet seriously engaged.</p>
 </section>
 
-<hr class="section-div">
+<div class="part-divider part-divider-conclusion fade-in">
+  <div class="part-divider-inner">
+    <span class="part-divider-line"></span>
+    <span class="part-divider-label">Conclusion</span>
+    <span class="part-divider-line"></span>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════ CONCLUSION ═══════════════════════════════ -->
-<section id="conclusion" style="padding-top: 2rem;">
-  <div class="part-label fade-in">Conclusion</div>
+<section id="conclusion">
   <h2 class="section-title fade-in">The Promise and the Condition</h2>
 
   <div class="conclusion-wrap fade-in">
@@ -1850,6 +2061,85 @@
 </footer>
 
 <script>
+// ── HERO PARTICLE NETWORK ──
+(function() {
+  const canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const COLORS = {
+    node:    'rgba(56,189,248,',
+    edge:    'rgba(56,189,248,',
+    nodeDim: 'rgba(129,140,248,',
+    edgeDim: 'rgba(129,140,248,',
+  };
+  const NODE_COUNT = 68, EDGE_DIST = 160, SPEED = 0.28, NODE_RADIUS = 1.8;
+  let W, H, nodes, animId;
+
+  function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+
+  function makeNodes() {
+    nodes = Array.from({ length: NODE_COUNT }, () => ({
+      x: Math.random()*W, y: Math.random()*H,
+      vx: (Math.random()-.5)*SPEED, vy: (Math.random()-.5)*SPEED,
+      r: NODE_RADIUS + Math.random()*1.4,
+      accent: Math.random() > 0.3,
+      phase: Math.random()*Math.PI*2,
+    }));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const t = performance.now() * 0.001;
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i+1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x-b.x, dy = a.y-b.y, dist = Math.sqrt(dx*dx+dy*dy);
+        if (dist < EDGE_DIST) {
+          const alpha = (1 - dist/EDGE_DIST) * 0.25;
+          ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+          ctx.strokeStyle = ((a.accent&&b.accent) ? COLORS.edge : COLORS.edgeDim) + alpha + ')';
+          ctx.lineWidth = 0.8; ctx.stroke();
+        }
+      }
+    }
+    for (const n of nodes) {
+      const pulse = 0.6 + 0.4*Math.sin(t*1.8+n.phase);
+      const col = n.accent ? COLORS.node : COLORS.nodeDim;
+      const g = ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r*4);
+      g.addColorStop(0, col+(0.18*pulse)+')'); g.addColorStop(1, col+'0)');
+      ctx.beginPath(); ctx.arc(n.x,n.y,n.r*4,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
+      ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle = col+(0.75*pulse)+')'; ctx.fill();
+    }
+    for (const n of nodes) {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x<-20) n.x=W+20; if (n.x>W+20) n.x=-20;
+      if (n.y<-20) n.y=H+20; if (n.y>H+20) n.y=-20;
+    }
+    animId = requestAnimationFrame(draw);
+  }
+
+  const heroEl = canvas.parentElement;
+  new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { if (!animId) draw(); }
+    else { cancelAnimationFrame(animId); animId = null; }
+  }), { threshold: 0 }).observe(heroEl);
+
+  window.addEventListener('resize', () => { resize(); makeNodes(); });
+  resize(); makeNodes(); draw();
+})();
+// ── REACT TRACE TOGGLE ──
+function toggleTrace() {
+  const mid = document.getElementById('traceMiddle');
+  const btn = document.getElementById('traceToggleBtn');
+  const open = mid.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  btn.innerHTML = open
+    ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg> Collapse reasoning trace'
+    : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg> Expand full reasoning trace';
+}
+
 // ── PROGRESS BAR ──
 window.addEventListener('scroll', () => {
   const st = document.documentElement.scrollTop;
