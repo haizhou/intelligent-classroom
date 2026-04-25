@@ -1240,44 +1240,36 @@
       color: var(--warn);
     }
     .govgap-body { padding: 1.25rem; }
-    .govgap-timeline {
-      display: flex; gap: 0; position: relative;
-      margin-bottom: 1rem;
+    .govgap-cols {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
     }
-    .govgap-timeline::before {
-      content: '';
-      position: absolute; top: 20px; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--accent3), var(--warn), var(--danger));
+    .govgap-col-label {
+      font-family: var(--mono); font-size: .63rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      margin-bottom: .75rem; padding-bottom: .5rem;
+      border-bottom: 1px solid var(--border);
     }
-    .govgap-node {
-      flex: 1; text-align: center; padding-top: 40px;
-      position: relative;
+    .govgap-col-has .govgap-col-label   { color: var(--accent3); border-color: rgba(52,211,153,.2); }
+    .govgap-col-missing .govgap-col-label { color: var(--danger); border-color: rgba(248,113,113,.2); }
+    .govgap-list {
+      list-style: none; display: flex; flex-direction: column; gap: .55rem;
     }
-    .govgap-dot {
-      position: absolute; top: 13px; left: 50%; transform: translateX(-50%);
-      width: 14px; height: 14px; border-radius: 50%;
-      border: 2px solid;
+    .govgap-list li {
+      font-size: .8rem; color: var(--text-muted); line-height: 1.55;
+      padding-left: 1.1rem; position: relative;
     }
-    .govgap-node.tech .govgap-dot { background: rgba(52,211,153,.3); border-color: var(--accent3); }
-    .govgap-node.mid  .govgap-dot { background: rgba(251,191,36,.3); border-color: var(--warn); }
-    .govgap-node.gov  .govgap-dot { background: rgba(248,113,113,.3); border-color: var(--danger); }
-    .govgap-node-label {
-      font-family: var(--mono); font-size: .65rem;
-      letter-spacing: .06em; text-transform: uppercase;
-      margin-bottom: .2rem;
+    .govgap-col-has .govgap-list li::before {
+      content: '✓'; position: absolute; left: 0;
+      color: rgba(52,211,153,.55); font-size: .7rem; top: .1rem;
     }
-    .govgap-node.tech .govgap-node-label { color: var(--accent3); }
-    .govgap-node.mid  .govgap-node-label { color: var(--warn); }
-    .govgap-node.gov  .govgap-node-label { color: var(--danger); }
-    .govgap-node-desc {
-      font-size: .75rem; color: var(--text-muted); line-height: 1.5;
-      padding: 0 .25rem;
+    .govgap-col-missing .govgap-list li::before {
+      content: '—'; position: absolute; left: 0;
+      color: rgba(248,113,113,.45);
     }
-    .govgap-note {
-      font-size: .78rem; color: var(--text-dim);
-      border-top: 1px solid var(--border);
-      padding-top: .9rem; line-height: 1.65;
+    .govgap-src {
+      font-family: var(--mono); font-size: .68rem; color: var(--text-dim);
     }
+    @media (max-width: 600px) { .govgap-cols { grid-template-columns: 1fr; } }
 
     /* ── INLINE HIGHLIGHT BAND — removed, replaced by privacy-aside ── */
 
@@ -1510,16 +1502,16 @@
 
   <div class="hmetric-row fade-in">
     <div class="hmetric-cell">
-      <div class="hmetric-val" style="color:var(--accent);">500+</div>
-      <div class="hmetric-label">AI Agent healthcare studies reviewed by Zhao et al. 2026</div>
+      <div class="hmetric-val" style="color:var(--accent3);">~90%</div>
+      <div class="hmetric-label">Accuracy — agentic AI on controlled benchmark</div>
     </div>
     <div class="hmetric-cell">
-      <div class="hmetric-val" style="color:var(--warn);">250k+</div>
-      <div class="hmetric-label">US deaths/year linked to medical error (Johns Hopkins)</div>
+      <div class="hmetric-val" style="color:var(--danger);">30.3%</div>
+      <div class="hmetric-label">Accuracy — same model, no tools, same cases</div>
     </div>
     <div class="hmetric-cell">
-      <div class="hmetric-val" style="color:var(--accent2);">4+</div>
-      <div class="hmetric-label">Disconnected data modalities per oncology patient</div>
+      <div class="hmetric-val" style="color:var(--warn);">~30%</div>
+      <div class="hmetric-label">Scenarios still hallucinating after all mitigations</div>
     </div>
   </div>
 
@@ -1583,7 +1575,6 @@
     <div class="band-content">
       <div class="band-label">The Technology</div>
       <div class="band-title">Inside the Clinical Agent</div>
-      <div class="band-sub">How agentic AI reasons, retrieves, and acts — from single-agent pipelines to multi-agent MDTs.</div>
     </div>
   </div>
 </div>
@@ -2098,7 +2089,6 @@
     <div class="band-content">
       <div class="band-label">The Ethics</div>
       <div class="band-title">The Trust Problem</div>
-      <div class="band-sub">Why explainability is not enough — and what accountability, equity, and opacity mean for clinical deployment.</div>
     </div>
   </div>
 </div>
@@ -2191,27 +2181,29 @@
 
   <div class="govgap-strip fade-in">
     <div class="govgap-header">
-      <span class="govgap-title">The Governance-Innovation Gap — Three Layers</span>
+      <span class="govgap-title">The Governance-Innovation Gap</span>
     </div>
     <div class="govgap-body">
-      <div class="govgap-timeline">
-        <div class="govgap-node tech">
-          <div class="govgap-dot"></div>
-          <div class="govgap-node-label">Technical</div>
-          <div class="govgap-node-desc">~90% accuracy on controlled benchmarks. Architecturally capable. ReAct loops, multi-agent MDTs, RAG pipelines deployable now.</div>
+      <div class="govgap-cols">
+        <div class="govgap-col govgap-col-has">
+          <div class="govgap-col-label">Already exists</div>
+          <ul class="govgap-list">
+            <li>~90% benchmark accuracy on controlled oncology cases <span class="govgap-src">(Ferber et al. 2025)</span></li>
+            <li>ReAct loops, RAG pipelines, multi-agent MDT frameworks deployable now</li>
+            <li>EU AI Act: CDS classified as high-risk, logging and oversight required</li>
+            <li>GDPR / HIPAA: data protection requirements in force</li>
+          </ul>
         </div>
-        <div class="govgap-node mid">
-          <div class="govgap-dot"></div>
-          <div class="govgap-node-label">Regulatory</div>
-          <div class="govgap-node-desc">EU AI Act classifies CDS as high-risk. Right requirements identified. But "sufficient oversight" for 7-agent, 50-step pipelines remains undefined.</div>
-        </div>
-        <div class="govgap-node gov">
-          <div class="govgap-dot"></div>
-          <div class="govgap-node-label">Infrastructure</div>
-          <div class="govgap-node-desc">No agreed trace-level logging standard. No post-incident attribution method. No bias audit framework for multi-component pipelines.</div>
+        <div class="govgap-col govgap-col-missing">
+          <div class="govgap-col-label">Does not yet exist</div>
+          <ul class="govgap-list">
+            <li>Agreed standard for trace-level logging of intermediate reasoning steps</li>
+            <li>Post-incident attribution method — which step caused the harmful output</li>
+            <li>Definition of "sufficient oversight" for 7-agent, 50-step pipelines</li>
+            <li>Bias audit framework for multi-component pipelines (parametric + retrieval + tool)</li>
+          </ul>
         </div>
       </div>
-      <div class="govgap-note">The gap is not administrative — it is structural. Without trace-level logging, there is no agreed method for determining at which reasoning step a harmful recommendation originated, making post-incident review, legal accountability, and iterative improvement all structurally impractical.</div>
     </div>
   </div>
 
