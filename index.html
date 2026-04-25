@@ -1169,7 +1169,7 @@
 <div class="stats-strip">
   <div class="stats-inner">
     <div class="stat-block fade-in">
-      <div class="stat-num">91%</div>
+      <div class="stat-num">~90%</div>
       <div class="stat-label">Clinical accuracy — agentic AI</div>
       <div class="stat-source">Ferber et al., <em>Nature Cancer</em> 2025</div>
     </div>
@@ -1188,7 +1188,7 @@
 
 <div class="stat-caveat fade-in">
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-  <span>The 91% vs 30.3% contrast comes from Ferber et al.'s evaluation on 20 multimodal oncology cases — a rigorous proof of concept, but a small sample that demonstrates feasibility rather than establishing general clinical safety across diverse populations, hospital settings, or real-world workflows. These figures should be read as evidence of architectural potential, not deployment readiness.</span>
+  <span>The ~90% vs 30.3% contrast comes from Ferber et al.'s evaluation on 20 multimodal oncology cases — a rigorous proof of concept, but a small sample that demonstrates feasibility rather than establishing general clinical safety across diverse populations, hospital settings, or real-world workflows. These figures should be read as evidence of architectural potential, not deployment readiness.</span>
 </div>
 
 <main>
@@ -1207,7 +1207,7 @@
 
   <h3 class="sub-title fade-in">1.1 The Domain: Medicine's Data Problem</h3>
 
-  <p class="prose fade-in">Modern healthcare generates data at a scale that exceeds human capacity to process it. A single oncology patient may produce hundreds of gigabytes of information across their care pathway: genomic sequencing results, histopathology slides, radiological images, electronic health records spanning years of clinical notes, and a continuously expanding body of treatment guidelines. The clinician tasked with integrating this information into a treatment decision does so under time pressure, with incomplete access to the latest evidence, and without computational tools capable of reasoning across all of it simultaneously.</p>
+  <p class="prose fade-in">Modern healthcare generates data at a scale that exceeds human capacity to process it. A single oncology patient may generate large volumes of information across their care pathway: genomic sequencing results, histopathology slides, radiological images, electronic health records spanning years of clinical notes, and a continuously expanding body of treatment guidelines. The clinician tasked with integrating this information into a treatment decision does so under time pressure, with incomplete access to the latest evidence, and without computational tools capable of reasoning across all of it simultaneously.</p>
 
   <div class="data-flow-diagram fade-in">
     <div class="dfd-label">Fig. 1 — The multimodal data challenge in oncology: four independent data silos, one clinician, one decision.</div>
@@ -1265,7 +1265,7 @@
     </svg>
   </div>
 
-  <p class="prose fade-in">This is not a marginal inefficiency. Clinical decision-making errors contribute to an estimated 400,000 preventable deaths annually in the United States alone, with diagnostic error accounting for the largest share. In oncology specifically, where treatment decisions depend on the intersection of molecular pathology, imaging findings, and rapidly evolving guideline recommendations, the cognitive demands on clinicians have grown faster than any individual's capacity to meet them. The question is not whether artificial intelligence has a role in supporting these decisions. It is which kind of AI is adequate to the task.</p>
+  <p class="prose fade-in">Medical errors and diagnostic failures are a major source of preventable harm. One influential Johns Hopkins analysis estimated that more than 250,000 deaths per year in the United States may be associated with medical error, while more recent diagnostic-error research suggests that misdiagnosis contributes to hundreds of thousands of serious harms — including death and permanent disability — each year. In oncology specifically, where treatment decisions depend on the intersection of molecular pathology, imaging findings, and rapidly evolving guideline recommendations, the cognitive demands on clinicians have grown faster than any individual's capacity to meet them. The question is not whether artificial intelligence has a role in supporting these decisions. It is which kind of AI is adequate to the task.</p>
 
   <h3 class="sub-title fade-in">1.2 The Challenge: Why Static AI Falls Short</h3>
 
@@ -1302,7 +1302,7 @@
         </svg>
       </div>
       <div class="challenge-title">The Trust Challenge</div>
-      <div class="challenge-body">Even when AI performs accurately, clinicians decline to act on its recommendations. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12427955/" target="_blank">Abbas et al. (2025)</a> found in a meta-analysis of 62 studies that lack of transparency and interpretability remains the single most cited barrier to clinical adoption.</div>
+      <div class="challenge-body">Even when AI performs accurately, clinicians decline to act on its recommendations. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12427955/" target="_blank">Abbas et al. (2025)</a> found in a meta-analysis of 62 studies that lack of transparency and interpretability remains one of the most persistent barriers to clinical adoption.</div>
     </div>
   </div>
 
@@ -1310,7 +1310,7 @@
 
   <p class="prose fade-in">The emergence of agentic AI represents a qualitatively different response to all three challenges. Where static models produce outputs, agentic systems execute plans. An agentic AI does not simply generate a response to a clinical query. It decomposes the query into sub-tasks, selects appropriate tools for each, executes them sequentially or in parallel, evaluates intermediate results, and iterates until it reaches a conclusion it can defend with verifiable citations.</p>
 
-  <p class="prose fade-in">The empirical case for this architecture is now substantial. <a href="https://www.nature.com/articles/s43018-025-00991-6" target="_blank">Ferber et al. (2025)</a>, published in <em>Nature Cancer</em>, developed and validated an autonomous AI agent for clinical decision-making in oncology at TU Dresden. Evaluated on 20 realistic multimodal patient cases, the agent reached correct clinical conclusions in <strong>91% of cases</strong>, compared to just <strong>30.3%</strong> for the base language model operating alone. The near-tripling of performance was achieved not by scaling the underlying model, but by giving it the ability to plan, retrieve evidence, execute specialised tools, and revise its reasoning.</p>
+  <p class="prose fade-in">Early empirical evidence suggests that this architecture can substantially improve performance in controlled oncology decision-making tasks. <a href="https://www.nature.com/articles/s43018-025-00991-6" target="_blank">Ferber et al. (2025)</a>, published in <em>Nature Cancer</em>, developed and validated an autonomous AI agent for clinical decision-making in oncology at TU Dresden. Evaluated on 20 realistic multimodal patient cases, the agent reached correct clinical conclusions in roughly <strong>90% of cases</strong>, compared to just <strong>30.3%</strong> for the base language model operating alone. The near-tripling of performance was achieved not by scaling the underlying model, but by giving it the ability to plan, retrieve evidence, execute specialised tools, and revise its reasoning.</p>
 
   <div class="callout success fade-in">
     <div class="callout-label">Key Finding</div>
@@ -1389,12 +1389,12 @@
     </div>
   </div>
 
-  <p class="prose fade-in">The trace makes visible what a static model elides entirely: the reasoning is structured, iterative, and auditable step by step. The performance gain is architectural rather than parametric — the same underlying model moves from 30.3% to 91% accuracy not by scaling, but by placing reasoning inside a closed process of decomposition, retrieval, and self-revision. Each subproblem is narrower and easier to validate than the global clinical question, and RAG grounds the agent in external evidence rather than parametric memory, shifting from recall-based plausibility to source-based justification.</p>
+  <p class="prose fade-in">The trace makes visible what a static model elides entirely: the reasoning is structured, iterative, and auditable step by step. The performance gain is architectural rather than parametric — the same base model, when embedded in an agentic system, moves from 30.3% to roughly 90% accuracy not by scaling, but by placing reasoning inside a closed process of decomposition, retrieval, and self-revision. Each subproblem is narrower and easier to validate than the global clinical question, and RAG grounds the agent in external evidence rather than parametric memory, shifting from recall-based plausibility to source-based justification.</p>
 
   <div class="chart-card fade-in">
     <div class="chart-header">
-      <div class="chart-title">Fig. 2 — Clinical decision accuracy: agentic systems vs. base LLM</div>
-      <div class="chart-sub">Ferber et al. (2025), <em>Nature Cancer</em> · 20 multimodal oncology cases · Liu et al. (2026), <em>npj Digital Medicine</em></div>
+      <div class="chart-title">Fig. 2 — Clinical decision accuracy: agentic AI vs. base LLM</div>
+      <div class="chart-sub">Ferber et al. (2025), <em>Nature Cancer</em> · same model, same 20-case oncology evaluation · agentic vs. no-tools baseline</div>
     </div>
     <div class="chart-body">
       <canvas id="perfChart"></canvas>
@@ -1496,7 +1496,7 @@
               <div class="arch-step-name">Clinical Decision Output</div>
               <div class="arch-badge">OUTPUT</div>
             </div>
-            <div class="arch-step-desc">Treatment recommendation with cited sources — 91% accuracy on 20 multimodal oncology cases vs. 30.3% for GPT-4 alone</div>
+            <div class="arch-step-desc">Treatment recommendation with cited sources — ~90% accuracy on 20 multimodal oncology cases vs. 30.3% for GPT-4 alone</div>
             <div class="arch-step-detail">The final output includes the recommendation, the reasoning trajectory, and the original source texts supporting each claim. This transparency mechanism is imperfect: the reasoning chain is lengthy and technically demanding. But it represents a structural improvement over systems that produce recommendations with no provenance at all. The verifiability of citations is the system's primary explainability feature.</div>
           </div>
         </div>
@@ -1611,7 +1611,7 @@
         <span class="rag-card-title">Retrieval: Hybrid Dense + Sparse Search</span>
       </div>
       <div class="rag-card-body">
-        <p>Clinical guidelines (ESMO, NCCN, NICE) and literature are pre-processed into fixed-length chunks of approximately 512 tokens with overlapping windows to avoid boundary artefacts. Each chunk is embedded using a biomedical-domain encoder (e.g., PubMedBERT or BioLORD) and stored in a vector index such as FAISS. At query time, the agent issues a dual-path retrieval: a <strong>dense path</strong> based on cosine similarity between the query embedding and stored chunk embeddings, and a <strong>sparse path</strong> (BM25) on keyword overlap. Results from both paths are merged and reranked by a cross-encoder, with only chunks exceeding a confidence threshold (e.g., cosine sim > 0.82) passed into the context window. This hybrid strategy addresses the known failure mode of dense-only retrieval, where semantically similar but factually divergent chunks can be surfaced without sufficient discriminative filtering.</p>
+        <p>A practical implementation of this kind typically chunks guidelines (such as ESMO, NCCN, and NICE documents) into overlapping passages of around 512 tokens to avoid boundary artefacts. Each chunk is embedded using a biomedical-domain encoder such as PubMedBERT or BioLORD, and stored in a vector index such as FAISS. At query time, a <strong>dense path</strong> based on embedding similarity and a <strong>sparse path</strong> (BM25) based on keyword overlap are run in parallel, with results merged and reranked. Only chunks exceeding a confidence threshold are passed into the context window. This hybrid approach addresses the known failure mode of dense-only retrieval, where semantically similar but factually divergent passages can surface without sufficient discriminative filtering.</p>
       </div>
     </div>
 
@@ -1706,7 +1706,7 @@
     </div>
   </div>
 
-  <p class="prose fade-in">These figures are not fixed — they depend on model size, retrieval index scale, and parallelisation strategy — but they illustrate a structural tension that the benchmarking literature largely ignores. Liu et al. (2026) in <em>npj Digital Medicine</em> found that agentic systems required substantially greater computational resources than baseline LLMs, yet their benchmarks assessed accuracy in isolation from latency. A system that reaches 91% accuracy in eight minutes may be transformative for treatment planning and counterproductive for triage.</p>
+  <p class="prose fade-in">These figures are not fixed — they depend on model size, retrieval index scale, and parallelisation strategy — but they illustrate a structural tension that the benchmarking literature largely ignores. Liu et al. (2026) in <em>npj Digital Medicine</em> found that agentic systems required substantially greater computational resources than baseline LLMs, yet their benchmarks assessed accuracy in isolation from latency. A system that reaches ~90% accuracy in eight minutes may be transformative for treatment planning and counterproductive for triage.</p>
 
   <p class="prose fade-in">This tension has a direct parallel in the course framing of <em>integrated</em> machine learning systems. An agent that is accurate in isolation but incompatible with the time constraints of the clinical environment in which it is embedded is not a well-integrated system. The engineering challenge is not simply to build a capable agent but to build one whose latency profile matches the decision latency of the clinical setting it serves. Tier 1 queries must remain under the threshold where a clinician would simply look up the answer independently. Tier 3 consultations must be reserved for decisions where a wrong fast answer is genuinely worse than a correct slow one — a determination that requires the system to know not just what it thinks, but how long it is allowed to think.</p>
 
@@ -1723,11 +1723,11 @@
       <div class="tl-dot"></div>
       <div class="tl-year">Nature Cancer, Aug 2025</div>
       <div class="tl-event"><a href="https://www.nature.com/articles/s43018-025-00991-6" target="_blank" style="color:var(--accent);text-decoration:none;">Ferber et al. — Autonomous Oncology Agent</a></div>
-      <div class="tl-desc">First rigorous proof-of-concept for agentic clinical AI. 91% accuracy on multimodal cases. RAG + vision transformers + ReAct reasoning loop. Demonstrated that the accuracy gap between static and agentic models is architectural, not parametric.</div>
+      <div class="tl-desc">First rigorous proof-of-concept for agentic clinical AI. Approximately 90% accuracy on multimodal cases. RAG + vision transformers + ReAct reasoning loop. Demonstrated that the accuracy gap between static and agentic models is architectural, not parametric.</div>
     </div>
     <div class="tl-item">
       <div class="tl-dot"></div>
-      <div class="tl-year">Biology (MDPI), Feb 2026</div>
+      <div class="tl-year">Methods and Protocols (MDPI), Feb 2026</div>
       <div class="tl-event"><a href="https://www.mdpi.com/2409-9279/9/2/33" target="_blank" style="color:var(--accent);text-decoration:none;">Multi-Agent Systems — Biomedical Review</a></div>
       <div class="tl-desc">Systematic review of LangGraph, CrewAI, and MCP frameworks for clinical AI. The key finding: cross-verification agents, whose sole function is to check reasoning outputs before they reach the clinician, were the single architectural feature most strongly associated with reduced hallucination rates.</div>
     </div>
@@ -1890,6 +1890,8 @@
 
   <p class="prose fade-in">There is a second and more troubling finding embedded in this literature. A <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12428550/" target="_blank">2025 paper in <em>Diagnostics</em></a> developing a dynamic trust calibration framework for AI-assisted diagnosis identified <strong>excessive trust</strong> as a clinical risk comparable to insufficient trust. When clinicians defer to an AI recommendation without critical evaluation because its explanation seems authoritative, they become vulnerable to the system's errors in exactly those cases where the system is most confident but wrong. The goal of explainability in high-stakes clinical settings is not to maximise trust. It is to produce <em>calibrated trust</em>: a disposition in which clinicians rely on the AI when it is reliable and override it when it is not.</p>
 
+  <p class="prose fade-in">This finding has a direct implication for system design. Explanation quality cannot be treated as a secondary concern to be addressed after accuracy is established. If XAI features are built after the core reasoning system is deployed, they will be optimised for persuasiveness rather than accuracy — which is precisely the failure mode the literature documents. Calibrated trust requires that explanation mechanisms are co-designed with the reasoning architecture, not retrofitted onto it.</p>
+
   <h3 class="sub-title fade-in">3.3 The Accountability Vacuum: Who Is Responsible When the Agent Is Wrong</h3>
 
   <p class="prose fade-in">The opacity of agentic reasoning chains is not only an epistemic problem. It is a legal and institutional one. When a patient is harmed by a clinical decision that an AI agent influenced, the question of accountability cannot be answered by examining the agent's output alone. It requires tracing the reasoning chain: which sources did the agent retrieve, which tools did it call, at which step did a reasoning error occur, and was that error attributable to a flaw in the underlying model, a gap in the retrieval corpus, a poorly calibrated tool, or an input data quality problem.</p>
@@ -1941,6 +1943,8 @@
 
   <p class="prose fade-in">This is a materially different design from the standard "approve or reject" interface. It requires the UI to expose the reasoning trace to the clinician in a readable form, allow them to edit the content of specific observation nodes, and trigger a partial re-inference from the edited node forward. The technical infrastructure for this — sometimes called <strong>trace-level human feedback</strong> — exists in research prototypes but is absent from the clinical implementations described in the 2025–2026 literature reviewed here. Building it into deployable systems is one of the concrete governance requirements the EU AI Act implies but does not specify.</p>
 
+  <p class="prose fade-in">Privacy considerations are also intensified by agentic design. A static model may process one bounded clinical record in a single inference call, but an agentic system retrieves external documents, calls APIs, and passes intermediate observations between specialist agents across multiple steps. This creates a wider data-flow surface: patient information must be protected not only at the input and output stages, but across every tool call, retrieval query, log entry, and inter-agent message. For clinical deployment, privacy governance therefore has to cover the full reasoning trace rather than just the final recommendation — a requirement that existing frameworks such as GDPR and HIPAA address only indirectly, because they were not written specifically for multi-step agentic AI pipelines.</p>
+
   <h3 class="sub-title fade-in">3.4 Bias Made Invisible: When Explainability Fails Equity</h3>
 
   <p class="prose fade-in">The opacity of agentic systems does not only obscure errors in individual cases. It obscures systematic patterns of unfairness across patient populations. A biased training dataset produces a biased model, but a biased model whose reasoning cannot be examined is a model whose bias cannot be identified, measured, or corrected.</p>
@@ -1966,12 +1970,12 @@
     <div class="ethics-card highlight">
       <div class="ethics-num">04</div>
       <div class="ethics-title">Audit Impossibility</div>
-      <div class="ethics-body">A <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12427955/" target="_blank">2025 meta-analysis of explainable AI in clinical decision support</a>, published in <em>BMC Medical Informatics</em>, found that only a minority of the 62 studies reviewed had examined their systems for demographic performance disparities, and fewer still had proposed mechanisms for addressing them.</div>
+      <div class="ethics-body">A <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12427955/" target="_blank">2025 meta-analysis of explainable AI in clinical decision support</a>, published in <em>Healthcare</em> (MDPI), found that only a minority of the 62 studies reviewed had examined their systems for demographic performance disparities, and fewer still had proposed mechanisms for addressing them.</div>
     </div>
   </div>
 
 
-  <p class="prose fade-in">When a recommendation emerges from a multi-step reasoning chain spanning retrieved guidelines, genomic tools, and imaging analysis, there is no single point at which bias can be located and corrected. The implication is pointed: a system that cannot be examined cannot be audited for fairness, and a system that cannot be audited for fairness cannot be trusted to serve all patients equitably. Adequate bias auditing for agentic clinical systems would require not just demographic disaggregation of final outputs — the minimum standard typically applied to static models — but component-level attribution that can determine whether a performance disparity originates in the retrieval corpus, the imaging tool, the parametric model, or their interaction. No framework for conducting such an audit at clinical scale currently exists, and constructing one is an open research problem that the field has not yet seriously engaged.</p>
+  <p class="prose fade-in">When a recommendation emerges from a multi-step reasoning chain spanning retrieved guidelines, genomic tools, and imaging analysis, there is no single point at which bias can be located and corrected. The implication is direct: a system that cannot be examined cannot be audited for fairness, and a system that cannot be audited for fairness cannot be trusted to serve all patients equitably. Adequate bias auditing for agentic clinical systems would require not just demographic disaggregation of final outputs — the minimum standard typically applied to static models — but component-level attribution that can determine whether a performance disparity originates in the retrieval corpus, the imaging tool, the parametric model, or their interaction. This attribution problem is analytically tractable in principle: one could run the system with and without specific corpus subsets, or substitute alternative vision models, and measure the change in outcome distributions across demographic groups. In practice, however, the computational cost of such ablations at clinical scale, combined with the absence of sufficiently large demographically annotated evaluation datasets, means that no framework for conducting this audit currently exists. Constructing one is an open research problem that the field has not yet seriously engaged.</p>
 </section>
 
 <div class="part-divider part-divider-conclusion fade-in">
@@ -1987,7 +1991,7 @@
   <h2 class="section-title fade-in">The Promise and the Condition</h2>
 
   <div class="conclusion-wrap fade-in">
-    <p class="prose">The performance gap between agentic AI and its predecessors is real, substantial, and clinically significant. The evidence reviewed here establishes that agentic systems, built on ReAct reasoning loops, retrieval-augmented generation, specialised tool suites, and multi-agent collaboration, can reach correct oncology conclusions in 91% of evaluated cases compared to 30% for an unaided language model. The architecture is transformative. The benchmarks are compelling.</p>
+    <p class="prose">The performance gap between agentic AI and its predecessors is real and substantial in controlled evaluations. The evidence reviewed here suggests that agentic systems, built on ReAct reasoning loops, retrieval-augmented generation, specialised tool suites, and multi-agent collaboration, can outperform unaided language models on complex oncology decision tasks by a substantial margin. The architecture is promising. The benchmarks are compelling, but still preliminary.</p>
 
     <p class="prose">But performance on benchmarks is a necessary condition for clinical deployment, not a sufficient one. The evidence reviewed in Part 3 establishes three conditions that current agentic systems do not yet reliably meet.</p>
 
@@ -2032,6 +2036,7 @@
 <!-- ═══════════════════════════════ REFERENCES ═══════════════════════════════ -->
 <div class="references fade-in">
   <div class="ref-title">References</div>
+  <p style="font-size:.78rem;color:var(--text-dim);line-height:1.6;margin-bottom:1rem;">Selected references supporting the technical and ethical analysis above. Accessed April 2026.</p>
   <ul class="ref-list">
     <li>Ferber, D. et al. (2025) 'Development and validation of an autonomous artificial intelligence agent for clinical decision-making in oncology', <em>Nature Cancer</em>, 6(8), pp. 1337–1349. <a href="https://doi.org/10.1038/s43018-025-00991-6" target="_blank">doi:10.1038/s43018-025-00991-6</a></li>
     <li>Liu, Y., Carrero, Z.I., Jiang, X. et al. (2026) 'Benchmarking large language model-based agent systems for clinical decision tasks', <em>npj Digital Medicine</em>, 9, 25. <a href="https://www.nature.com/articles/s41746-026-02443-6" target="_blank">Nature</a></li>
@@ -2175,20 +2180,16 @@ document.querySelectorAll('.arch-step').forEach(step => {
         new Chart(canvas, {
           type: 'bar',
           data: {
-            labels: ['GPT-4 (no tools)', 'Llama-4 Agent\n(open-source)', 'Ferber et al.\nGPT-4 Agent', 'Multi-Agent\n(MDAgents peak)'],
+            labels: ['GPT-4 (no tools)', 'Ferber et al.\nGPT-4 Agent'],
             datasets: [{
               label: 'Clinical Decision Accuracy (%)',
-              data: [30.3, 39.1, 91, 93.2],
+              data: [30.3, 90],
               backgroundColor: [
                 'rgba(248,113,113,0.5)',
-                'rgba(251,191,36,0.5)',
-                'rgba(56,189,248,0.7)',
                 'rgba(52,211,153,0.7)'
               ],
               borderColor: [
                 'rgba(248,113,113,0.9)',
-                'rgba(251,191,36,0.9)',
-                'rgba(56,189,248,0.9)',
                 'rgba(52,211,153,0.9)'
               ],
               borderWidth: 1.5,
