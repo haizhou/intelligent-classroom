@@ -546,6 +546,26 @@
       background: rgba(52,211,153,.08);
       border-color: rgba(52,211,153,.25);
     }
+    .trust-outcome-label {
+      font-family: var(--mono);
+      font-size: .68rem; letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-right: .6rem;
+      padding: .15rem .5rem;
+      border-radius: 3px;
+    }
+    .danger-zone .trust-outcome-label {
+      background: rgba(248,113,113,.15);
+      color: var(--danger);
+    }
+    .safe-zone .trust-outcome-label {
+      background: rgba(52,211,153,.15);
+      color: var(--accent3);
+    }
+    .trust-outcome:not(.danger-zone):not(.safe-zone) .trust-outcome-label {
+      background: rgba(148,163,184,.1);
+      color: var(--text-dim);
+    }
 
     /* ── TIMELINE ── */
     .timeline {
@@ -1126,33 +1146,6 @@
       margin-top: .5rem; max-width: 480px; line-height: 1.6;
     }
 
-    /* ── HORIZONTAL METRIC BAR ── */
-    .hmetric-row {
-      max-width: var(--max);
-      display: flex; gap: 1px;
-      border-radius: 10px; overflow: hidden;
-      margin: 2rem 0;
-      border: 1px solid var(--border);
-    }
-    .hmetric-cell {
-      flex: 1; padding: 1.1rem 1rem;
-      background: var(--bg-card2);
-      text-align: center;
-      border-right: 1px solid var(--border);
-      transition: background .2s;
-    }
-    .hmetric-cell:last-child { border-right: none; }
-    .hmetric-cell:hover { background: rgba(99,179,237,.06); }
-    .hmetric-val {
-      font-family: var(--mono);
-      font-size: 1.5rem; font-weight: 500; line-height: 1;
-      margin-bottom: .3rem;
-    }
-    .hmetric-label {
-      font-size: .72rem; color: var(--text-muted);
-      text-transform: uppercase; letter-spacing: .06em;
-    }
-
     /* ── XAI LIMITS TABLE ── */
     .xai-limits-table {
       max-width: var(--max);
@@ -1272,6 +1265,23 @@
     @media (max-width: 600px) { .govgap-cols { grid-template-columns: 1fr; } }
 
     /* ── INLINE HIGHLIGHT BAND — removed, replaced by privacy-aside ── */
+
+    /* ── CONCLUSION TRANSITION ── */
+    .conc-transition {
+      max-width: var(--max-wide);
+      display: flex; align-items: center; gap: 1.25rem;
+      margin: 2.5rem 0 1.5rem;
+    }
+    .conc-transition-label {
+      font-family: var(--mono);
+      font-size: .68rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--text-dim);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .conc-transition-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
 
     /* ── SECTION DIVIDER (keep for any remaining uses) ── */
     .section-div {
@@ -1499,21 +1509,6 @@
   </div>
 
   <p class="prose fade-in">Medical errors and diagnostic failures are a major source of preventable harm. One influential Johns Hopkins analysis estimated that more than 250,000 deaths per year in the United States may be associated with medical error, while more recent diagnostic-error research suggests that misdiagnosis contributes to hundreds of thousands of serious harms — including death and permanent disability — each year. In oncology specifically, where treatment decisions depend on the intersection of molecular pathology, imaging findings, and rapidly evolving guideline recommendations, the cognitive demands on clinicians have grown faster than any individual's capacity to meet them. The question is not whether artificial intelligence has a role in supporting these decisions. It is which kind of AI is adequate to the task.</p>
-
-  <div class="hmetric-row fade-in">
-    <div class="hmetric-cell">
-      <div class="hmetric-val" style="color:var(--accent3);">~90%</div>
-      <div class="hmetric-label">Accuracy — agentic AI on controlled benchmark</div>
-    </div>
-    <div class="hmetric-cell">
-      <div class="hmetric-val" style="color:var(--danger);">30.3%</div>
-      <div class="hmetric-label">Accuracy — same model, no tools, same cases</div>
-    </div>
-    <div class="hmetric-cell">
-      <div class="hmetric-val" style="color:var(--warn);">~30%</div>
-      <div class="hmetric-label">Scenarios still hallucinating after all mitigations</div>
-    </div>
-  </div>
 
   <h3 class="sub-title fade-in">1.2 The Challenge: Why Static AI Falls Short</h3>
 
@@ -2321,6 +2316,11 @@
     <p class="prose">None of these conditions is an argument against agentic AI in healthcare. They are arguments about the sequence in which development and deployment should proceed. The most honest conclusion is also the most demanding one. The question is not whether agentic AI will transform clinical decision-making. The evidence reviewed here suggests it already is. The question is whether the institutions deploying it are building the oversight infrastructure fast enough to ensure that transformation is equitable, accountable, and worthy of the trust it is beginning to receive.</p>
   </div>
 
+  <div class="conc-transition fade-in">
+    <span class="conc-transition-label">Three unmet conditions for clinical deployment</span>
+    <span class="conc-transition-line"></span>
+  </div>
+
   <div class="conclusion-cards fade-in">
     <div class="conc-card conc-explain">
       <div class="conc-num">01</div>
@@ -2554,25 +2554,32 @@ function updateTrust() {
   document.getElementById('clarityVal').textContent = clarity;
   document.getElementById('accuracyVal').textContent = accuracy;
   const outcome = document.getElementById('trustOutcome');
-  let msg = '', cls = '';
+  let label = '', msg = '', cls = '';
 
   if (clarity < 30 && accuracy > 70) {
-    msg = '⚠️ Dangerous undertrust: The system is highly accurate but opaque. Clinicians are likely to ignore correct recommendations, missing beneficial interventions.';
+    label = 'Dangerous undertrust';
+    msg = 'The system is highly accurate but opaque. Clinicians are likely to ignore correct recommendations, missing beneficial interventions.';
     cls = 'danger-zone';
   } else if (clarity > 70 && accuracy < 40) {
-    msg = '⚠️ Dangerous overtrust: Clear explanations make a low-accuracy system appear credible. Clinicians defer to confident-sounding but unreliable recommendations, a known failure mode in clinical AI adoption.';
+    label = 'Dangerous overtrust';
+    msg = 'Clear explanations make a low-accuracy system appear credible. Clinicians defer to confident-sounding but unreliable recommendations — a known failure mode in clinical AI adoption.';
     cls = 'danger-zone';
   } else if (clarity > 60 && accuracy > 75) {
-    msg = '✓ Calibrated trust zone: Clear explanations allow clinicians to verify a reliable system\'s reasoning. This is the target state, though achieving it requires explanation quality that current agentic systems do not consistently deliver.';
+    label = 'Calibrated trust zone';
+    msg = 'Clear explanations allow clinicians to verify a reliable system\'s reasoning. This is the target state, though achieving it requires explanation quality that current agentic systems do not consistently deliver.';
     cls = 'safe-zone';
   } else if (clarity < 40 && accuracy < 50) {
-    msg = 'Low accuracy + poor explainability: System likely to be rejected outright. Clinical adoption will not occur.';
+    label = 'Rejection likely';
+    msg = 'Low accuracy combined with poor explainability. Clinical adoption will not occur — the system provides neither reliable outputs nor sufficient transparency to establish any trust basis.';
     cls = '';
   } else {
-    msg = 'Mixed conditions: Trust outcomes are variable and unpredictable. Clinicians may calibrate differently based on individual risk tolerance and domain expertise.';
+    label = 'Mixed conditions';
+    msg = 'Trust outcomes are variable and unpredictable. Clinicians may calibrate differently based on individual risk tolerance and domain expertise.';
     cls = '';
   }
-  outcome.textContent = msg;
+  outcome.innerHTML = label
+    ? `<span class="trust-outcome-label">${label}</span> ${msg}`
+    : msg;
   outcome.className = 'trust-outcome ' + cls;
 }
 document.getElementById('claritySlider').addEventListener('input', updateTrust);
